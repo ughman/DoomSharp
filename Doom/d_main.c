@@ -78,6 +78,8 @@ static const char rcsid[] = "$Id: d_main.c,v 1.8 1997/02/03 22:45:09 b1 Exp $";
 
 #include "d_main.h"
 
+#define R_OK 4
+
 //
 // D-DoomLoop()
 // Not a globally visible function,
@@ -573,8 +575,6 @@ void IdentifyVersion (void)
     char*	plutoniawad;
     char*	tntwad;
 
-#ifdef NORMALUNIX
-    char *home;
     char *doomwaddir;
     doomwaddir = getenv("DOOMWADDIR");
     if (!doomwaddir)
@@ -609,11 +609,7 @@ void IdentifyVersion (void)
     doom2fwad = malloc(strlen(doomwaddir)+1+10+1);
     sprintf(doom2fwad, "%s/doom2f.wad", doomwaddir);
 
-    home = getenv("HOME");
-    if (!home)
-      I_Error("Please set $HOME to your home directory");
-    sprintf(basedefault, "%s/.doomrc", home);
-#endif
+    sprintf(basedefault, ".doomrc");
 
     if (M_CheckParm ("-shdev"))
     {
