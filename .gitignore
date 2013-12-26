@@ -1,0 +1,7 @@
+obj
+bin
+Doom/Debug
+Doom/Release
+*.suo
+*.ncb
+*.user
