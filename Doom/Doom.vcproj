@@ -383,10 +383,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\w_wad.c"
-				>
-			</File>
-			<File
 				RelativePath=".\wi_stuff.c"
 				>
 			</File>
@@ -652,6 +648,10 @@
 			Name="C++ Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath=".\w_wad.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
