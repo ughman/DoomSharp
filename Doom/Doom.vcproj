@@ -37,6 +37,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				DisableSpecificWarnings="4996;4047;4113"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -98,6 +99,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				DisableSpecificWarnings="4996;4047;4113"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
