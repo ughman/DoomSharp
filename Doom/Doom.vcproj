@@ -199,10 +199,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\i_net.c"
-				>
-			</File>
-			<File
 				RelativePath=".\i_sound.c"
 				>
 			</File>
@@ -648,6 +644,10 @@
 			Name="C++ Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath=".\i_net.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\w_wad.cpp"
 				>
