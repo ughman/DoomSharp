@@ -199,10 +199,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\i_system.c"
-				>
-			</File>
-			<File
 				RelativePath=".\info.c"
 				>
 			</File>
@@ -642,6 +638,10 @@
 			</File>
 			<File
 				RelativePath=".\i_sound.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\i_system.cpp"
 				>
 			</File>
 			<File
