@@ -37,8 +37,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				ExceptionHandling="2"
 				RuntimeLibrary="2"
+				DebugInformationFormat="3"
 				DisableSpecificWarnings="4996;4047;4113"
 			/>
 			<Tool
@@ -52,6 +54,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
