@@ -63,6 +63,11 @@ extern "C" byte *I_AllocLow(int length)
 	return (byte *)calloc(1,length);
 }
 
+static void I_Error2(char *error)
+{
+	throw gcnew ApplicationException(gcnew String(error));
+}
+
 extern "C" void I_Error(char *error,...)
 {
 	char buffer[1024];
@@ -70,5 +75,5 @@ extern "C" void I_Error(char *error,...)
 	va_start(args,error);
 	vsnprintf(buffer,sizeof(buffer),error,args);
 	va_end(args);
-	abort();
+	I_Error2(buffer);
 }
