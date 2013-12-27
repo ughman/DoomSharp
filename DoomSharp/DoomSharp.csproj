@@ -6,7 +6,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AF194A67-2208-4BD0-856B-409AF1DE36FF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoomSharp</RootNamespace>
     <AssemblyName>DoomSharp</AssemblyName>
@@ -36,10 +36,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <ProjectReference Include="..\Doom\Doom.vcproj">
-      <Project>{CF3694F8-582B-4C99-97CF-85AC9ACDCB68}</Project>
-      <Name>Doom</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
