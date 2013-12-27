@@ -1,3 +1,6 @@
+using namespace System;
+using namespace System::Diagnostics;
+
 extern "C"
 {
 #include "i_system.h"
@@ -6,8 +9,11 @@ extern "C"
 #include "m_misc.h"
 }
 
+#include <vcclr.h>
 #include <cstdlib>
 #include <cstdarg>
+
+gcroot<Stopwatch^> stopwatch;
 
 extern "C" void I_Tactile(int on,int off,int total)
 {
@@ -28,13 +34,13 @@ extern "C" byte *I_ZoneBase(int *size)
 
 extern "C" int I_GetTime()
 {
-	// TODO
-	return 0;
+	return stopwatch->ElapsedMilliseconds / (1000 / TICRATE);
 }
 
 extern "C" void I_Init()
 {
 	I_InitSound();
+	stopwatch = Stopwatch::StartNew();
 }
 
 extern "C" void I_Quit()
