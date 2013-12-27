@@ -19,6 +19,12 @@ extern "C" int W_GetNumForName(char *name)
 	return 0;
 }
 
+extern "C" char *W_LumpName(int lump)
+{
+	// TODO
+	return 0;
+}
+
 extern "C" int W_LumpLength(int lump)
 {
 	// TODO
