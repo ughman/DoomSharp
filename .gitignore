@@ -1,7 +1,11 @@
 obj
 bin
+debug
+release
 Doom/Debug
 Doom/Release
 *.suo
 *.ncb
 *.user
+*.wad
+.doomrc
