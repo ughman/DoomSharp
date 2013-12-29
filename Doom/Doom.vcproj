@@ -210,10 +210,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\i_main.c"
-				>
-			</File>
-			<File
 				RelativePath=".\info.c"
 				>
 			</File>
@@ -647,6 +643,10 @@
 			Name="C++ Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath=".\i_main.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\i_net.cpp"
 				>
