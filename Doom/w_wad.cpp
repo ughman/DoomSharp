@@ -35,9 +35,12 @@ extern "C" void W_InitMultipleFiles(char **filenames)
 
 extern "C" int W_CheckNumForName(char *name)
 {
+	char termname[9];
+	termname[8] = 0;
+	strncpy(termname,name,8);
 	try
 	{
-		return archives->Find(gcnew String(name));
+		return archives->Find(gcnew String(termname));
 	}
 	catch (LumpNotFoundException^)
 	{
@@ -47,7 +50,10 @@ extern "C" int W_CheckNumForName(char *name)
 
 extern "C" int W_GetNumForName(char *name)
 {
-	return archives->Find(gcnew String(name));
+	char termname[9];
+	termname[8] = 0;
+	strncpy(termname,name,8);
+	return archives->Find(gcnew String(termname));
 }
 
 extern "C" char *W_LumpName(int lump)
