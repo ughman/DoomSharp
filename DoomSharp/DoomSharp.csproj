@@ -38,11 +38,17 @@
   -->
   <ItemGroup>
     <Compile Include="Utility\BitConv.cs" />
+    <Compile Include="Video Code\MainWindow.cs" />
     <Compile Include="Wad Code\IArchive.cs" />
     <Compile Include="Wad Code\ILump.cs" />
     <Compile Include="Wad Code\LumpNotFoundException.cs" />
     <Compile Include="Wad Code\MultiArchive.cs" />
     <Compile Include="Wad Code\StreamLump.cs" />
     <Compile Include="Wad Code\WadArchive.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
 </Project>

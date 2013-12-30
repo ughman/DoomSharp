@@ -1,8 +1,15 @@
+using namespace System;
+using namespace DoomSharp;
+
 extern "C"
 {
 #include "i_video.h"
 #include "v_video.h"
 }
+
+#include <vcclr.h>
+
+gcroot<MainWindow^> window;
 
 extern "C" void I_ShutdownGraphics()
 {
@@ -26,7 +33,7 @@ extern "C" void I_UpdateNoBlit()
 
 extern "C" void I_FinishUpdate()
 {
-	// TODO
+	window->SubmitFrame((IntPtr)screens[0]);
 }
 
 extern "C" void I_ReadScreen(byte *scr)
@@ -36,10 +43,10 @@ extern "C" void I_ReadScreen(byte *scr)
 
 extern "C" void I_SetPalette(byte *palette)
 {
-	// TODO
+	window->SubmitPalette((IntPtr)palette);
 }
 
 extern "C" void I_InitGraphics()
 {
-	// TODO
+	window = MainWindow::RunAsync();
 }
