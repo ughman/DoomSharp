@@ -399,6 +399,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\b_compat.h"
+				>
+			</File>
+			<File
 				RelativePath=".\d_englsh.h"
 				>
 			</File>
@@ -647,6 +651,26 @@
 			Name="C++ Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath=".\b_compat.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="1"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\i_main.cpp"
 				>

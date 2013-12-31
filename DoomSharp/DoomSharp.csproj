@@ -37,6 +37,7 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="Game Code\CompatFlags.cs" />
     <Compile Include="Utility\BitConv.cs" />
     <Compile Include="Video Code\MainWindow.cs" />
     <Compile Include="Wad Code\LumpArchive.cs" />

@@ -74,6 +74,7 @@ static const char rcsid[] = "$Id: d_main.c,v 1.8 1997/02/03 22:45:09 b1 Exp $";
 
 #include "p_setup.h"
 #include "r_local.h"
+#include "b_compat.h"
 
 
 #include "d_main.h"
@@ -667,6 +668,7 @@ void IdentifyVersion (void)
     {
 	gamemode = commercial;
 	D_AddFile (doom2wad);
+	B_SetCompat(COMPAT_SOULBOUNCE);
 	return;
     }
 
@@ -674,6 +676,7 @@ void IdentifyVersion (void)
     {
       gamemode = commercial;
       D_AddFile (plutoniawad);
+	  B_SetCompat(COMPAT_TELEPORTZ);
       return;
     }
 
@@ -681,6 +684,7 @@ void IdentifyVersion (void)
     {
       gamemode = commercial;
       D_AddFile (tntwad);
+	  B_SetCompat(COMPAT_TELEPORTZ);
       return;
     }
 

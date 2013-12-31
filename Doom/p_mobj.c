@@ -39,6 +39,7 @@ rcsid[] = "$Id: p_mobj.c,v 1.5 1997/02/03 22:45:12 b1 Exp $";
 #include "s_sound.h"
 
 #include "doomstat.h"
+#include "b_compat.h"
 
 
 void G_PlayerReborn (int player);
@@ -289,7 +290,7 @@ void P_ZMovement (mobj_t* mo)
 	// Note (id):
 	//  somebody left this after the setting momz to 0,
 	//  kinda useless there.
-	if (mo->flags & MF_SKULLFLY)
+	if (!B_CheckCompat(COMPAT_SOULBOUNCE) && (mo->flags & MF_SKULLFLY))
 	{
 	    // the skull slammed into something
 	    mo->momz = -mo->momz;
@@ -310,6 +311,11 @@ void P_ZMovement (mobj_t* mo)
 	    mo->momz = 0;
 	}
 	mo->z = mo->floorz;
+
+	if (B_CheckCompat(COMPAT_SOULBOUNCE) && (mo->flags & MF_SKULLFLY))
+	{
+		mo->momz = -mo->momz;
+	}
 
 	if ( (mo->flags & MF_MISSILE)
 	     && !(mo->flags & MF_NOCLIP) )

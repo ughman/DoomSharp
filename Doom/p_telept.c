@@ -32,6 +32,7 @@ rcsid[] = "$Id: p_telept.c,v 1.3 1997/01/28 22:08:29 b1 Exp $";
 #include "s_sound.h"
 
 #include "p_local.h"
+#include "b_compat.h"
 
 
 // Data.
@@ -104,7 +105,10 @@ EV_Teleport
 		if (!P_TeleportMove (thing, m->x, m->y))
 		    return 0;
 		
-		thing->z = thing->floorz;  //fixme: not needed?
+		if (!B_CheckCompat(COMPAT_TELEPORTZ))
+		{
+			thing->z = thing->floorz;  //fixme: not needed?
+		}
 		if (thing->player)
 		    thing->player->viewz = thing->z+thing->player->viewheight;
 				
