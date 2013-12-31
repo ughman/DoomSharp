@@ -714,7 +714,11 @@ void P_SpawnMapThing (mapthing_t* mthing)
     fixed_t		x;
     fixed_t		y;
     fixed_t		z;
-		
+
+	// nop
+	if (mthing->type == 0)
+		return;
+
     // count deathmatch start positions
     if (mthing->type == 11)
     {
