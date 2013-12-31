@@ -49,6 +49,7 @@ extern fixed_t		distscale[SCREENWIDTH];
 
 void R_InitPlanes (void);
 void R_ClearPlanes (void);
+void R_ClearPlanes2 (void);
 
 void
 R_MapPlane
@@ -65,6 +66,7 @@ R_MakeSpans
   int		b2 );
 
 void R_DrawPlanes (void);
+void R_DrawPlane (visplane_t *pl);
 
 visplane_t*
 R_FindPlane

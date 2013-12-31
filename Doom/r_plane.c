@@ -50,9 +50,6 @@ planefunction_t		ceilingfunc;
 //
 
 // Here comes the obnoxious "visplane".
-#define MAXVISPLANES	128
-visplane_t		visplanes[MAXVISPLANES];
-visplane_t*		lastvisplane;
 visplane_t*		floorplane;
 visplane_t*		ceilingplane;
 
@@ -183,7 +180,7 @@ R_MapPlane
 // R_ClearPlanes
 // At begining of frame.
 //
-void R_ClearPlanes (void)
+void R_ClearPlanes2 (void)
 {
     int		i;
     angle_t	angle;
@@ -195,7 +192,6 @@ void R_ClearPlanes (void)
 	ceilingclip[i] = -1;
     }
 
-    lastvisplane = visplanes;
     lastopening = openings;
     
     // texture calculation
@@ -207,56 +203,6 @@ void R_ClearPlanes (void)
     // scale will be unit scale at SCREENWIDTH/2 distance
     basexscale = FixedDiv (finecosine[angle],centerxfrac);
     baseyscale = -FixedDiv (finesine[angle],centerxfrac);
-}
-
-
-
-
-//
-// R_FindPlane
-//
-visplane_t*
-R_FindPlane
-( fixed_t	height,
-  int		picnum,
-  int		lightlevel )
-{
-    visplane_t*	check;
-	
-    if (picnum == skyflatnum)
-    {
-	height = 0;			// all skys map together
-	lightlevel = 0;
-    }
-	
-    for (check=visplanes; check<lastvisplane; check++)
-    {
-	if (height == check->height
-	    && picnum == check->picnum
-	    && lightlevel == check->lightlevel)
-	{
-	    break;
-	}
-    }
-    
-			
-    if (check < lastvisplane)
-	return check;
-		
-    if (lastvisplane - visplanes == MAXVISPLANES)
-	I_Error ("R_FindPlane: no more visplanes");
-		
-    lastvisplane++;
-
-    check->height = height;
-    check->picnum = picnum;
-    check->lightlevel = lightlevel;
-    check->minx = SCREENWIDTH;
-    check->maxx = -1;
-    
-    memset (check->top,0xff,sizeof(check->top));
-		
-    return check;
 }
 
 
@@ -311,11 +257,7 @@ R_CheckPlane
     }
 	
     // make a new visplane
-    lastvisplane->height = pl->height;
-    lastvisplane->picnum = pl->picnum;
-    lastvisplane->lightlevel = pl->lightlevel;
-    
-    pl = lastvisplane++;
+    pl = R_AddPlane(pl);
     pl->minx = start;
     pl->maxx = stop;
 
@@ -365,32 +307,15 @@ R_MakeSpans
 // R_DrawPlanes
 // At the end of each frame.
 //
-void R_DrawPlanes (void)
+void R_DrawPlane (visplane_t *pl)
 {
-    visplane_t*		pl;
     int			light;
     int			x;
     int			stop;
     int			angle;
-				
-#ifdef RANGECHECK
-    if (ds_p - drawsegs > MAXDRAWSEGS)
-	I_Error ("R_DrawPlanes: drawsegs overflow (%i)",
-		 ds_p - drawsegs);
-    
-    if (lastvisplane - visplanes > MAXVISPLANES)
-	I_Error ("R_DrawPlanes: visplane overflow (%i)",
-		 lastvisplane - visplanes);
-    
-    if (lastopening - openings > MAXOPENINGS)
-	I_Error ("R_DrawPlanes: opening overflow (%i)",
-		 lastopening - openings);
-#endif
 
-    for (pl = visplanes ; pl < lastvisplane ; pl++)
-    {
 	if (pl->minx > pl->maxx)
-	    continue;
+	    return;
 
 	
 	// sky flat
@@ -417,7 +342,7 @@ void R_DrawPlanes (void)
 		    colfunc ();
 		}
 	    }
-	    continue;
+	    return;
 	}
 	
 	// regular flat
@@ -450,5 +375,4 @@ void R_DrawPlanes (void)
 	}
 	
 	Z_ChangeTag (ds_source, PU_CACHE);
-    }
 }
