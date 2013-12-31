@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Utility\BitConv.cs" />
     <Compile Include="Video Code\MainWindow.cs" />
+    <Compile Include="Wad Code\LumpArchive.cs" />
     <Compile Include="Wad Code\IArchive.cs" />
     <Compile Include="Wad Code\ILump.cs" />
     <Compile Include="Wad Code\LumpNotFoundException.cs" />

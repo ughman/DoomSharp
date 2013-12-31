@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace DoomSharp
@@ -71,6 +72,25 @@ namespace DoomSharp
             if (archive == null)
                 throw new ArgumentNullException("archive");
             archives.Add(archive);
+        }
+
+        public void LoadFile(string filename)
+        {
+            Stream stream = new FileStream(filename,FileMode.Open,FileAccess.Read);
+            string extension = Path.GetExtension(filename).ToUpper();
+            if (extension == ".WAD")
+            {
+                AddArchive(new WadArchive(stream));
+            }
+            else if (extension == ".LMP")
+            {
+                string lumpname = Path.GetFileNameWithoutExtension(filename).ToUpper();
+                AddArchive(new LumpArchive(new StreamLump(stream,lumpname)));
+            }
+            else
+            {
+                throw new ApplicationException();
+            }
         }
     }
 }

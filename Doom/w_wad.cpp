@@ -27,9 +27,7 @@ extern "C" void W_InitMultipleFiles(char **filenames)
 	}
 	for (;*filenames;filenames++)
 	{
-		FileStream ^stream = gcnew FileStream(gcnew String(*filenames),FileMode::Open,FileAccess::Read);
-		WadArchive ^archive = gcnew WadArchive(stream);
-		archives->AddArchive(archive);
+		archives->LoadFile(gcnew String(*filenames));
 	}
 }
 
