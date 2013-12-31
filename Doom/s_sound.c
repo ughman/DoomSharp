@@ -715,7 +715,7 @@ void S_StopChannel(int cnum)
     if (c->sfxinfo)
     {
 	// stop the sound playing
-	if (I_SoundIsPlaying(c->handle))
+	//if (I_SoundIsPlaying(c->handle))
 	{
 #ifdef SAWDEBUG
 	    if (c->sfxinfo == &S_sfx[sfx_sawful])

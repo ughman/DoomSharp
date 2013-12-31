@@ -155,6 +155,10 @@
 			ReferencedProjectIdentifier="{AF194A67-2208-4BD0-856B-409AF1DE36FF}"
 			RelativePathToProject=".\DoomSharp\DoomSharp.csproj"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\Documents and Settings\Administrator\My Documents\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll"
+			AssemblyName="OpenTK, Version=1.1.0.0, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -654,6 +658,22 @@
 			<File
 				RelativePath=".\i_sound.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\i_system.cpp"
