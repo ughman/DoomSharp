@@ -8,4 +8,5 @@ Doom/Release
 *.ncb
 *.user
 *.wad
+*.lmp
 .doomrc
