@@ -76,6 +76,8 @@ namespace DoomSharp
 
         public void LoadFile(string filename)
         {
+            if (filename == null)
+                throw new ArgumentNullException("filename");
             Stream stream = new FileStream(filename,FileMode.Open,FileAccess.Read);
             string extension = Path.GetExtension(filename).ToUpper();
             if (extension == ".WAD")
