@@ -51,17 +51,17 @@ namespace DoomSharp
             if (name == null)
                 throw new ArgumentNullException("name");
             name = name.ToUpper();
-            int offset = 0;
-            foreach (IArchive archive in archives)
+            int offset = LumpCount;
+            for (int i = archives.Count - 1;i >= 0;i--)
             {
-                for (int i = 0;i < archive.LumpCount;i++)
+                offset -= archives[i].LumpCount;
+                for (int ii = 0;ii < archives[i].LumpCount;ii++)
                 {
-                    if (archive[i].Name == name)
+                    if (archives[i][ii].Name == name)
                     {
-                        return offset + i;
+                        return offset + ii;
                     }
                 }
-                offset += archive.LumpCount;
             }
             throw new LumpNotFoundException(name);
         }
