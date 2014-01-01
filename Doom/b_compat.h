@@ -3,8 +3,8 @@
 
 enum
 {
-	COMPAT_SOULBOUNCE,
-	COMPAT_TELEPORTZ
+	COMPAT_SOULBOUNCE = 1,
+	COMPAT_TELEPORTZ = 2
 };
 
 void B_SetCompat(int flags);
