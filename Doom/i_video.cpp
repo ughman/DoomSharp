@@ -44,6 +44,27 @@ void I_StartTic2()
 	{
 		Monitor::Exit(eventqueue);
 	}
+	MouseState mouse = Mouse::GetState();
+	static bool firstmouse = true;
+	static int mousex;
+	static int mousey;
+	if (firstmouse)
+	{
+		mousex = mouse.X;
+		mousey = mouse.Y;
+		firstmouse = false;
+	}
+	if (window->Focused)
+	{
+		event_t ev2;
+		ev2.type = ev_mouse;
+		ev2.data1 = (int)mouse.LeftButton | ((int)mouse.RightButton << 1);
+		ev2.data2 = (mouse.X - mousex) * 8;
+		ev2.data3 = (mouse.Y - mousey) * -8;
+		D_PostEvent(&ev2);
+	}
+	mousex = mouse.X;
+	mousey = mouse.Y;
 }
 
 extern "C" void I_StartTic()

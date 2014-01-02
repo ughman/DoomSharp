@@ -33,6 +33,7 @@ namespace DoomSharp
         {
             this.display = new byte [320 * 200];
             this.palette = new byte [256 * 3];
+            CursorVisible = false;
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
