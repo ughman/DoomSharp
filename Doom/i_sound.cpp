@@ -1,7 +1,10 @@
 using namespace System;
+using namespace System::Diagnostics;
 using namespace OpenTK;
 using namespace OpenTK::Audio;
 using namespace OpenTK::Audio::OpenAL;
+using namespace FluidSynthWrapper;
+using namespace DoomSharp;
 
 extern "C"
 {
@@ -12,8 +15,11 @@ extern "C"
 
 #include <vcclr.h>
 #include <malloc.h>
+#include <list>
 
 gcroot<AudioContext^> context;
+gcroot<Synthesizer^> synth;
+gcroot<AudioDriver^> synthdriver;
 
 extern "C" void I_SetChannels()
 {
@@ -68,11 +74,6 @@ extern "C" int I_SoundIsPlaying(int handle)
 	return (AL::GetSourceState(handle) == ALSourceState::Playing);
 }
 
-extern "C" void I_SubmitSound()
-{
-	// TODO
-}
-
 extern "C" void I_UpdateSoundParams(int handle,int vol,int sep,int pitch)
 {
 	AL::Source(handle,ALSourcef::Gain,vol / 15.0);
@@ -90,7 +91,12 @@ extern "C" void I_InitSound()
 
 extern "C" void I_InitMusic()
 {
-	// TODO
+	Settings ^cfg = gcnew Settings();
+	cfg->AudioDriver = "dsound";
+	cfg->SynthSampleRate = 44100;
+	synth = gcnew Synthesizer(cfg);
+	synthdriver = gcnew AudioDriver(cfg,synth);
+	synth->SFontLoad("sndfont2.sf2");
 }
 
 extern "C" void I_ShutdownMusic()
@@ -98,33 +104,89 @@ extern "C" void I_ShutdownMusic()
 	// TODO
 }
 
+struct Song
+{
+	bool playing;
+	bool looping;
+	int position;
+	int nexttime;
+	gcroot<MusicTrack^> track;
+	gcroot<Stopwatch^> timer;
+};
+
+std::list<Song *> songs;
+
+extern "C" void I_SubmitSound()
+{
+	for (std::list<Song*>::iterator it = songs.begin();it != songs.end();it++)
+	{
+		Song *song = *it;
+		int time = song->timer->ElapsedMilliseconds * 140 / 1000;
+		while (song->playing && time >= song->nexttime)
+		{
+			MusicEvent ^ev = song->track->Score[song->position++];
+			ev->Play(synth);
+			song->nexttime += ev->Delay;
+			if (ev->IsEndEvent || song->position == song->track->Score->Count)
+			{
+				song->position = 0;
+				song->nexttime = 0;
+				song->timer->Reset();
+				song->timer->Start();
+				break;
+			}
+		}
+	}
+}
+
 extern "C" void I_PlaySong(int handle,int looping)
 {
-	// TODO
+	Song *song = (Song *)handle;
+	song->playing = true;
+	song->looping = looping;
+	song->position = 0;
+	song->nexttime = 0;
+	song->timer->Reset();
+	song->timer->Start();
 }
 
 extern "C" void I_PauseSong(int handle)
 {
-	// TODO
+	Song *song = (Song *)handle;
+	song->timer->Stop();
 }
 
 extern "C" void I_ResumeSong(int handle)
 {
-	// TODO
+	Song *song = (Song *)handle;
+	song->timer->Start();
 }
 
 extern "C" void I_StopSong(int handle)
 {
-	// TODO
+	Song *song = (Song *)handle;
+	song->playing = false;
+	synth->Reset();
 }
 
 extern "C" void I_UnRegisterSong(int handle)
 {
-	// TODO
+	Song *song = (Song *)handle;
+	songs.remove(song);
+	delete song;
 }
 
-extern "C" int I_RegisterSong(void *data)
+extern "C" int I_RegisterSong(void *data,int length)
 {
-	// TODO
-	return 0;
+	array<unsigned char>^ clrdata = gcnew array<unsigned char>(length);
+	for (int i = 0;i < length;i++)
+	{
+		clrdata[i] = ((unsigned char *)data)[i];
+	}
+	Song *song = new Song;
+	song->playing = false;
+	song->track = gcnew MusicTrack(clrdata);
+	song->timer = gcnew Stopwatch();
+	songs.push_back(song);
+	return (int)song;
 }

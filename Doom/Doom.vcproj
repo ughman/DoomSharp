@@ -159,6 +159,10 @@
 			RelativePath="..\..\Documents and Settings\Administrator\My Documents\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll"
 			AssemblyName="OpenTK, Version=1.1.0.0, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\FluidSynthWrapper\FluidSynthWrapper.dll"
+			AssemblyName="FluidSynthWrapper, Version=1.1.0.0, PublicKeyToken=9931ef6b109da206, processorArchitecture=x86"
+		/>
 	</References>
 	<Files>
 		<Filter

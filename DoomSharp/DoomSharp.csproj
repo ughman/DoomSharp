@@ -38,6 +38,14 @@
   -->
   <ItemGroup>
     <Compile Include="Game Code\CompatFlags.cs" />
+    <Compile Include="Music Code\MusicPitchEvent.cs" />
+    <Compile Include="Music Code\MusicControllerEvent.cs" />
+    <Compile Include="Music Code\MusicEndEvent.cs" />
+    <Compile Include="Music Code\MusicEvent.cs" />
+    <Compile Include="Music Code\MusicNoteOffEvent.cs" />
+    <Compile Include="Music Code\MusicNoteOnEvent.cs" />
+    <Compile Include="Music Code\MusicUnknownEvent.cs" />
+    <Compile Include="Music Code\MusicTrack.cs" />
     <Compile Include="Utility\BitConv.cs" />
     <Compile Include="Video Code\MainWindow.cs" />
     <Compile Include="Wad Code\LumpArchive.cs" />
@@ -49,6 +57,10 @@
     <Compile Include="Wad Code\WadArchive.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FluidSynthWrapper, Version=1.1.0.0, Culture=neutral, PublicKeyToken=9931ef6b109da206, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FluidSynthWrapper\FluidSynthWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

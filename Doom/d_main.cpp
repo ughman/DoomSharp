@@ -23,6 +23,7 @@ extern "C" void D_DoomLoop()
 	{
 		G_BeginRecording();
 	}
+	I_InitMusic();
 	I_InitGraphics();
 	while (true)
 	{
