@@ -89,7 +89,10 @@ extern "C" void I_ReadScreen(byte *scr)
 
 extern "C" void I_SetPalette(byte *palette)
 {
-	window->SubmitPalette((IntPtr)palette);
+	if (window)
+	{
+		window->SubmitPalette((IntPtr)palette);
+	}
 }
 
 int TranslateKey(Key key)
