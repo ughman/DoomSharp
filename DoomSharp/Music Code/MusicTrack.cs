@@ -37,7 +37,7 @@ namespace DoomSharp
             {
                 throw new ApplicationException();
             }
-            if (scorestart != 16 + instrumentcount * 2)
+            if (scorestart < 16 + instrumentcount * 2)
             {
                 throw new ApplicationException();
             }
