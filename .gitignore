@@ -9,4 +9,5 @@ Doom/Release
 *.user
 *.wad
 *.lmp
+*.dsg
 .doomrc
