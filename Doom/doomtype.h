@@ -29,10 +29,9 @@
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
 // Fixed to use builtin bool type with C++.
-#ifdef __cplusplus
-typedef bool boolean;
-#else
-typedef enum {false, true} boolean;
+typedef int boolean;
+#ifndef __cplusplus
+typedef enum {false, true};
 #endif
 typedef unsigned char byte;
 #endif
