@@ -81,6 +81,8 @@ static const char rcsid[] = "$Id: d_main.c,v 1.8 1997/02/03 22:45:09 b1 Exp $";
 
 #define R_OK 4
 
+extern boolean timingdemo;
+
 //
 // D-DoomLoop()
 // Not a globally visible function,
@@ -321,7 +323,7 @@ void D_Display (void)
 
 
     // normal update
-    if (!wipe)
+    if (!wipe || timingdemo)
     {
 	I_FinishUpdate ();              // page flip or blit buffer
 	return;
