@@ -8,6 +8,7 @@ extern "C"
 #include "s_sound.h"
 #include "i_sound.h"
 #include "doomstat.h"
+#include "m_argv.h"
 }
 
 extern "C" boolean advancedemo;
@@ -24,7 +25,8 @@ extern "C" void D_DoomLoop()
 		G_BeginRecording();
 	}
 	I_InitMusic();
-	I_InitGraphics();
+	if (!M_CheckParm("-novideo"))
+		I_InitGraphics();
 	while (true)
 	{
 		I_StartFrame();
@@ -47,7 +49,8 @@ extern "C" void D_DoomLoop()
 			TryRunTics();
 		}
 		S_UpdateSounds(players[consoleplayer].mo);
-		D_Display();
+		if (!M_CheckParm("-novideo"))
+			D_Display();
 		I_SubmitSound();
 	}
 }

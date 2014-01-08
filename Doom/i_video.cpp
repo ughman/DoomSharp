@@ -30,6 +30,8 @@ extern "C" void I_StartFrame()
 
 void I_StartTic2()
 {
+	if (!window)
+		return;
 	Monitor::Enter(eventqueue);
 	try
 	{
@@ -79,7 +81,10 @@ extern "C" void I_UpdateNoBlit()
 
 extern "C" void I_FinishUpdate()
 {
-	window->SubmitFrame((IntPtr)screens[0]);
+	if (window)
+	{
+		window->SubmitFrame((IntPtr)screens[0]);
+	}
 }
 
 extern "C" void I_ReadScreen(byte *scr)
