@@ -1137,7 +1137,9 @@ void G_DoCompleted (void)
  
     if (statcopy)
 	{
-		int i;
+		static char *colors[] = {"Green","Indigo","Brown","Red"};
+		int i,ii;
+		int playercount = 0;
 		int level = 11 + wminfo.epsd * 10 + wminfo.last;
 		int time = wminfo.plyr[0].stime / TICRATE;
 		int par = wminfo.partime / TICRATE;
@@ -1160,10 +1162,10 @@ void G_DoCompleted (void)
 
 		for (i = 0;i < MAXPLAYERS;i++)
 		{
-			static char *colors[] = {"Green","Indigo","Brown","Red"};
 			wbplayerstruct_t *player = &wminfo.plyr[i];
 			if (player->in)
 			{
+				playercount++;
 				fprintf(file,"Player %i (%s):\n",i + 1,colors[i]);
 				if (wminfo.maxkills)
 					fprintf(file,"\tKills: %i / %i (%i%%)\n",player->skills,wminfo.maxkills,player->skills * 100 / wminfo.maxkills);
@@ -1178,6 +1180,40 @@ void G_DoCompleted (void)
 				else
 					fprintf(file,"\tSecrets: %i\n",player->ssecret);
 			}
+		}
+		if (playercount > 1)
+		{
+			fprintf(file,"Frags:\n");
+			fprintf(file,"\t\t");
+			for (i = 0;i < MAXPLAYERS;i++)
+			{
+				wbplayerstruct_t *player = &wminfo.plyr[i];
+				if (player->in)
+				{
+					fprintf(file,"%s\t",colors[i]);
+				}
+			}
+			fprintf(file,"\n");
+			fprintf(file,"\t\t-------------------------------- VICTIMS\n");
+			for (i = 0;i < MAXPLAYERS;i++)
+			{
+				wbplayerstruct_t *player = &wminfo.plyr[i];
+				if (player->in)
+				{
+					fprintf(file,"\t%s\t|",colors[i]);
+					for (ii = 0;ii < MAXPLAYERS;ii++)
+					{
+						wbplayerstruct_t *victim = &wminfo.plyr[ii];
+						if (victim->in)
+						{
+							fprintf(file,"%i\t",player->frags[ii]);
+						}
+					}
+					fprintf(file,"\n");
+				}
+			}
+			fprintf(file,"\t\t|\n");
+			fprintf(file,"\t     KILLERS\n");
 		}
 		fprintf(file,"\n");
 
