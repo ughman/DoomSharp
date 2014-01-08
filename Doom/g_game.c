@@ -1636,6 +1636,7 @@ void G_DoPlayDemo (void)
     if ( *demo_p++ != VERSION)
     {
       fprintf( stderr, "Demo is from a different game version!\n");
+	  exit(0xdead33);
       gameaction = ga_nothing;
       return;
     }
