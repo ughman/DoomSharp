@@ -1651,6 +1651,7 @@ boolean G_CheckDemoStatus (void)
 	 
     if (timingdemo) 
     { 
+		exit(0);
 	endtime = I_GetTime (); 
 	I_Error ("timed %i gametics in %i realtics",gametic 
 		 , endtime-starttime); 
