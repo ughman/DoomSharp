@@ -1136,7 +1136,53 @@ void G_DoCompleted (void)
     automapactive = false; 
  
     if (statcopy)
-	memcpy (statcopy, &wminfo, sizeof(wminfo));
+	{
+		int i;
+		int level = 11 + wminfo.epsd * 10 + wminfo.last;
+		int time = wminfo.plyr[0].stime / TICRATE;
+		int par = wminfo.partime / TICRATE;
+		FILE *file = fopen(statcopy,"a");
+		if (!file)
+			I_Error("G_DoCompleted: Statcopy failed to open the output file.");
+
+		fprintf(file,"===========================================\n");
+		if (level == 11 || level == 13)
+			fprintf(file,"E%iM%i / MAP%02i\n",wminfo.epsd + 1,wminfo.last + 1,wminfo.last + 1);
+		else if (gamemode == commercial)
+			fprintf(file,"MAP%02i\n",wminfo.last + 1);
+		else
+			fprintf(file,"E%iM%i\n",wminfo.epsd + 1,wminfo.last + 1);
+		fprintf(file,"===========================================\n");
+		fprintf(file,"\n");
+
+		fprintf(file,"Time: %i:%02i (par: %i:%02i)\n",time / 60,time % 60,par / 60,par % 60);
+		fprintf(file,"\n");
+
+		for (i = 0;i < MAXPLAYERS;i++)
+		{
+			static char *colors[] = {"Green","Indigo","Brown","Red"};
+			wbplayerstruct_t *player = &wminfo.plyr[i];
+			if (player->in)
+			{
+				fprintf(file,"Player %i (%s):\n",i + 1,colors[i]);
+				if (wminfo.maxkills)
+					fprintf(file,"\tKills: %i / %i (%i%%)\n",player->skills,wminfo.maxkills,player->skills * 100 / wminfo.maxkills);
+				else
+					fprintf(file,"\tKills: %i\n",player->skills);
+				if (wminfo.maxitems)
+					fprintf(file,"\tItems: %i / %i (%i%%)\n",player->sitems,wminfo.maxitems,player->sitems * 100 / wminfo.maxitems);
+				else
+					fprintf(file,"\tItems: %i\n",player->sitems);
+				if (wminfo.maxsecret)
+					fprintf(file,"\tSecrets: %i / %i (%i%%)\n",player->ssecret,wminfo.maxsecret,player->ssecret * 100 / wminfo.maxsecret);
+				else
+					fprintf(file,"\tSecrets: %i\n",player->ssecret);
+			}
+		}
+		fprintf(file,"\n");
+
+		fclose(file);
+	}
 	
     WI_Start (&wminfo); 
 } 

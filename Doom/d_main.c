@@ -1064,9 +1064,9 @@ void D_DoomMain (void)
     if (p && p<myargc-1)
     {
 	// for statistics driver
-	extern  void*	statcopy;                            
+	extern  char*	statcopy;
 
-	statcopy = (void*)atoi(myargv[p+1]);
+	statcopy = myargv[p+1];
 	printf ("External statistics registered.\n");
     }
     
