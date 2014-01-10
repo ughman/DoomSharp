@@ -10,14 +10,14 @@ namespace DoomSharp
 {
     public class MainWindow : GameWindow
     {
-        public static MainWindow RunAsync()
+        public static MainWindow RunAsync(bool fullscreen)
         {
             MainWindow window = null;
             using (Semaphore sem = new Semaphore(0,1))
             {
                 new Thread((ThreadStart)delegate ()
                 {
-                    window = new MainWindow();
+                    window = new MainWindow(fullscreen);
                     sem.Release();
                     window.Run(35,60);
                 }).Start();
@@ -29,7 +29,7 @@ namespace DoomSharp
         private byte[] display;
         private byte[] palette;
 
-        public MainWindow() : base(800,600,GraphicsMode.Default,"DoomSharp")
+        public MainWindow(bool fullscreen) : base(fullscreen ? DisplayDevice.Default.Width : 800,fullscreen ? DisplayDevice.Default.Height : 600,GraphicsMode.Default,"DoomSharp",fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
             this.display = new byte [320 * 200];
             this.palette = new byte [256 * 3];

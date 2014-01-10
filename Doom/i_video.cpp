@@ -11,6 +11,7 @@ extern "C"
 #include "v_video.h"
 #include "d_event.h"
 #include "d_main.h"
+#include "m_argv.h"
 }
 
 #include <vcclr.h>
@@ -212,7 +213,7 @@ void HandleKeyDown(Object^ sender,KeyboardKeyEventArgs^ e)
 extern "C" void I_InitGraphics()
 {
 	eventqueue = gcnew Queue<IntPtr>();
-	window = MainWindow::RunAsync();
+	window = MainWindow::RunAsync(M_CheckParm("-fullscreen"));
 	window->Keyboard->KeyUp += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyUp);
 	window->Keyboard->KeyDown += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyDown);
 }
