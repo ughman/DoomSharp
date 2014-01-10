@@ -7,8 +7,4 @@ Doom/Release
 *.suo
 *.ncb
 *.user
-*.wad
-*.lmp
-*.dsg
-.doomrc
-sndfont2.sf2
+Data
