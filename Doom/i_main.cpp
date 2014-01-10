@@ -1,5 +1,6 @@
 using namespace System;
 using namespace System::IO;
+using namespace System::Threading;
 using namespace System::Reflection;
 using namespace System::Diagnostics;
 
@@ -9,14 +10,14 @@ extern "C"
 #include "d_main.h"
 }
 
-void I_StatTest(String^ dir,String ^game)
+void I_StatTest(String^ dir,String ^game,StreamWriter^ log)
 {
 	if (!game->CompareTo(gcnew String("pwad")))
 		return;
 	DirectoryInfo^ dirinfo = gcnew DirectoryInfo(dir);
 	for each (DirectoryInfo^ subdir in dirinfo->GetDirectories())
 	{
-		I_StatTest(Path::Combine(dir,subdir->Name),game);
+		I_StatTest(Path::Combine(dir,subdir->Name),game,log);
 	}
 	for each (FileInfo^ file in dirinfo->GetFiles())
 	{
@@ -41,77 +42,96 @@ void I_StatTest(String^ dir,String ^game)
 			psi.WorkingDirectory = Directory::GetCurrentDirectory();
 			psi.ErrorDialog = false;
 			Process^ process = Process::Start(%psi);
-			process->StandardOutput->ReadToEnd();
-			process->StandardError->ReadToEnd();
-			process->WaitForExit();
-			if (process->ExitCode == 0)
+			//process->StandardOutput->ReadToEnd();
+			//process->StandardError->ReadToEnd();
+			if (process->WaitForExit(25000))
 			{
-				array<unsigned char>^ vstats = File::ReadAllBytes(file->FullName);
-				array<unsigned char>^ newstats = File::ReadAllBytes(output);
-				bool correct = vstats->Length == newstats->Length;
-				if (correct)
+				if (process->ExitCode == 0)
 				{
-					for (int i = 0;i < newstats->Length;i++)
+					array<unsigned char>^ vstats = File::ReadAllBytes(file->FullName);
+					array<unsigned char>^ newstats = File::ReadAllBytes(output);
+					bool correct = vstats->Length == newstats->Length;
+					if (correct)
 					{
-						if (newstats[i] != vstats[i])
+						for (int i = 0;i < newstats->Length;i++)
 						{
-							correct = false;
-							break;
+							if (newstats[i] != vstats[i])
+							{
+								correct = false;
+								break;
+							}
 						}
 					}
+					if (correct)
+					{
+						Console::Write("[");
+						Console::ForegroundColor = ConsoleColor::Green;
+						Console::Write(" OK ");
+						Console::ResetColor();
+						Console::WriteLine("]");
+					}
+					else
+					{
+						log->WriteLine("[FAIL] {0}",Path::Combine(dir,file->Name));
+						Console::Write("[");
+						Console::ForegroundColor = ConsoleColor::Red;
+						Console::Write("FAIL");
+						Console::ResetColor();
+						Console::WriteLine("]");
+					}
 				}
-				if (correct)
+				else if (process->ExitCode == 0xDEAD33)
 				{
+					log->WriteLine("[BADV] {0}",Path::Combine(dir,file->Name));
 					Console::Write("[");
-					Console::ForegroundColor = ConsoleColor::Green;
-					Console::Write(" OK ");
+					Console::ForegroundColor = ConsoleColor::Cyan;
+					Console::Write("BADV");
 					Console::ResetColor();
 					Console::WriteLine("]");
 				}
 				else
 				{
+					log->WriteLine("[CRSH] {0}",Path::Combine(dir,file->Name));
 					Console::Write("[");
-					Console::ForegroundColor = ConsoleColor::Red;
-					Console::Write("FAIL");
+					Console::ForegroundColor = ConsoleColor::White;
+					Console::BackgroundColor = ConsoleColor::Red;
+					Console::Write("CRSH");
 					Console::ResetColor();
 					Console::WriteLine("]");
 				}
 			}
-			else if (process->ExitCode == 0xDEAD33)
-			{
-				Console::Write("[");
-				Console::ForegroundColor = ConsoleColor::Cyan;
-				Console::Write("BADV");
-				Console::ResetColor();
-				Console::WriteLine("]");
-			}
 			else
 			{
+				process->Kill();
+				Thread::Sleep(5000);
+				log->WriteLine("[2SLO] {0}",Path::Combine(dir,file->Name));
 				Console::Write("[");
-				Console::ForegroundColor = ConsoleColor::White;
-				Console::BackgroundColor = ConsoleColor::Red;
-				Console::Write("CRSH");
+				Console::ForegroundColor = ConsoleColor::Black;
+				Console::BackgroundColor = ConsoleColor::Yellow;
+				Console::Write("2SLO");
 				Console::ResetColor();
 				Console::WriteLine("]");
 			}
 		}
 		else
 		{
+			log->WriteLine("[LMP?] {0}",Path::Combine(dir,file->Name));
 			Console::Write("[");
 			Console::ForegroundColor = ConsoleColor::Yellow;
 			Console::Write("LMP?");
 			Console::ResetColor();
 			Console::WriteLine("]");
 		}
+		log->Flush();
 	}
 }
 
-void I_StatTestRoot(String^ dir)
+void I_StatTestRoot(String^ dir,StreamWriter^ log)
 {
 	DirectoryInfo^ dirinfo = gcnew DirectoryInfo(dir);
 	for each (DirectoryInfo^ subdir in dirinfo->GetDirectories())
 	{
-		I_StatTest(Path::Combine(dir,subdir->Name),subdir->Name);
+		I_StatTest(Path::Combine(dir,subdir->Name),subdir->Name,log);
 	}
 }
 
@@ -121,7 +141,9 @@ int main(int argc,char **argv)
 	myargv = argv;
 	if (M_CheckParm("-stattest"))
 	{
-		I_StatTestRoot(gcnew String("Tests"));
+		FileStream logstream(gcnew String("TestLog.txt"),FileMode::Create,FileAccess::Write);
+		StreamWriter log(%logstream);
+		I_StatTestRoot(gcnew String("Tests"),%log);
 		return 0;
 	}
 	D_DoomMain();
