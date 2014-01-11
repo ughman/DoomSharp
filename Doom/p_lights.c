@@ -74,9 +74,7 @@ void P_SpawnFireFlicker (sector_t*	sector)
     // Nothing special about it during gameplay.
     sector->special = 0; 
 	
-    flick = Z_Malloc ( sizeof(*flick), PU_LEVSPEC, 0);
-
-    P_AddThinker (&flick->thinker);
+    flick = P_NewThinker (sizeof(*flick));
 
     flick->thinker.function.acp1 = (actionf_p1) T_FireFlicker;
     flick->sector = sector;
@@ -129,9 +127,7 @@ void P_SpawnLightFlash (sector_t*	sector)
     // nothing special about it during gameplay
     sector->special = 0;	
 	
-    flash = Z_Malloc ( sizeof(*flash), PU_LEVSPEC, 0);
-
-    P_AddThinker (&flash->thinker);
+    flash = P_NewThinker (sizeof(*flash));
 
     flash->thinker.function.acp1 = (actionf_p1) T_LightFlash;
     flash->sector = sector;
@@ -186,9 +182,7 @@ P_SpawnStrobeFlash
 {
     strobe_t*	flash;
 	
-    flash = Z_Malloc ( sizeof(*flash), PU_LEVSPEC, 0);
-
-    P_AddThinker (&flash->thinker);
+    flash = P_NewThinker (sizeof(*flash));
 
     flash->sector = sector;
     flash->darktime = fastOrSlow;
@@ -343,9 +337,7 @@ void P_SpawnGlowingLight(sector_t*	sector)
 {
     glow_t*	g;
 	
-    g = Z_Malloc( sizeof(*g), PU_LEVSPEC, 0);
-
-    P_AddThinker(&g->thinker);
+    g = P_NewThinker(sizeof(*g));
 
     g->sector = sector;
     g->minlight = P_FindMinSurroundingLight(sector,sector->lightlevel);

@@ -78,10 +78,9 @@ EV_Teleport
     {
 	if (sectors[ i ].tag == tag )
 	{
-	    thinker = thinkercap.next;
-	    for (thinker = thinkercap.next;
-		 thinker != &thinkercap;
-		 thinker = thinker->next)
+	    for (thinker = P_FirstThinker();
+		 thinker;
+		 thinker = P_NextThinker(thinker))
 	    {
 		// not a mobj
 		if (thinker->function.acp1 != (actionf_p1)P_MobjThinker)

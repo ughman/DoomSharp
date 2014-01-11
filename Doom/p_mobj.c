@@ -494,7 +494,7 @@ P_SpawnMobj
     state_t*	st;
     mobjinfo_t*	info;
 	
-    mobj = Z_Malloc (sizeof(*mobj), PU_LEVEL, NULL);
+    mobj = P_NewThinker (sizeof(*mobj));
     memset (mobj, 0, sizeof (*mobj));
     info = &mobjinfo[type];
 	
@@ -534,8 +534,6 @@ P_SpawnMobj
 	mobj->z = z;
 
     mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
-	
-    P_AddThinker (&mobj->thinker);
 
     return mobj;
 }

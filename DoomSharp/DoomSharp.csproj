@@ -38,6 +38,7 @@
   -->
   <ItemGroup>
     <Compile Include="Game Code\CompatFlags.cs" />
+    <Compile Include="Game Code\Thinker.cs" />
     <Compile Include="Music Code\MusicPitchEvent.cs" />
     <Compile Include="Music Code\MusicControllerEvent.cs" />
     <Compile Include="Music Code\MusicEndEvent.cs" />

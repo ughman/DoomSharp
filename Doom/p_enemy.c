@@ -574,7 +574,7 @@ void A_KeenDie (mobj_t* mo)
     
     // scan the remaining thinkers
     // to see if all Keens are dead
-    for (th = thinkercap.next ; th != &thinkercap ; th=th->next)
+    for (th = P_FirstThinker() ; th ; th=P_NextThinker(th))
     {
 	if (th->function.acp1 != (actionf_p1)P_MobjThinker)
 	    continue;
@@ -1465,13 +1465,13 @@ A_PainShootSkull
     // count total number of skull currently on the level
     count = 0;
 
-    currentthinker = thinkercap.next;
-    while (currentthinker != &thinkercap)
+    currentthinker = P_FirstThinker();
+    while (currentthinker)
     {
 	if (   (currentthinker->function.acp1 == (actionf_p1)P_MobjThinker)
 	    && ((mobj_t *)currentthinker)->type == MT_SKULL)
 	    count++;
-	currentthinker = currentthinker->next;
+	currentthinker = P_NextThinker(currentthinker);
     }
 
     // if there are allready 20 skulls on the level,
@@ -1690,7 +1690,7 @@ void A_BossDeath (mobj_t* mo)
     
     // scan the remaining thinkers to see
     // if all bosses are dead
-    for (th = thinkercap.next ; th != &thinkercap ; th=th->next)
+    for (th = P_FirstThinker() ; th ; th=P_NextThinker(th))
     {
 	if (th->function.acp1 != (actionf_p1)P_MobjThinker)
 	    continue;
@@ -1820,10 +1820,9 @@ void A_BrainAwake (mobj_t* mo)
     numbraintargets = 0;
     braintargeton = 0;
 	
-    thinker = thinkercap.next;
-    for (thinker = thinkercap.next ;
-	 thinker != &thinkercap ;
-	 thinker = thinker->next)
+    for (thinker = P_FirstThinker() ;
+	 thinker ;
+	 thinker = P_NextThinker(thinker))
     {
 	if (thinker->function.acp1 != (actionf_p1)P_MobjThinker)
 	    continue;	// not a mobj
