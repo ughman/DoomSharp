@@ -23,20 +23,17 @@ public:
 			throw gcnew ApplicationException();
 	}
 
-	virtual property bool Finished
+	virtual bool Tick() override
 	{
-		bool get() override
+		if (ptr->function.acp1 == (actionf_p1)-1)
 		{
-			return ptr->function.acv == (actionf_v)-1;
+			return true;
 		}
-	}
-
-	virtual void Tick() override
-	{
 		if (ptr->function.acp1)
 		{
 			ptr->function.acp1(ptr);
 		}
+		return false;
 	}
 
 	~LegacyThinker()
@@ -114,24 +111,13 @@ extern "C" thinker_t *P_NextThinker(thinker_t *it)
 
 extern "C" void P_RunThinkers()
 {
-	for (int i = thinkers->Count - 1;i >= 0;i--)
-	{
-		if (thinkers->default[i]->Finished)
-		{
-			thinkers->RemoveAt(i);
-		}
-	}
 	for (int i = 0;i < thinkers->Count;i++)
 	{
 		Thinker^ thinker = thinkers->default[i];
-		if (thinker->Finished)
+		if (thinker->Tick())
 		{
 			thinkers->RemoveAt(i);
 			i--;
-		}
-		else
-		{
-			thinker->Tick();
 		}
 	}
 }
