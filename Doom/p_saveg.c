@@ -367,35 +367,6 @@ void P_ArchiveSpecials (void)
     // save off the current thinkers
     for (th = P_FirstThinker() ; th ; th=P_NextThinker(th))
     {
-	if (th->function.acv == (actionf_v)NULL)
-	{
-	    for (i = 0; i < MAXCEILINGS;i++)
-		if (activeceilings[i] == (ceiling_t *)th)
-		    break;
-	    
-	    if (i<MAXCEILINGS)
-	    {
-		*save_p++ = tc_ceiling;
-		PADSAVEP();
-		ceiling = (ceiling_t *)save_p;
-		memcpy (ceiling, th, sizeof(*ceiling));
-		save_p += sizeof(*ceiling);
-		ceiling->sector = (sector_t *)(ceiling->sector - sectors);
-	    }
-	    continue;
-	}
-			
-	if (th->function.acp1 == (actionf_p1)T_MoveCeiling)
-	{
-	    *save_p++ = tc_ceiling;
-	    PADSAVEP();
-	    ceiling = (ceiling_t *)save_p;
-	    memcpy (ceiling, th, sizeof(*ceiling));
-	    save_p += sizeof(*ceiling);
-	    ceiling->sector = (sector_t *)(ceiling->sector - sectors);
-	    continue;
-	}
-			
 	if (th->function.acp1 == (actionf_p1)T_VerticalDoor)
 	{
 	    *save_p++ = tc_door;
@@ -492,20 +463,6 @@ void P_UnArchiveSpecials (void)
 	{
 	  case tc_endspecials:
 	    return;	// end of list
-			
-	  case tc_ceiling:
-	    PADSAVEP();
-	    ceiling = P_NewThinker (sizeof(*ceiling));
-	    memcpy (ceiling, save_p, sizeof(*ceiling));
-	    save_p += sizeof(*ceiling);
-	    ceiling->sector = &sectors[(int)ceiling->sector];
-	    ceiling->sector->specialdata = ceiling;
-
-	    if (ceiling->thinker.function.acp1)
-		ceiling->thinker.function.acp1 = (actionf_p1)T_MoveCeiling;
-
-	    P_AddActiveCeiling(ceiling);
-	    break;
 				
 	  case tc_door:
 	    PADSAVEP();

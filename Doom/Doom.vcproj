@@ -289,10 +289,6 @@
 				Name="p_ Code"
 				>
 				<File
-					RelativePath=".\p_ceilng.c"
-					>
-				</File>
-				<File
 					RelativePath=".\p_doors.c"
 					>
 				</File>
@@ -912,6 +908,26 @@
 			<Filter
 				Name="p_ Code"
 				>
+				<File
+					RelativePath=".\p_ceilng.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+				</File>
 				<File
 					RelativePath=".\p_tick.cpp"
 					>

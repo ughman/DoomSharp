@@ -121,3 +121,8 @@ extern "C" void P_RunThinkers()
 		}
 	}
 }
+
+void P_AddManagedThinker(Thinker^ thinker)
+{
+	thinkers->Add(thinker);
+}
