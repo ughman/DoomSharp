@@ -213,7 +213,7 @@ void HandleKeyDown(Object^ sender,KeyboardKeyEventArgs^ e)
 extern "C" void I_InitGraphics()
 {
 	eventqueue = gcnew Queue<IntPtr>();
-	window = MainWindow::RunAsync(M_CheckParm("-fullscreen"));
+	window = gcnew MainWindow(M_CheckParm("-fullscreen"));
 	window->Keyboard->KeyUp += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyUp);
 	window->Keyboard->KeyDown += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyDown);
 }

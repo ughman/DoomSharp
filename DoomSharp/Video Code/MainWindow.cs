@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics;
@@ -10,22 +9,6 @@ namespace DoomSharp
 {
     public class MainWindow : GameWindow
     {
-        public static MainWindow RunAsync(bool fullscreen)
-        {
-            MainWindow window = null;
-            using (Semaphore sem = new Semaphore(0,1))
-            {
-                new Thread((ThreadStart)delegate ()
-                {
-                    window = new MainWindow(fullscreen);
-                    sem.Release();
-                    window.Run(35,60);
-                }).Start();
-                sem.WaitOne();
-            }
-            return window;
-        }
-
         private byte[] display;
         private byte[] palette;
 

@@ -804,6 +804,7 @@
 							Name="VCCLCompilerTool"
 							ObjectFile="$(IntDir)\$(InputName)1.obj"
 							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+							CompileAsManaged="1"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -813,6 +814,7 @@
 							Name="VCCLCompilerTool"
 							ObjectFile="$(IntDir)\$(InputName)1.obj"
 							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+							CompileAsManaged="1"
 						/>
 					</FileConfiguration>
 				</File>
