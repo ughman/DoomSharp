@@ -1,4 +1,5 @@
 using namespace System;
+using namespace System::Threading;
 using namespace System::Diagnostics;
 
 extern "C"
@@ -17,6 +18,11 @@ gcroot<Stopwatch^> stopwatch;
 
 extern "C" void I_Tactile(int on,int off,int total)
 {
+}
+
+extern "C" void I_Delay(int tics)
+{
+	Thread::Sleep(tics * 1000 / TICRATE);
 }
 
 extern "C" ticcmd_t *I_BaseTiccmd()

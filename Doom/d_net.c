@@ -765,4 +765,5 @@ void TryRunTics (void)
 	}
 	NetUpdate ();	// check for new console commands
     }
+	I_Delay(ticdup);
 }
