@@ -75,5 +75,10 @@ namespace DoomSharp
         {
             Marshal.Copy(palette,this.palette,0,this.palette.Length);
         }
+
+        public void ForceRender()
+        {
+            OnRenderFrame(null);
+        }
     }
 }

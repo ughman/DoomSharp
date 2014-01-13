@@ -88,6 +88,14 @@ extern "C" void I_FinishUpdate()
 	}
 }
 
+extern "C" void I_ForceRender()
+{
+	if (window)
+	{
+		window->ForceRender();
+	}
+}
+
 extern "C" void I_ReadScreen(byte *scr)
 {
 	memcpy(scr,screens[0],SCREENWIDTH * SCREENHEIGHT);
