@@ -29,23 +29,17 @@ namespace DoomSharp
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Enable(EnableCap.Texture2D);
-            lock (palette)
+            byte[] rgbdisplay = new byte [display.Length * 3];
+            for (int i = 0;i < display.Length;i++)
             {
-                byte[] rgbdisplay = new byte [display.Length * 3];
-                lock (display)
-                {
-                    for (int i = 0;i < display.Length;i++)
-                    {
-                        byte color = display[i];
-                        rgbdisplay[i * 3 + 0] = palette[color * 3 + 0];
-                        rgbdisplay[i * 3 + 1] = palette[color * 3 + 1];
-                        rgbdisplay[i * 3 + 2] = palette[color * 3 + 2];
-                    }
-                }
-                GL.TexImage2D<byte>(TextureTarget.Texture2D,0,PixelInternalFormat.Rgb,320,200,0,PixelFormat.Rgb,PixelType.UnsignedByte,rgbdisplay);
-                GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Nearest);
-                GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
+                byte color = display[i];
+                rgbdisplay[i * 3 + 0] = palette[color * 3 + 0];
+                rgbdisplay[i * 3 + 1] = palette[color * 3 + 1];
+                rgbdisplay[i * 3 + 2] = palette[color * 3 + 2];
             }
+            GL.TexImage2D<byte>(TextureTarget.Texture2D,0,PixelInternalFormat.Rgb,320,200,0,PixelFormat.Rgb,PixelType.UnsignedByte,rgbdisplay);
+            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
             GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(0,0);
             GL.Vertex2(0,0);
@@ -74,18 +68,12 @@ namespace DoomSharp
 
         public void SubmitFrame(IntPtr frame)
         {
-            lock (display)
-            {
-                Marshal.Copy(frame,display,0,display.Length);
-            }
+            Marshal.Copy(frame,display,0,display.Length);
         }
 
         public void SubmitPalette(IntPtr palette)
         {
-            lock (this.palette)
-            {
-                Marshal.Copy(palette,this.palette,0,this.palette.Length);
-            }
+            Marshal.Copy(palette,this.palette,0,this.palette.Length);
         }
     }
 }
