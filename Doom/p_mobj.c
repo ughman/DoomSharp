@@ -494,8 +494,7 @@ P_SpawnMobj
     state_t*	st;
     mobjinfo_t*	info;
 	
-    mobj = P_NewThinker (sizeof(*mobj));
-    memset (mobj, 0, sizeof (*mobj));
+    mobj = P_NewActor();
     info = &mobjinfo[type];
 	
     mobj->type = type;
