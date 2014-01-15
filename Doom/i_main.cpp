@@ -3,12 +3,15 @@ using namespace System::IO;
 using namespace System::Threading;
 using namespace System::Reflection;
 using namespace System::Diagnostics;
+using namespace DoomSharp;
 
 extern "C"
 {
 #include "m_argv.h"
 #include "d_main.h"
 }
+
+#include <stdlib.h>
 
 void I_StatTest(String^ dir,String ^game,StreamWriter^ log)
 {
@@ -139,6 +142,13 @@ int main(int argc,char **argv)
 {
 	myargc = argc;
 	myargv = argv;
+	if (int p = M_CheckParm("-server"))
+	{
+		long port = strtol(myargv[p + 1],NULL,10);
+		long nodecount = strtol(myargv[p + 2],NULL,10);
+		(gcnew DoomServer(port))->Run(nodecount);
+		return 0;
+	}
 	if (M_CheckParm("-stattest"))
 	{
 		FileStream logstream(gcnew String("TestLog.txt"),FileMode::Create,FileAccess::Write);

@@ -49,6 +49,13 @@
     <Compile Include="Music Code\MusicNoteOnEvent.cs" />
     <Compile Include="Music Code\MusicUnknownEvent.cs" />
     <Compile Include="Music Code\MusicTrack.cs" />
+    <Compile Include="Net Code\DoomServer.cs" />
+    <Compile Include="Net Code\NetNodeEventArgs.cs" />
+    <Compile Include="Net Code\DoomSocket.cs" />
+    <Compile Include="Net Code\INetNode.cs" />
+    <Compile Include="Net Code\INetSocket.cs" />
+    <Compile Include="Net Code\PacketEventArgs.cs" />
+    <Compile Include="Net Code\PacketType.cs" />
     <Compile Include="Utility\BitConv.cs" />
     <Compile Include="Video Code\MainWindow.cs" />
     <Compile Include="Wad Code\LumpArchive.cs" />
