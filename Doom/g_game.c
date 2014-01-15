@@ -1168,15 +1168,15 @@ void G_DoCompleted (void)
 				playercount++;
 				fprintf(file,"Player %i (%s):\n",i + 1,colors[i]);
 				if (wminfo.maxkills)
-					fprintf(file,"\tKills: %i / %i (%i%%)\n",player->skills,wminfo.maxkills,player->skills * 100 / wminfo.maxkills);
+					fprintf(file,"\tKills: %i / %i (%i%%)\n",player->skills,wminfo.maxkills,(short)(player->skills * 100) / wminfo.maxkills);
 				else
 					fprintf(file,"\tKills: %i\n",player->skills);
 				if (wminfo.maxitems)
-					fprintf(file,"\tItems: %i / %i (%i%%)\n",player->sitems,wminfo.maxitems,player->sitems * 100 / wminfo.maxitems);
+					fprintf(file,"\tItems: %i / %i (%i%%)\n",player->sitems,wminfo.maxitems,(short)(player->sitems * 100) / wminfo.maxitems);
 				else
 					fprintf(file,"\tItems: %i\n",player->sitems);
 				if (wminfo.maxsecret)
-					fprintf(file,"\tSecrets: %i / %i (%i%%)\n",player->ssecret,wminfo.maxsecret,player->ssecret * 100 / wminfo.maxsecret);
+					fprintf(file,"\tSecrets: %i / %i (%i%%)\n",player->ssecret,wminfo.maxsecret,(short)(player->ssecret * 100) / wminfo.maxsecret);
 				else
 					fprintf(file,"\tSecrets: %i\n",player->ssecret);
 			}
