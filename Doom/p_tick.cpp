@@ -19,7 +19,7 @@ int P_FindLegacyThinker(thinker_t *ptr)
 	for (int i = 0;i < thinkers->Count;i++)
 	{
 		Thinker^ thinker = thinkers->default[i];
-		if (thinker->GetType() == LegacyThinker::typeid)
+		if (dynamic_cast<LegacyThinker^>(thinker))
 		{
 			if (((LegacyThinker^)thinker)->ptr == ptr)
 			{
@@ -53,7 +53,7 @@ extern "C" thinker_t *P_FirstThinker()
 	for (int i = 0;i < thinkers->Count;i++)
 	{
 		Thinker^ thinker = thinkers->default[i];
-		if (thinker->GetType() == LegacyThinker::typeid)
+		if (dynamic_cast<LegacyThinker^>(thinker))
 		{
 			return ((LegacyThinker^)thinker)->ptr;
 		}
@@ -66,7 +66,7 @@ extern "C" thinker_t *P_NextThinker(thinker_t *it)
 	for (int i = P_FindLegacyThinker(it) + 1;i < thinkers->Count;i++)
 	{
 		Thinker^ thinker = thinkers->default[i];
-		if (thinker->GetType() == LegacyThinker::typeid)
+		if (dynamic_cast<LegacyThinker^>(thinker))
 		{
 			return ((LegacyThinker^)thinker)->ptr;
 		}

@@ -126,7 +126,7 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 	int ceilingcount = 0;
 	for each (Thinker ^thinker in (List<Thinker^>^)thinkers)
 	{
-		if (thinker->GetType() == Ceiling::typeid)
+		if (dynamic_cast<Ceiling^>(thinker))
 		{
 			ceilingcount++;
 			Ceiling^ ceiling = (Ceiling^)thinker;
@@ -168,7 +168,7 @@ extern "C" int EV_CeilingCrushStop(line_t *line)
 	bool result = false;
 	for each (Thinker ^thinker in (List<Thinker^>^)thinkers)
 	{
-		if (thinker->GetType() == Ceiling::typeid)
+		if (dynamic_cast<Ceiling^>(thinker))
 		{
 			Ceiling^ ceiling = (Ceiling^)thinker;
 			if (ceiling->sector->tag == line->tag)
