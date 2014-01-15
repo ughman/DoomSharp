@@ -1022,6 +1022,19 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="C++ Header Files"
+			Filter="hpp"
+			>
+			<Filter
+				Name="p_ Code"
+				>
+				<File
+					RelativePath=".\p_tick.hpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
