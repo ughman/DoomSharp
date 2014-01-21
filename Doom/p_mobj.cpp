@@ -5,19 +5,7 @@ extern "C"
 #include "p_mobj.h"
 }
 
-#include "p_tick.hpp"
-
-ref class Actor : LegacyThinker
-{
-public:
-	mobj_t *mobj;
-
-	Actor() : LegacyThinker(sizeof(mobj_t))
-	{
-		mobj = (mobj_t *)ptr;
-		memset(mobj,0,sizeof(mobj_t));
-	}
-};
+#include "p_mobj.hpp"
 
 mobj_t *P_NewActor2()
 {
