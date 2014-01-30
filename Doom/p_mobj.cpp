@@ -18,3 +18,10 @@ extern "C" mobj_t *P_NewActor()
 {
 	return P_NewActor2();
 }
+
+extern "C" mobj_t *P_SpawnMobj(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
+{
+	LegacyActor^ actor = gcnew LegacyActor(x,y,z,type);
+	thinkers->Add(actor);
+	return actor->mobj;
+}

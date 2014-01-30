@@ -481,64 +481,6 @@ void P_MobjThinker (mobj_t* mobj)
 
 
 //
-// P_SpawnMobj
-//
-mobj_t*
-P_SpawnMobj
-( fixed_t	x,
-  fixed_t	y,
-  fixed_t	z,
-  mobjtype_t	type )
-{
-    mobj_t*	mobj;
-    state_t*	st;
-    mobjinfo_t*	info;
-	
-    mobj = P_NewActor();
-    info = &mobjinfo[type];
-	
-    mobj->type = type;
-    mobj->info = info;
-    mobj->x = x;
-    mobj->y = y;
-    mobj->radius = info->radius;
-    mobj->height = info->height;
-    mobj->flags = info->flags;
-    mobj->health = info->spawnhealth;
-
-    if (gameskill != sk_nightmare)
-	mobj->reactiontime = info->reactiontime;
-    
-    mobj->lastlook = P_Random () % MAXPLAYERS;
-    // do not set the state with P_SetMobjState,
-    // because action routines can not be called yet
-    st = &states[info->spawnstate];
-
-    mobj->state = st;
-    mobj->tics = st->tics;
-    mobj->sprite = st->sprite;
-    mobj->frame = st->frame;
-
-    // set subsector and/or block links
-    P_SetThingPosition (mobj);
-	
-    mobj->floorz = mobj->subsector->sector->floorheight;
-    mobj->ceilingz = mobj->subsector->sector->ceilingheight;
-
-    if (z == ONFLOORZ)
-	mobj->z = mobj->floorz;
-    else if (z == ONCEILINGZ)
-	mobj->z = mobj->ceilingz - mobj->info->height;
-    else 
-	mobj->z = z;
-
-    mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
-
-    return mobj;
-}
-
-
-//
 // P_RemoveMobj
 //
 mapthing_t	itemrespawnque[ITEMQUESIZE];
