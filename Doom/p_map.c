@@ -240,6 +240,10 @@ boolean PIT_CheckLine (line_t* ld)
     // if contacted a special line, add it to the list
     if (ld->special)
     {
+		if (numspechit >= MAXSPECIALCROSS)
+		{
+			I_Error("PIT_CheckLine: SPECHITS Overflow");
+		}
 	spechit[numspechit] = ld;
 	numspechit++;
     }
