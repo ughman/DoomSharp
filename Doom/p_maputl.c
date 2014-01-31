@@ -600,6 +600,10 @@ PIT_AddLineIntercepts (line_t* ld)
 	return false;	// stop checking
     }
     
+	if (intercept_p - intercepts >= MAXINTERCEPTS)
+	{
+		I_Error("PIT_AddLineIntercepts: INTERCEPTS Overflow");
+	}
 	
     intercept_p->frac = frac;
     intercept_p->isaline = true;
@@ -665,6 +669,11 @@ boolean PIT_AddThingIntercepts (mobj_t* thing)
 
     if (frac < 0)
 	return true;		// behind source
+
+	if (intercept_p - intercepts >= MAXINTERCEPTS)
+	{
+		I_Error("PIT_AddThingIntercepts: INTERCEPTS Overflow");
+	}
 
     intercept_p->frac = frac;
     intercept_p->isaline = false;
