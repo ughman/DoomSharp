@@ -318,7 +318,11 @@ P_CheckSight
     bitnum = 1 << (pnum&7);
 
     // Check in REJECT table.
-    if (rejectmatrix[bytenum]&bitnum)
+	if (bytenum >= rejectsize)
+	{
+		fprintf(stderr,"P_CheckSight: REJECT overflow\n");
+	}
+    else if (rejectmatrix[bytenum]&bitnum)
     {
 	sightcounts[0]++;
 

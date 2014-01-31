@@ -104,6 +104,7 @@ mobj_t**	blocklinks;
 //  used as a PVS lookup as well.
 //
 byte*		rejectmatrix;
+long        rejectsize;
 
 
 // Maintain single and multi player starting spots.
@@ -657,6 +658,7 @@ P_SetupLevel
     P_LoadNodes (lumpnum+ML_NODES);
     P_LoadSegs (lumpnum+ML_SEGS);
 	
+	rejectsize = W_LumpLength(lumpnum + ML_REJECT);
     rejectmatrix = W_CacheLumpNum (lumpnum+ML_REJECT,PU_LEVEL);
     P_GroupLines ();
 
