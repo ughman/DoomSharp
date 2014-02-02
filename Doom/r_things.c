@@ -122,10 +122,6 @@ R_InstallSpriteLump
     if (rotation == 0)
     {
 	// the lump should be used for all rotations
-	if (sprtemp[frame].rotate == false)
-	    I_Error ("R_InitSprites: Sprite %s frame %c has "
-		     "multip rot=0 lump", spritename, 'A'+frame);
-
 	if (sprtemp[frame].rotate == true)
 	    I_Error ("R_InitSprites: Sprite %s frame %c has rotations "
 		     "and a rot=0 lump", spritename, 'A'+frame);
@@ -148,10 +144,6 @@ R_InstallSpriteLump
 
     // make 0 based
     rotation--;		
-    if (sprtemp[frame].lump[rotation] != -1)
-	I_Error ("R_InitSprites: Sprite %s : %c : %c "
-		 "has two lumps mapped to it",
-		 spritename, 'A'+frame, '1'+rotation);
 		
     sprtemp[frame].lump[rotation] = lump;
     sprtemp[frame].flip[rotation] = (byte)flipped;
@@ -183,9 +175,6 @@ void R_InitSpriteDefs (char** namelist)
     int		intname;
     int		frame;
     int		rotation;
-    int		start;
-    int		end;
-    int		patched;
 		
     // count the number of sprite names
     check = namelist;
@@ -198,9 +187,6 @@ void R_InitSpriteDefs (char** namelist)
 	return;
 		
     sprites = Z_Malloc(numsprites *sizeof(*sprites), PU_STATIC, NULL);
-	
-    start = firstspritelump-1;
-    end = lastspritelump+1;
 	
     // scan all the lump names for each of the names,
     //  noting the highest frame letter.
@@ -215,7 +201,8 @@ void R_InitSpriteDefs (char** namelist)
 	
 	// scan the lumps,
 	//  filling in the frames for whatever is found
-	for (l=start+1 ; l<end ; l++)
+	B_ResetSpriteLumpIterator();
+	while ((l = B_NextSpriteLump()) != -1)
 	{
 		char *lumpname = W_LumpName(l);
 	    if (*(int *)lumpname == intname)
@@ -223,12 +210,7 @@ void R_InitSpriteDefs (char** namelist)
 		frame = lumpname[4] - 'A';
 		rotation = lumpname[5] - '0';
 
-		if (modifiedgame)
-		    patched = W_GetNumForName (lumpname);
-		else
-		    patched = l;
-
-		R_InstallSpriteLump (patched, frame, rotation, false);
+		R_InstallSpriteLump (l, frame, rotation, false);
 
 		if (lumpname[6])
 		{

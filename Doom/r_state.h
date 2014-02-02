@@ -57,11 +57,6 @@ extern int*		flattranslation;
 extern int*		texturetranslation;	
 
 
-// Sprite....
-extern int		firstspritelump;
-extern int		lastspritelump;
-
-
 
 //
 // Lookup tables for map data.

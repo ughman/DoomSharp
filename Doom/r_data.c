@@ -135,9 +135,6 @@ int		firstpatch;
 int		lastpatch;
 int		numpatches;
 
-int		firstspritelump;
-int		lastspritelump;
-
 int		numtextures;
 texture_t**	textures;
 
@@ -589,22 +586,6 @@ void R_InitFlats (void)
 }
 
 
-//
-// R_InitSpriteLumps
-// Finds the width and hoffset of all sprites in the wad,
-//  so the sprite does not need to be cached completely
-//  just for having the header info ready during rendering.
-//
-void R_InitSpriteLumps (void)
-{
-    int		i;
-    patch_t	*patch;
-	
-    firstspritelump = W_GetNumForName ("S_START") + 1;
-    lastspritelump = W_GetNumForName ("S_END") - 1;
-}
-
-
 
 //
 // R_InitColormaps
@@ -636,8 +617,6 @@ void R_InitData (void)
     printf ("\nInitTextures");
     R_InitFlats ();
     printf ("\nInitFlats");
-    R_InitSpriteLumps ();
-    printf ("\nInitSprites");
     R_InitColormaps ();
     printf ("\nInitColormaps");
 }

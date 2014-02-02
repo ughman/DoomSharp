@@ -997,6 +997,8 @@ void D_DoomMain (void)
 	break;
     }
 
+	B_InitLumps();
+
     printf ("M_Init: Init miscellaneous info.\n");
     M_Init ();
 
