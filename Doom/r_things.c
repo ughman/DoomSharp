@@ -133,7 +133,7 @@ R_InstallSpriteLump
 	sprtemp[frame].rotate = false;
 	for (r=0 ; r<8 ; r++)
 	{
-	    sprtemp[frame].lump[r] = lump - firstspritelump;
+	    sprtemp[frame].lump[r] = lump;
 	    sprtemp[frame].flip[r] = (byte)flipped;
 	}
 	return;
@@ -153,7 +153,7 @@ R_InstallSpriteLump
 		 "has two lumps mapped to it",
 		 spritename, 'A'+frame, '1'+rotation);
 		
-    sprtemp[frame].lump[rotation] = lump - firstspritelump;
+    sprtemp[frame].lump[rotation] = lump;
     sprtemp[frame].flip[rotation] = (byte)flipped;
 }
 
@@ -407,7 +407,7 @@ R_DrawVisSprite
     patch_t*		patch;
 	
 	
-    patch = W_CacheLumpNum (vis->patch+firstspritelump, PU_CACHE);
+    patch = W_CacheLumpNum (vis->patch, PU_CACHE);
 
     dc_colormap = vis->colormap;
     
@@ -534,14 +534,14 @@ void R_ProjectSprite (mobj_t* thing)
     }
     
     // calculate edges of the shape
-    tx -= spriteoffset[lump];	
+    tx -= R_GetSpriteOffset(lump);
     x1 = (centerxfrac + FixedMul (tx,xscale) ) >>FRACBITS;
 
     // off the right side?
     if (x1 > viewwidth)
 	return;
     
-    tx +=  spritewidth[lump];
+    tx +=  R_GetSpriteWidth(lump);
     x2 = ((centerxfrac + FixedMul (tx,xscale) ) >>FRACBITS) - 1;
 
     // off the left side
@@ -555,7 +555,7 @@ void R_ProjectSprite (mobj_t* thing)
     vis->gx = thing->x;
     vis->gy = thing->y;
     vis->gz = thing->z;
-    vis->gzt = thing->z + spritetopoffset[lump];
+    vis->gzt = thing->z + R_GetSpriteTopOffset(lump);
     vis->texturemid = vis->gzt - viewz;
     vis->x1 = x1 < 0 ? 0 : x1;
     vis->x2 = x2 >= viewwidth ? viewwidth-1 : x2;	
@@ -563,7 +563,7 @@ void R_ProjectSprite (mobj_t* thing)
 
     if (flip)
     {
-	vis->startfrac = spritewidth[lump]-1;
+	vis->startfrac = R_GetSpriteWidth(lump)-1;
 	vis->xiscale = -iscale;
     }
     else
@@ -677,14 +677,14 @@ void R_DrawPSprite (pspdef_t* psp)
     // calculate edges of the shape
     tx = psp->sx-160*FRACUNIT;
 	
-    tx -= spriteoffset[lump];	
+    tx -= R_GetSpriteOffset(lump);
     x1 = (centerxfrac + FixedMul (tx,pspritescale) ) >>FRACBITS;
 
     // off the right side
     if (x1 > viewwidth)
 	return;		
 
-    tx +=  spritewidth[lump];
+    tx +=  R_GetSpriteWidth(lump);
     x2 = ((centerxfrac + FixedMul (tx, pspritescale) ) >>FRACBITS) - 1;
 
     // off the left side
@@ -694,7 +694,7 @@ void R_DrawPSprite (pspdef_t* psp)
     // store information in a vissprite
     vis = &avis;
     vis->mobjflags = 0;
-    vis->texturemid = (BASEYCENTER<<FRACBITS)+FRACUNIT/2-(psp->sy-spritetopoffset[lump]);
+    vis->texturemid = (BASEYCENTER<<FRACBITS)+FRACUNIT/2-(psp->sy-R_GetSpriteTopOffset(lump));
     vis->x1 = x1 < 0 ? 0 : x1;
     vis->x2 = x2 >= viewwidth ? viewwidth-1 : x2;	
     vis->scale = pspritescale<<detailshift;
@@ -702,7 +702,7 @@ void R_DrawPSprite (pspdef_t* psp)
     if (flip)
     {
 	vis->xiscale = -pspriteiscale;
-	vis->startfrac = spritewidth[lump]-1;
+	vis->startfrac = R_GetSpriteWidth(lump)-1;
     }
     else
     {

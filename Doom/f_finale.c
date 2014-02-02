@@ -596,7 +596,7 @@ void F_CastDrawer (void)
     lump = sprframe->lump[0];
     flip = (boolean)sprframe->flip[0];
 			
-    patch = W_CacheLumpNum (lump+firstspritelump, PU_CACHE);
+    patch = W_CacheLumpNum (lump, PU_CACHE);
     if (flip)
 	V_DrawPatchFlipped (160,170,0,patch);
     else

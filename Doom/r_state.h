@@ -44,12 +44,6 @@
 // needed for texture pegging
 extern fixed_t*		textureheight;
 
-// needed for pre rendering (fracs)
-extern fixed_t*		spritewidth;
-
-extern fixed_t*		spriteoffset;
-extern fixed_t*		spritetopoffset;
-
 extern lighttable_t*	colormaps;
 
 extern int		viewwidth;
@@ -66,7 +60,6 @@ extern int*		texturetranslation;
 // Sprite....
 extern int		firstspritelump;
 extern int		lastspritelump;
-extern int		numspritelumps;
 
 
 

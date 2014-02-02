@@ -137,7 +137,6 @@ int		numpatches;
 
 int		firstspritelump;
 int		lastspritelump;
-int		numspritelumps;
 
 int		numtextures;
 texture_t**	textures;
@@ -154,11 +153,6 @@ byte**			texturecomposite;
 // for global animation
 int*		flattranslation;
 int*		texturetranslation;
-
-// needed for pre rendering
-fixed_t*	spritewidth;	
-fixed_t*	spriteoffset;
-fixed_t*	spritetopoffset;
 
 lighttable_t	*colormaps;
 
@@ -608,22 +602,6 @@ void R_InitSpriteLumps (void)
 	
     firstspritelump = W_GetNumForName ("S_START") + 1;
     lastspritelump = W_GetNumForName ("S_END") - 1;
-    
-    numspritelumps = lastspritelump - firstspritelump + 1;
-    spritewidth = Z_Malloc (numspritelumps*4, PU_STATIC, 0);
-    spriteoffset = Z_Malloc (numspritelumps*4, PU_STATIC, 0);
-    spritetopoffset = Z_Malloc (numspritelumps*4, PU_STATIC, 0);
-	
-    for (i=0 ; i< numspritelumps ; i++)
-    {
-	if (!(i&63))
-	    printf (".");
-
-	patch = W_CacheLumpNum (firstspritelump+i, PU_CACHE);
-	spritewidth[i] = SHORT(patch->width)<<FRACBITS;
-	spriteoffset[i] = SHORT(patch->leftoffset)<<FRACBITS;
-	spritetopoffset[i] = SHORT(patch->topoffset)<<FRACBITS;
-    }
 }
 
 
@@ -837,7 +815,7 @@ void R_PrecacheLevel (void)
 	    sf = &sprites[i].spriteframes[j];
 	    for (k=0 ; k<8 ; k++)
 	    {
-		lump = firstspritelump + sf->lump[k];
+		lump = sf->lump[k];
 		spritememory += W_LumpLength(lump);
 		W_CacheLumpNum(lump , PU_CACHE);
 	    }
