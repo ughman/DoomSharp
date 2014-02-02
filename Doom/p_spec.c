@@ -1106,7 +1106,7 @@ void P_UpdateSpecials (void)
 	    if (anim->istexture)
 		texturetranslation[i] = pic;
 	    else
-		flattranslation[i] = pic;
+		R_SetFlatTranslation(i,pic);
 	}
     }
 

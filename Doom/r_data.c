@@ -127,10 +127,6 @@ typedef struct
 
 
 
-int		firstflat;
-int		lastflat;
-int		numflats;
-
 int		firstpatch;
 int		lastpatch;
 int		numpatches;
@@ -148,7 +144,6 @@ unsigned short**	texturecolumnofs;
 byte**			texturecomposite;
 
 // for global animation
-int*		flattranslation;
 int*		texturetranslation;
 
 lighttable_t	*colormaps;
@@ -568,26 +563,6 @@ void R_InitTextures (void)
 
 
 //
-// R_InitFlats
-//
-void R_InitFlats (void)
-{
-    int		i;
-	
-    firstflat = W_GetNumForName ("F_START") + 1;
-    lastflat = W_GetNumForName ("F_END") - 1;
-    numflats = lastflat - firstflat + 1;
-	
-    // Create translation table for global animation.
-    flattranslation = Z_Malloc ((numflats+1)*4, PU_STATIC, 0);
-    
-    for (i=0 ; i<numflats ; i++)
-	flattranslation[i] = i;
-}
-
-
-
-//
 // R_InitColormaps
 //
 void R_InitColormaps (void)
@@ -615,8 +590,6 @@ void R_InitData (void)
 {
     R_InitTextures ();
     printf ("\nInitTextures");
-    R_InitFlats ();
-    printf ("\nInitFlats");
     R_InitColormaps ();
     printf ("\nInitColormaps");
 }
@@ -640,7 +613,7 @@ int R_FlatNumForName (char* name)
 	memcpy (namet, name,8);
 	I_Error ("R_FlatNumForName: %s not found",namet);
     }
-    return i - firstflat;
+    return i;
 }
 
 
@@ -694,13 +667,11 @@ int	R_TextureNumForName (char* name)
 // R_PrecacheLevel
 // Preloads all relevant graphics for the level.
 //
-int		flatmemory;
 int		texturememory;
 int		spritememory;
 
 void R_PrecacheLevel (void)
 {
-    char*		flatpresent;
     char*		texturepresent;
     char*		spritepresent;
 
@@ -717,25 +688,10 @@ void R_PrecacheLevel (void)
 	return;
     
     // Precache flats.
-    flatpresent = _alloca(numflats);
-    memset (flatpresent,0,numflats);	
-
     for (i=0 ; i<numsectors ; i++)
     {
-	flatpresent[sectors[i].floorpic] = 1;
-	flatpresent[sectors[i].ceilingpic] = 1;
-    }
-	
-    flatmemory = 0;
-
-    for (i=0 ; i<numflats ; i++)
-    {
-	if (flatpresent[i])
-	{
-	    lump = firstflat + i;
-	    flatmemory += W_LumpLength(lump);
-	    W_CacheLumpNum(lump, PU_CACHE);
-	}
+		W_CacheLumpNum(sectors[i].floorpic,PU_CACHE);
+		W_CacheLumpNum(sectors[i].ceilingpic,PU_CACHE);
     }
     
     // Precache textures.

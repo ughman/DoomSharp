@@ -5,8 +5,10 @@ extern "C"
 }
 
 #include <list>
+#include <map>
 
 std::list<visplane_t> visplanes;
+std::map<int,int> flattranslation;
 
 extern "C" void R_ClearPlanes()
 {
@@ -52,4 +54,19 @@ extern "C" void R_DrawPlanes()
 	{
 		R_DrawPlane(&*it);
 	}
+}
+
+extern "C" int R_GetFlatTranslation(int flat)
+{
+	std::map<int,int>::iterator it = flattranslation.find(flat);
+	if (it == flattranslation.end())
+	{
+		return flattranslation[flat] = flat;
+	}
+	return it->second;
+}
+
+extern "C" void R_SetFlatTranslation(int flat,int translation)
+{
+	flattranslation[flat] = translation;
 }
