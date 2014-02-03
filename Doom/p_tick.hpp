@@ -8,6 +8,13 @@ using namespace DoomSharp;
 #include <vcclr.h>
 #include <stdlib.h>
 
+extern "C"
+{
+#include "d_think.h"
+}
+
+extern int P_FindLegacyThinker(thinker_t *ptr);
+
 extern gcroot<List<Thinker^>^> thinkers;
 
 ref class LegacyThinker : Thinker

@@ -57,4 +57,6 @@ public:
 	}
 };
 
+extern Actor^ P_MobjToActor(mobj_t *mobj);
+
 #endif
