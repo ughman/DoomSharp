@@ -12,6 +12,8 @@ extern "C"
 
 ref class Actor : LegacyThinker
 {
+private:
+	Object^ species;
 public:
 	mobj_t *mobj;
 
@@ -19,6 +21,13 @@ public:
 	{
 		mobj = (mobj_t *)ptr;
 		memset(mobj,0,sizeof(mobj_t));
+		species = GetType();
+	}
+
+	property Object^ Species
+	{
+		Object^ get() { return species; }
+		void set(Object^ value) { species = value; }
 	}
 };
 
@@ -27,6 +36,7 @@ ref class LegacyActor : Actor
 public:
 	LegacyActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	{
+		Species = (int)type;
 		mobjinfo_t &info = mobjinfo[type];
 		mobj->type = type;
 		mobj->info = &info;

@@ -80,3 +80,14 @@ Actor^ P_MobjToActor(mobj_t *mobj)
 {
 	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
 }
+
+extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
+{
+	if (!a || !b)
+	{
+		return false;
+	}
+	Actor^ a2 = P_MobjToActor(a);
+	Actor^ b2 = P_MobjToActor(b);
+	return (a2->Species != nullptr && a2->Species->Equals(b2->Species));
+}
