@@ -3,6 +3,7 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace DoomSharp;
 
 #include <vcclr.h>
 #include <stdlib.h>
