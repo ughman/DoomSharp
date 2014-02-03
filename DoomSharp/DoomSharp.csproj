@@ -37,6 +37,7 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="Game Code\ActorTypeAttribute.cs" />
     <Compile Include="Game Code\CeilingDirection.cs" />
     <Compile Include="Game Code\CeilingType.cs" />
     <Compile Include="Game Code\CompatFlags.cs" />
