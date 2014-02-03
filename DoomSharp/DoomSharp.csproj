@@ -56,6 +56,8 @@
     <Compile Include="Net Code\INetSocket.cs" />
     <Compile Include="Net Code\PacketEventArgs.cs" />
     <Compile Include="Net Code\PacketType.cs" />
+    <Compile Include="Registrar\RegistrarTypeHandlerAttribute.cs" />
+    <Compile Include="Registrar\Registrar.cs" />
     <Compile Include="Utility\BitConv.cs" />
     <Compile Include="Video Code\MainWindow.cs" />
     <Compile Include="Wad Code\LumpArchive.cs" />

@@ -147,6 +147,7 @@ int main(int argc,char **argv)
 {
 	myargc = argc;
 	myargv = argv;
+	Registrar::RegisterAssembly(Assembly::GetExecutingAssembly());
 	if (M_CheckParm("-noerror"))
 	{
 		AppDomain::CurrentDomain->UnhandledException += gcnew UnhandledExceptionEventHandler(I_UnhandledException);
