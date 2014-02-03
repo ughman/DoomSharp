@@ -37,7 +37,7 @@ void I_StatTest(String^ dir,String ^game,StreamWriter^ log)
 		{
 			File::Copy(demofile,tempdemo);
 			String^ exe = Assembly::GetExecutingAssembly()->Location;
-			String^ args = String::Format("-{0} -timedemo StatDemo -statcopy {1} -novideo",game,output);
+			String^ args = String::Format("-{0} -timedemo StatDemo -statcopy {1} -novideo -noerror",game,output);
 			ProcessStartInfo psi(exe,args);
 			psi.UseShellExecute = false;
 			psi.RedirectStandardOutput = true;
@@ -138,10 +138,19 @@ void I_StatTestRoot(String^ dir,StreamWriter^ log)
 	}
 }
 
+void I_UnhandledException(Object^ sender,UnhandledExceptionEventArgs^ e)
+{
+	exit(123);
+}
+
 int main(int argc,char **argv)
 {
 	myargc = argc;
 	myargv = argv;
+	if (M_CheckParm("-noerror"))
+	{
+		AppDomain::CurrentDomain->UnhandledException += gcnew UnhandledExceptionEventHandler(I_UnhandledException);
+	}
 	if (int p = M_CheckParm("-server"))
 	{
 		long port = strtol(myargv[p + 1],NULL,10);
