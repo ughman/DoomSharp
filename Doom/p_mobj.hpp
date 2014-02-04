@@ -21,6 +21,7 @@ public:
 	{
 		mobj = (mobj_t *)ptr;
 		memset(mobj,0,sizeof(mobj_t));
+		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		species = GetType();
 	}
 
@@ -63,7 +64,6 @@ public:
 			mobj->z = mobj->ceilingz;
 		else
 			mobj->z = z;
-		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 	}
 };
 
