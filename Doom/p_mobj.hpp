@@ -27,15 +27,15 @@ public:
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		mobj->type = P_GetActorType(GetType());
 		mobj->info = NULL;
-		mobj->x = x;
-		mobj->y = y;
-		mobj->z = z;
-		mobj->radius = 20 * FRACUNIT;
-		mobj->height = 16 * FRACUNIT;
+		X = Fixed(x);
+		Y = Fixed(y);
+		Z = Fixed(z);
+		Radius = Fixed::FromInt(20);
+		Height = Fixed::FromInt(16);
 		mobj->flags = 0;
-		mobj->health = 1000;
-		mobj->reactiontime = 8;
-		mobj->lastlook = P_Random() % MAXPLAYERS;
+		Health = 1000;
+		ReactionTime = 8;
+		LastLook = P_Random() % MAXPLAYERS;
 		species = GetType();
 	}
 
@@ -216,11 +216,11 @@ public:
 		mobjinfo_t &info = mobjinfo[type];
 		mobj->type = type;
 		mobj->info = &info;
-		mobj->radius = info.radius;
-		mobj->height = info.height;
+		Radius = Fixed(info.radius);
+		Height = Fixed(info.height);
 		mobj->flags = info.flags;
-		mobj->health = info.spawnhealth;
-		mobj->reactiontime = info.reactiontime;
+		Health = info.spawnhealth;
+		ReactionTime = info.reactiontime;
 		state_t &state = states[info.spawnstate];
 		mobj->state = &state;
 		mobj->tics = state.tics;
