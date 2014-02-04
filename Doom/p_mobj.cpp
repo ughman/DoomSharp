@@ -75,6 +75,8 @@ ref class P_RegisterActorTypeClass
 
 Actor^ P_MobjToActor(mobj_t *mobj)
 {
+	if (!mobj)
+		return nullptr;
 	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
 }
 
