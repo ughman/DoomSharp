@@ -27,6 +27,13 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	{
 		actor = gcnew LegacyActor(x,y,z,type);
 	}
+	P_SetThingPosition(actor->mobj);
+	actor->mobj->floorz = actor->mobj->subsector->sector->floorheight;
+	actor->mobj->ceilingz = actor->mobj->subsector->sector->ceilingheight;
+	if (z == ONFLOORZ)
+		actor->mobj->z = actor->mobj->floorz;
+	else if (z == ONCEILINGZ)
+		actor->mobj->z = actor->mobj->ceilingz;
 	thinkers->Add(actor);
 	return actor->mobj;
 }
