@@ -25,6 +25,7 @@ public:
 		mobj->x = x;
 		mobj->y = y;
 		mobj->z = z;
+		mobj->lastlook = P_Random() % MAXPLAYERS;
 		species = GetType();
 	}
 
@@ -50,7 +51,6 @@ public:
 		mobj->health = info.spawnhealth;
 		if (gameskill != sk_nightmare)
 			mobj->reactiontime = info.reactiontime;
-		mobj->lastlook = P_Random() % MAXPLAYERS;
 		state_t &state = states[info.spawnstate];
 		mobj->state = &state;
 		mobj->tics = state.tics;
