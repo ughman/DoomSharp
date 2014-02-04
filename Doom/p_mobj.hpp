@@ -49,8 +49,7 @@ public:
 		mobj->height = info.height;
 		mobj->flags = info.flags;
 		mobj->health = info.spawnhealth;
-		if (gameskill != sk_nightmare)
-			mobj->reactiontime = info.reactiontime;
+		mobj->reactiontime = info.reactiontime;
 		state_t &state = states[info.spawnstate];
 		mobj->state = &state;
 		mobj->tics = state.tics;

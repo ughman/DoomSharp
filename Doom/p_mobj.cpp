@@ -34,6 +34,8 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 		actor->mobj->z = actor->mobj->floorz;
 	else if (z == ONCEILINGZ)
 		actor->mobj->z = actor->mobj->ceilingz;
+	if (gameskill == sk_nightmare)
+		actor->mobj->reactiontime = 0;
 	thinkers->Add(actor);
 	return actor->mobj;
 }
