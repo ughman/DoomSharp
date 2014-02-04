@@ -24,9 +24,16 @@ public:
 		mobj = (mobj_t *)ptr;
 		memset(mobj,0,sizeof(mobj_t));
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
+		mobj->type = P_GetActorType(GetType());
+		mobj->info = NULL;
 		mobj->x = x;
 		mobj->y = y;
 		mobj->z = z;
+		mobj->radius = 20 * FRACUNIT;
+		mobj->height = 16 * FRACUNIT;
+		mobj->flags = 0;
+		mobj->health = 1000;
+		mobj->reactiontime = 8;
 		mobj->lastlook = P_Random() % MAXPLAYERS;
 		species = GetType();
 	}
