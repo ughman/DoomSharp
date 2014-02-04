@@ -12,18 +12,6 @@ extern "C"
 
 gcroot<List<Type^>^> actortypes;
 
-mobj_t *P_NewActor2()
-{
-	Actor^ actor = gcnew Actor();
-	thinkers->Add(actor);
-	return actor->mobj;
-}
-
-extern "C" mobj_t *P_NewActor()
-{
-	return P_NewActor2();
-}
-
 mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
 	Actor^ actor;
