@@ -80,6 +80,11 @@ Actor^ P_MobjToActor(mobj_t *mobj)
 	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
 }
 
+Actor^ Actor::MobjToActor(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj);
+}
+
 mobjtype_t P_GetActorType(Type^ type)
 {
 	return (mobjtype_t)actortypes->IndexOf(type);
