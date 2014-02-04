@@ -11,6 +11,7 @@ extern "C"
 #include "p_mobj.hpp"
 
 gcroot<List<Type^>^> actortypes;
+gcroot<Dictionary<int,Type^>^> doomednumtable;
 
 mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
@@ -55,6 +56,7 @@ public:
 		{
 			actortypes->Add(nullptr);
 		}
+		doomednumtable = gcnew Dictionary<int,Type^>();
 	}
 } initactortypetable;
 
@@ -69,6 +71,17 @@ ref class P_RegisterActorTypeClass
 		for each (ActorTypeAttribute^ attribute in type->GetCustomAttributes(ActorTypeAttribute::typeid,false))
 		{
 			actortypes->default[attribute->Value] = type;
+		}
+		for each (DoomedNumAttribute^ attribute in type->GetCustomAttributes(DoomedNumAttribute::typeid,false))
+		{
+			if (doomednumtable->ContainsKey(attribute->Value))
+			{
+				doomednumtable->default[attribute->Value] = type;
+			}
+			else
+			{
+				doomednumtable->Add(attribute->Value,type);
+			}
 		}
 	}
 };
@@ -88,6 +101,25 @@ Actor^ Actor::MobjToActor(mobj_t *mobj)
 mobjtype_t P_GetActorType(Type^ type)
 {
 	return (mobjtype_t)actortypes->IndexOf(type);
+}
+
+extern "C" int P_LookupDoomedNum(int doomednum)
+{
+	if (doomednumtable->ContainsKey(doomednum))
+	{
+		return P_GetActorType(doomednumtable->default[doomednum]);
+	}
+	else
+	{
+		for (int i = 0;i < NUMMOBJTYPES;i++)
+		{
+			if (mobjinfo[i].doomednum == doomednum)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 }
 
 extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)

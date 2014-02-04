@@ -556,11 +556,7 @@ void P_RespawnSpecials (void)
     S_StartSound (mo, sfx_itmbk);
 
     // find which type to spawn
-    for (i=0 ; i< NUMMOBJTYPES ; i++)
-    {
-	if (mthing->type == mobjinfo[i].doomednum)
-	    break;
-    }
+	i = P_LookupDoomedNum(mthing->type);
     
     // spawn it
     if (mobjinfo[i].flags & MF_SPAWNCEILING)
@@ -701,11 +697,9 @@ void P_SpawnMapThing (mapthing_t* mthing)
 	return;
 	
     // find which type to spawn
-    for (i=0 ; i< NUMMOBJTYPES ; i++)
-	if (mthing->type == mobjinfo[i].doomednum)
-	    break;
+    i = P_LookupDoomedNum(mthing->type);
 	
-    if (i==NUMMOBJTYPES)
+    if (i==-1)
 	I_Error ("P_SpawnMapThing: Unknown type %i at (%i, %i)",
 		 mthing->type,
 		 mthing->x, mthing->y);
