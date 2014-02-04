@@ -10,6 +10,8 @@ extern "C"
 #include "p_local.h"
 }
 
+extern mobjtype_t P_GetActorType(Type^ type);
+
 ref class Actor : LegacyThinker
 {
 private:
