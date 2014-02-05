@@ -21,6 +21,7 @@ private:
 	int mass;
 	int damage;
 	int seesoundnum;
+	int activesoundnum;
 	int attacksoundnum;
 	int painsoundnum;
 	int deathsoundnum;
@@ -48,6 +49,7 @@ public:
 		mass = 100;
 		damage = 0;
 		seesoundnum = sfx_None;
+		activesoundnum = sfx_None;
 		attacksoundnum = sfx_None;
 		painsoundnum = sfx_None;
 		deathsoundnum = sfx_None;
@@ -240,6 +242,12 @@ public:
 		void set(int value) { seesoundnum = value; }
 	}
 
+	property int ActiveSoundNum
+	{
+		int get() { return activesoundnum; }
+		void set(int value) { activesoundnum = value; }
+	}
+
 	property int AttackSoundNum
 	{
 		int get() { return attacksoundnum; }
@@ -305,6 +313,7 @@ public:
 		Mass = info.mass;
 		Damage = info.damage;
 		SeeSoundNum = info.seesound;
+		ActiveSoundNum = info.activesound;
 		AttackSoundNum = info.attacksound;
 		PainSoundNum = info.painsound;
 		DeathSoundNum = info.deathsound;
