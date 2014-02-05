@@ -217,7 +217,7 @@ boolean P_CheckMissileRange (mobj_t* actor)
     dist = P_AproxDistance ( actor->x-actor->target->x,
 			     actor->y-actor->target->y) - 64*FRACUNIT;
     
-    if (!actor->info->meleestate)
+    if (!P_CheckMobjStateLabel(actor,"Melee"))
 	dist -= 128*FRACUNIT;	// no melee attack, so fire more
 
     dist >>= 16;
@@ -661,7 +661,7 @@ void A_Look (mobj_t* actor)
 	    S_StartSound (actor, sound);
     }
 
-    P_SetMobjState (actor, actor->info->seestate);
+    P_SetMobjStateLabel(actor,"See");
 }
 
 
@@ -709,7 +709,7 @@ void A_Chase (mobj_t*	actor)
 	if (P_LookForPlayers(actor,true))
 	    return; 	// got a new target
 	
-	P_SetMobjState (actor, actor->info->spawnstate);
+	P_SetMobjStateLabel(actor,"Spawn");
 	return;
     }
     
@@ -723,17 +723,17 @@ void A_Chase (mobj_t*	actor)
     }
     
     // check for melee attack
-    if (actor->info->meleestate
+    if (P_CheckMobjStateLabel(actor,"Melee")
 	&& P_CheckMeleeRange (actor))
     {
 	    S_StartSound (actor,P_GetActorAttackSound(actor));
 
-	P_SetMobjState (actor, actor->info->meleestate);
+	P_SetMobjStateLabel(actor,"Melee");
 	return;
     }
     
     // check for missile attack
-    if (actor->info->missilestate)
+    if (P_CheckMobjStateLabel(actor,"Missile"))
     {
 	if (gameskill < sk_nightmare
 	    && !fastparm && actor->movecount)
@@ -744,7 +744,7 @@ void A_Chase (mobj_t*	actor)
 	if (!P_CheckMissileRange (actor))
 	    goto nomissile;
 	
-	P_SetMobjState (actor, actor->info->missilestate);
+	P_SetMobjStateLabel(actor,"Missile");
 	actor->flags |= MF_JUSTATTACKED;
 	return;
     }
@@ -874,7 +874,7 @@ void A_CPosRefire (mobj_t* actor)
 	|| actor->target->health <= 0
 	|| !P_CheckSight (actor, actor->target) )
     {
-	P_SetMobjState (actor, actor->info->seestate);
+	P_SetMobjStateLabel(actor,"See");
     }
 }
 
@@ -891,7 +891,7 @@ void A_SpidRefire (mobj_t* actor)
 	|| actor->target->health <= 0
 	|| !P_CheckSight (actor, actor->target) )
     {
-	P_SetMobjState (actor, actor->info->seestate);
+	P_SetMobjStateLabel(actor,"See");
     }
 }
 
@@ -1137,7 +1137,7 @@ boolean PIT_VileCheck (mobj_t*	thing)
     if (thing->tics != -1)
 	return true;	// not lying still yet
     
-    if (thing->info->raisestate == S_NULL)
+    if (!P_CheckMobjStateLabel(thing,"Raise"))
 	return true;	// monster doesn't have a raise state
     
     maxdist = thing->info->radius + mobjinfo[MT_VILE].radius;
@@ -1210,7 +1210,7 @@ void A_VileChase (mobj_t* actor)
 		    S_StartSound (corpsehit, sfx_slop);
 		    info = corpsehit->info;
 		    
-		    P_SetMobjState (corpsehit,info->raisestate);
+		    P_SetMobjStateLabel(corpsehit,"Raise");
 		    corpsehit->height <<= 2;
 		    corpsehit->flags = info->flags;
 		    corpsehit->health = info->spawnhealth;
@@ -1978,7 +1978,7 @@ void A_SpawnFly (mobj_t* mo)
 
     newmobj	= P_SpawnMobj (targ->x, targ->y, targ->z, type);
     if (P_LookForPlayers (newmobj, true) )
-	P_SetMobjState (newmobj, newmobj->info->seestate);
+	P_SetMobjStateLabel(newmobj,"See");
 	
     // telefrag anything in this spot
     P_TeleportMove (newmobj, newmobj->x, newmobj->y);

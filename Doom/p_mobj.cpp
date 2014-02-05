@@ -183,3 +183,20 @@ extern "C" int P_GetActorDeathSound(mobj_t *mobj)
 {
 	return P_MobjToActor(mobj)->DeathSoundNum;
 }
+
+extern "C" bool P_CheckMobjStateLabel(mobj_t *mobj,char *label)
+{
+	return P_MobjToActor(mobj)->HasState(gcnew String(label));
+}
+
+extern "C" bool P_CheckMobjStateLabelIs(mobj_t *mobj,char *label)
+{
+	Actor^ actor = P_MobjToActor(mobj);
+	return actor->StateNum == actor->GetStateNum(gcnew String(label));
+}
+
+extern "C" void P_SetMobjStateLabel(mobj_t *mobj,char *label)
+{
+	int statenum = P_MobjToActor(mobj)->GetStateNum(gcnew String(label));
+	P_SetMobjState(mobj,(statenum_t)statenum);
+}

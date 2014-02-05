@@ -287,7 +287,7 @@ boolean PIT_CheckThing (mobj_t* thing)
 	tmthing->flags &= ~MF_SKULLFLY;
 	tmthing->momx = tmthing->momy = tmthing->momz = 0;
 	
-	P_SetMobjState (tmthing, tmthing->info->spawnstate);
+	P_SetMobjStateLabel(tmthing,"Spawn");
 	
 	return false;		// stop moving
     }
