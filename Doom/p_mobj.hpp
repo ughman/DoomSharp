@@ -8,6 +8,7 @@ extern "C"
 #include "doomstat.h"
 #include "m_random.h"
 #include "p_local.h"
+#include "sounds.h"
 }
 
 extern mobjtype_t P_GetActorType(Type^ type);
@@ -16,6 +17,14 @@ ref class Actor : LegacyThinker
 {
 private:
 	static Actor^ MobjToActor(mobj_t *mobj);
+	int speed;
+	int mass;
+	int damage;
+	int seesoundnum;
+	int attacksoundnum;
+	int painsoundnum;
+	int deathsoundnum;
+	Dictionary<String^,int>^ states;
 	Object^ species;
 public:
 	mobj_t *mobj;
@@ -35,6 +44,14 @@ public:
 		mobj->flags = 0;
 		Health = 1000;
 		ReactionTime = 8;
+		speed = 0;
+		mass = 100;
+		damage = 0;
+		seesoundnum = sfx_None;
+		attacksoundnum = sfx_None;
+		painsoundnum = sfx_None;
+		deathsoundnum = sfx_None;
+		states = gcnew Dictionary<String^,int>();
 		LastLook = P_Random() % MAXPLAYERS;
 		species = GetType();
 	}
@@ -113,8 +130,8 @@ public:
 
 	property int StateNum
 	{
-		int get() { return mobj->state - states; }
-		void set(int value) { mobj->state = &states[value]; }
+		int get() { return mobj->state - ::states; }
+		void set(int value) { mobj->state = &::states[value]; }
 	}
 
 #define LEGACYFLAG(propname,legacyname) \
@@ -200,10 +217,74 @@ public:
 		void set(Actor^ value) { mobj->tracer = value ? value->mobj : NULL; }
 	}
 
+	property int Speed
+	{
+		int get() { return speed; }
+		void set(int value) { speed = value; }
+	}
+
+	property int Mass
+	{
+		int get() { return mass; }
+		void set(int value) { mass = value; }
+	}
+
+	property int Damage
+	{
+		int get() { return damage; }
+		void set(int value) { damage = value; }
+	}
+
+	property int SeeSoundNum
+	{
+		int get() { return seesoundnum; }
+		void set(int value) { seesoundnum = value; }
+	}
+
+	property int AttackSoundNum
+	{
+		int get() { return attacksoundnum; }
+		void set(int value) { attacksoundnum = value; }
+	}
+
+	property int PainSoundNum
+	{
+		int get() { return painsoundnum; }
+		void set(int value) { painsoundnum = value; }
+	}
+
+	property int DeathSoundNum
+	{
+		int get() { return deathsoundnum; }
+		void set(int value) { deathsoundnum = value; }
+	}
+
 	property Object^ Species
 	{
 		Object^ get() { return species; }
 		void set(Object^ value) { species = value; }
+	}
+
+	void DefineState(String^ name,int statenum)
+	{
+		if (states->ContainsKey(name))
+		{
+			states[name] = statenum;
+		}
+		else
+		{
+			states->Add(name,statenum);
+		}
+	}
+
+	bool HasState(String^ name)
+	{
+		return states->ContainsKey(name);
+	}
+
+	int GetStateNum(String^ name)
+	{
+		return states[name];
 	}
 };
 
@@ -221,7 +302,30 @@ public:
 		mobj->flags = info.flags;
 		Health = info.spawnhealth;
 		ReactionTime = info.reactiontime;
-		state_t &state = states[info.spawnstate];
+		Speed = info.speed;
+		Mass = info.mass;
+		Damage = info.damage;
+		SeeSoundNum = info.seesound;
+		AttackSoundNum = info.attacksound;
+		PainSoundNum = info.painsound;
+		DeathSoundNum = info.deathsound;
+		if (info.spawnstate)
+			DefineState("Spawn",info.spawnstate);
+		if (info.seestate)
+			DefineState("See",info.seestate);
+		if (info.meleestate)
+			DefineState("Melee",info.meleestate);
+		if (info.missilestate)
+			DefineState("Missile",info.missilestate);
+		if (info.painstate)
+			DefineState("Pain",info.painstate);
+		if (info.deathstate)
+			DefineState("Death",info.deathstate);
+		if (info.xdeathstate)
+			DefineState("XDeath",info.xdeathstate);
+		if (info.raisestate)
+			DefineState("Raise",info.raisestate);
+		state_t &state = ::states[info.spawnstate];
 		mobj->state = &state;
 		mobj->tics = state.tics;
 		mobj->sprite = state.sprite;
