@@ -629,11 +629,11 @@ void A_Look (mobj_t* actor)
 		
     // go into chase state
   seeyou:
-    if (actor->info->seesound)
+    if (P_GetActorSeeSound(actor))
     {
 	int		sound;
 		
-	switch (actor->info->seesound)
+	switch (P_GetActorSeeSound(actor))
 	{
 	  case sfx_posit1:
 	  case sfx_posit2:
@@ -647,7 +647,7 @@ void A_Look (mobj_t* actor)
 	    break;
 
 	  default:
-	    sound = actor->info->seesound;
+	    sound = P_GetActorSeeSound(actor);
 	    break;
 	}
 
@@ -726,7 +726,7 @@ void A_Chase (mobj_t*	actor)
     if (actor->info->meleestate
 	&& P_CheckMeleeRange (actor))
     {
-	    S_StartSound (actor, actor->info->attacksound);
+	    S_StartSound (actor,P_GetActorAttackSound(actor));
 
 	P_SetMobjState (actor, actor->info->meleestate);
 	return;
@@ -768,10 +768,10 @@ void A_Chase (mobj_t*	actor)
     }
     
     // make active sound
-    if (actor->info->activesound
+    if (P_GetActorActiveSound(actor)
 	&& P_Random () < 3)
     {
-	S_StartSound (actor, actor->info->activesound);
+	S_StartSound (actor,P_GetActorActiveSound(actor));
     }
 }
 
@@ -1428,7 +1428,7 @@ void A_SkullAttack (mobj_t* actor)
     dest = actor->target;	
     actor->flags |= MF_SKULLFLY;
 
-    S_StartSound (actor, actor->info->attacksound);
+    S_StartSound (actor,P_GetActorAttackSound(actor));
     A_FaceTarget (actor);
     an = actor->angle >> ANGLETOFINESHIFT;
     actor->momx = FixedMul (SKULLSPEED, finecosine[an]);
@@ -1536,7 +1536,7 @@ void A_Scream (mobj_t* actor)
 {
     int		sound;
 	
-    switch (actor->info->deathsound)
+    switch (P_GetActorDeathSound(actor))
     {
       case 0:
 	return;
@@ -1553,7 +1553,7 @@ void A_Scream (mobj_t* actor)
 	break;
 	
       default:
-	sound = actor->info->deathsound;
+	sound = P_GetActorDeathSound(actor);
 	break;
     }
 
@@ -1576,7 +1576,7 @@ void A_XScream (mobj_t* actor)
 
 void A_Pain (mobj_t* actor)
 {
-	S_StartSound (actor, actor->info->painsound);	
+	S_StartSound (actor,P_GetActorPainSound(actor));
 }
 
 

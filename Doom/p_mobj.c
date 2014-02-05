@@ -102,7 +102,7 @@ void P_ExplodeMissile (mobj_t* mo)
 
     mo->flags &= ~MF_MISSILE;
 
-	S_StartSound (mo, mo->info->deathsound);
+	S_StartSound (mo, P_GetActorDeathSound(mo));
 }
 
 
@@ -842,7 +842,7 @@ P_SpawnMissile
 		      source->y,
 		      source->z + 4*8*FRACUNIT, type);
     
-	S_StartSound (th, th->info->seesound);
+	S_StartSound (th,P_GetActorSeeSound(th));
 
     th->target = source;	// where it came from
     an = R_PointToAngle2 (source->x, source->y, dest->x, dest->y);	
@@ -914,7 +914,7 @@ P_SpawnPlayerMissile
 	
     th = P_SpawnMobj (x,y,z, type);
 
-	S_StartSound (th, th->info->seesound);
+	S_StartSound (th,P_GetActorSeeSound(th));
 
     th->target = source;
     th->angle = an;

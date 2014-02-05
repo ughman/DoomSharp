@@ -138,3 +138,28 @@ extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
 	Actor^ b2 = P_MobjToActor(b);
 	return (a2->Species != nullptr && a2->Species->Equals(b2->Species));
 }
+
+extern "C" int P_GetActorSeeSound(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->SeeSoundNum;
+}
+
+extern "C" int P_GetActorActiveSound(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->ActiveSoundNum;
+}
+
+extern "C" int P_GetActorAttackSound(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->AttackSoundNum;
+}
+
+extern "C" int P_GetActorPainSound(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->PainSoundNum;
+}
+
+extern "C" int P_GetActorDeathSound(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->DeathSoundNum;
+}
