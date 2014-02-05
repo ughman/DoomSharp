@@ -37,6 +37,12 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 		actor->mobj->z = actor->mobj->ceilingz;
 	if (gameskill == sk_nightmare)
 		actor->mobj->reactiontime = 0;
+	actor->LastLook = P_Random() % MAXPLAYERS;
+	actor->StateNum = actor->GetStateNum("Spawn");
+	state_t &state = states[actor->StateNum];
+	actor->Tics = state.tics;
+	actor->SpriteNum = state.sprite;
+	actor->SpriteFrame = state.frame;
 	thinkers->Add(actor);
 	return actor->mobj;
 }

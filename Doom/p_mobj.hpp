@@ -52,7 +52,6 @@ public:
 		painsoundnum = sfx_None;
 		deathsoundnum = sfx_None;
 		states = gcnew Dictionary<String^,int>();
-		LastLook = P_Random() % MAXPLAYERS;
 		species = GetType();
 	}
 
@@ -325,11 +324,6 @@ public:
 			DefineState("XDeath",info.xdeathstate);
 		if (info.raisestate)
 			DefineState("Raise",info.raisestate);
-		state_t &state = ::states[info.spawnstate];
-		mobj->state = &state;
-		mobj->tics = state.tics;
-		mobj->sprite = state.sprite;
-		mobj->frame = state.frame;
 	}
 };
 
