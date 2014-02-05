@@ -54,6 +54,7 @@ public:
 		painsoundnum = sfx_None;
 		deathsoundnum = sfx_None;
 		states = gcnew Dictionary<String^,int>();
+		DefineState("Spawn",0);
 		species = GetType();
 	}
 
