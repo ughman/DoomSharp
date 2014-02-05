@@ -102,7 +102,6 @@ void P_ExplodeMissile (mobj_t* mo)
 
     mo->flags &= ~MF_MISSILE;
 
-    if (mo->info->deathsound)
 	S_StartSound (mo, mo->info->deathsound);
 }
 
@@ -843,7 +842,6 @@ P_SpawnMissile
 		      source->y,
 		      source->z + 4*8*FRACUNIT, type);
     
-    if (th->info->seesound)
 	S_StartSound (th, th->info->seesound);
 
     th->target = source;	// where it came from
@@ -916,7 +914,6 @@ P_SpawnPlayerMissile
 	
     th = P_SpawnMobj (x,y,z, type);
 
-    if (th->info->seesound)
 	S_StartSound (th, th->info->seesound);
 
     th->target = source;

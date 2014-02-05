@@ -275,6 +275,8 @@ S_StartSoundAtVolume
   	   sfx_id, S_sfx[sfx_id].name );*/
   
   // check for bogus sound #
+  if (sfx_id == sfx_None)
+	  return;
   if (sfx_id < 1 || sfx_id > NUMSFX)
     I_Error("Bad sfx #: %d", sfx_id);
   

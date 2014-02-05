@@ -726,7 +726,6 @@ void A_Chase (mobj_t*	actor)
     if (actor->info->meleestate
 	&& P_CheckMeleeRange (actor))
     {
-	if (actor->info->attacksound)
 	    S_StartSound (actor, actor->info->attacksound);
 
 	P_SetMobjState (actor, actor->info->meleestate);
@@ -1577,7 +1576,6 @@ void A_XScream (mobj_t* actor)
 
 void A_Pain (mobj_t* actor)
 {
-    if (actor->info->painsound)
 	S_StartSound (actor, actor->info->painsound);	
 }
 
