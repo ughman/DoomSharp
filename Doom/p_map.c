@@ -280,7 +280,7 @@ boolean PIT_CheckThing (mobj_t* thing)
     // check for skulls slamming into things
     if (tmthing->flags & MF_SKULLFLY)
     {
-	damage = ((P_Random()%8)+1)*tmthing->info->damage;
+	damage = ((P_Random()%8)+1)*P_GetActorDamage(tmthing);
 	
 	P_DamageMobj (thing, tmthing, tmthing, damage);
 	
@@ -313,7 +313,7 @@ boolean PIT_CheckThing (mobj_t* thing)
 	}
 	
 	// damage / explode
-	damage = ((P_Random()%8)+1)*tmthing->info->damage;
+	damage = ((P_Random()%8)+1)*P_GetActorDamage(tmthing);
 	P_DamageMobj (thing, tmthing, tmthing->target, damage);
 
 	// don't traverse any more

@@ -815,7 +815,7 @@ P_DamageMobj
 				target->x,
 				target->y);
 		
-	thrust = damage*(FRACUNIT>>3)*100/target->info->mass;
+	thrust = damage*(FRACUNIT>>3)*100/P_GetActorMass(target);
 
 	// make fall forwards sometimes
 	if ( damage < 40
@@ -892,7 +892,7 @@ P_DamageMobj
 	return;
     }
 
-    if ( (P_Random () < target->info->painchance)
+    if ( (P_Random () < P_GetActorPainChance(target))
 	 && !(target->flags&MF_SKULLFLY) )
     {
 	target->flags |= MF_JUSTHIT;	// fight back!

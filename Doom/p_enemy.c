@@ -288,8 +288,8 @@ boolean P_Move (mobj_t*	actor)
     if ((unsigned)actor->movedir >= 8)
 	I_Error ("Weird actor->movedir!");
 		
-    tryx = actor->x + actor->info->speed*xspeed[actor->movedir];
-    tryy = actor->y + actor->info->speed*yspeed[actor->movedir];
+    tryx = actor->x + P_GetActorSpeed(actor)*xspeed[actor->movedir];
+    tryy = actor->y + P_GetActorSpeed(actor)*yspeed[actor->movedir];
 
     try_ok = P_TryMove (actor, tryx, tryy);
 
@@ -1070,14 +1070,14 @@ void A_Tracer (mobj_t* actor)
     }
 	
     exact = actor->angle>>ANGLETOFINESHIFT;
-    actor->momx = FixedMul (actor->info->speed, finecosine[exact]);
-    actor->momy = FixedMul (actor->info->speed, finesine[exact]);
+    actor->momx = FixedMul (P_GetActorSpeed(actor), finecosine[exact]);
+    actor->momy = FixedMul (P_GetActorSpeed(actor), finesine[exact]);
     
     // change slope
     dist = P_AproxDistance (dest->x - actor->x,
 			    dest->y - actor->y);
     
-    dist = dist / actor->info->speed;
+    dist = dist / P_GetActorSpeed(actor);
 
     if (dist < 1)
 	dist = 1;
@@ -1181,9 +1181,9 @@ void A_VileChase (mobj_t* actor)
     {
 	// check for corpses to raise
 	viletryx =
-	    actor->x + actor->info->speed*xspeed[actor->movedir];
+	    actor->x + P_GetActorSpeed(actor)*xspeed[actor->movedir];
 	viletryy =
-	    actor->y + actor->info->speed*yspeed[actor->movedir];
+	    actor->y + P_GetActorSpeed(actor)*yspeed[actor->movedir];
 
 	xl = (viletryx - bmaporgx - MAXRADIUS*2)>>MAPBLOCKSHIFT;
 	xh = (viletryx - bmaporgx + MAXRADIUS*2)>>MAPBLOCKSHIFT;
@@ -1322,7 +1322,7 @@ void A_VileAttack (mobj_t* actor)
 
     S_StartSound (actor, sfx_barexp);
     P_DamageMobj (actor->target, actor, actor, 20);
-    actor->target->momz = 1000*FRACUNIT/actor->target->info->mass;
+    actor->target->momz = 1000*FRACUNIT/P_GetActorMass(actor->target);
 	
     an = actor->angle >> ANGLETOFINESHIFT;
 
@@ -1368,8 +1368,8 @@ void A_FatAttack1 (mobj_t* actor)
     mo = P_SpawnMissile (actor, actor->target, MT_FATSHOT);
     mo->angle += FATSPREAD;
     an = mo->angle >> ANGLETOFINESHIFT;
-    mo->momx = FixedMul (mo->info->speed, finecosine[an]);
-    mo->momy = FixedMul (mo->info->speed, finesine[an]);
+    mo->momx = FixedMul (P_GetActorSpeed(mo), finecosine[an]);
+    mo->momy = FixedMul (P_GetActorSpeed(mo), finesine[an]);
 }
 
 void A_FatAttack2 (mobj_t* actor)
@@ -1385,8 +1385,8 @@ void A_FatAttack2 (mobj_t* actor)
     mo = P_SpawnMissile (actor, actor->target, MT_FATSHOT);
     mo->angle -= FATSPREAD*2;
     an = mo->angle >> ANGLETOFINESHIFT;
-    mo->momx = FixedMul (mo->info->speed, finecosine[an]);
-    mo->momy = FixedMul (mo->info->speed, finesine[an]);
+    mo->momx = FixedMul (P_GetActorSpeed(mo), finecosine[an]);
+    mo->momy = FixedMul (P_GetActorSpeed(mo), finesine[an]);
 }
 
 void A_FatAttack3 (mobj_t*	actor)
@@ -1399,14 +1399,14 @@ void A_FatAttack3 (mobj_t*	actor)
     mo = P_SpawnMissile (actor, actor->target, MT_FATSHOT);
     mo->angle -= FATSPREAD/2;
     an = mo->angle >> ANGLETOFINESHIFT;
-    mo->momx = FixedMul (mo->info->speed, finecosine[an]);
-    mo->momy = FixedMul (mo->info->speed, finesine[an]);
+    mo->momx = FixedMul (P_GetActorSpeed(mo), finecosine[an]);
+    mo->momy = FixedMul (P_GetActorSpeed(mo), finesine[an]);
 
     mo = P_SpawnMissile (actor, actor->target, MT_FATSHOT);
     mo->angle += FATSPREAD/2;
     an = mo->angle >> ANGLETOFINESHIFT;
-    mo->momx = FixedMul (mo->info->speed, finecosine[an]);
-    mo->momy = FixedMul (mo->info->speed, finesine[an]);
+    mo->momx = FixedMul (P_GetActorSpeed(mo), finecosine[an]);
+    mo->momy = FixedMul (P_GetActorSpeed(mo), finesine[an]);
 }
 
 

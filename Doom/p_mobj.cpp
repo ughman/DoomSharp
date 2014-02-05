@@ -139,6 +139,26 @@ extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
 	return (a2->Species != nullptr && a2->Species->Equals(b2->Species));
 }
 
+extern "C" int P_GetActorSpeed(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->Speed;
+}
+
+extern "C" int P_GetActorMass(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->Mass;
+}
+
+extern "C" int P_GetActorDamage(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->Damage;
+}
+
+extern "C" int P_GetActorPainChance(mobj_t *mobj)
+{
+	return P_MobjToActor(mobj)->PainChance;
+}
+
 extern "C" int P_GetActorSeeSound(mobj_t *mobj)
 {
 	return P_MobjToActor(mobj)->SeeSoundNum;
