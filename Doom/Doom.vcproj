@@ -1091,6 +1091,7 @@
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1099,6 +1100,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1108,6 +1110,28 @@
 				</File>
 				<File
 					RelativePath=".\a_marine.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\a_unsorted.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
