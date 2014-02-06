@@ -1274,6 +1274,7 @@ char	savename[256];
 
 void G_LoadGame (char* name) 
 { 
+	return;
     strcpy (savename, name); 
     gameaction = ga_loadgame; 
 } 
@@ -1345,6 +1346,7 @@ G_SaveGame
 ( int	slot,
   char*	description ) 
 { 
+	return;
     savegameslot = slot; 
     strcpy (savedescription, description); 
     sendsave = true; 
