@@ -558,8 +558,9 @@ void P_RespawnSpecials (void)
     // find which type to spawn
 	i = P_LookupDoomedNum(mthing->type);
     
+	P_SetDummyActor(i);
     // spawn it
-    if (mobjinfo[i].flags & MF_SPAWNCEILING)
+    if (dummyactor->flags & MF_SPAWNCEILING)
 	z = ONCEILINGZ;
     else
 	z = ONFLOORZ;
@@ -704,14 +705,15 @@ void P_SpawnMapThing (mapthing_t* mthing)
 		 mthing->type,
 		 mthing->x, mthing->y);
 		
+	P_SetDummyActor(i);
     // don't spawn keycards and players in deathmatch
-    if (deathmatch && mobjinfo[i].flags & MF_NOTDMATCH)
+    if (deathmatch && dummyactor->flags & MF_NOTDMATCH)
 	return;
 		
     // don't spawn any monsters if -nomonsters
     if (nomonsters
 	&& ( i == MT_SKULL
-	     || (mobjinfo[i].flags & MF_COUNTKILL)) )
+	     || (dummyactor->flags & MF_COUNTKILL)) )
     {
 	return;
     }
@@ -720,7 +722,7 @@ void P_SpawnMapThing (mapthing_t* mthing)
     x = mthing->x << FRACBITS;
     y = mthing->y << FRACBITS;
 
-    if (mobjinfo[i].flags & MF_SPAWNCEILING)
+    if (dummyactor->flags & MF_SPAWNCEILING)
 	z = ONCEILINGZ;
     else
 	z = ONFLOORZ;

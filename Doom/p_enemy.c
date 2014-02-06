@@ -1141,8 +1141,12 @@ boolean PIT_VileCheck (mobj_t*	thing)
     if (!P_CheckMobjStateLabel(thing,"Raise"))
 	return true;	// monster doesn't have a raise state
     
+	P_SetDummyActor(MT_VILE);
+	{
+	int vileradius = dummyactor->radius;
 	P_SetDummyActor(thing->type);
-	maxdist = dummyactor->radius + mobjinfo[MT_VILE].radius;
+	maxdist = dummyactor->radius + vileradius;
+	}
 	
     if ( abs(thing->x - viletryx) > maxdist
 	 || abs(thing->y - viletryy) > maxdist )
@@ -1484,10 +1488,14 @@ A_PainShootSkull
     // okay, there's playe for another one
     an = angle >> ANGLETOFINESHIFT;
     
+	P_SetDummyActor(MT_SKULL);
+	{
+	int skullradius = dummyactor->radius;
 	P_SetDummyActor(actor->type);
     prestep =
 	4*FRACUNIT
-	+ 3*(dummyactor->radius + mobjinfo[MT_SKULL].radius)/2;
+	+ 3*(dummyactor->radius + skullradius)/2;
+	}
     
     x = actor->x + FixedMul (prestep, finecosine[an]);
     y = actor->y + FixedMul (prestep, finesine[an]);
