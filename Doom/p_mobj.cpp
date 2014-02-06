@@ -42,7 +42,17 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	else if (z == ONCEILINGZ)
 		actor->mobj->z = actor->mobj->ceilingz;
 	if (gameskill == sk_nightmare)
+	{
 		actor->mobj->reactiontime = 0;
+		switch (actor->mobj->type)
+		{
+		case MT_BRUISERSHOT:
+		case MT_HEADSHOT:
+		case MT_TROOPSHOT:
+			actor->Speed = Fixed::FromInt(20);
+			break;
+		}
+	}
 	actor->LastLook = P_Random() % MAXPLAYERS;
 	actor->StateNum = actor->GetStateNum("Spawn");
 	state_t &state = states[actor->StateNum];
