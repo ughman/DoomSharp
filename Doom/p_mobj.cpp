@@ -112,11 +112,7 @@ ref class P_RegisterActorTypeClass
 
 Actor^ P_MobjToActor(mobj_t *mobj)
 {
-	if (!mobj)
-		return nullptr;
-	if (mobj == dummyactor)
-		return dummyactors->default[mobj->type];
-	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
+	return (Actor^)P_GetLegacyThinker(&mobj->thinker);
 }
 
 Actor^ Actor::MobjToActor(mobj_t *mobj)
