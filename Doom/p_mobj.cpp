@@ -12,6 +12,7 @@ extern "C"
 
 gcroot<List<Type^>^> actortypes;
 gcroot<Dictionary<int,Type^>^> doomednumtable;
+gcroot<Dictionary<int,Actor^>^> dummyactors;
 
 Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
@@ -79,6 +80,7 @@ public:
 			actortypes->Add(nullptr);
 		}
 		doomednumtable = gcnew Dictionary<int,Type^>();
+		dummyactors = gcnew Dictionary<int,Actor^>();
 	}
 } initactortypetable;
 
@@ -108,14 +110,12 @@ ref class P_RegisterActorTypeClass
 	}
 };
 
-gcroot<Actor^> dummyactoractor;
-
 Actor^ P_MobjToActor(mobj_t *mobj)
 {
 	if (!mobj)
 		return nullptr;
 	if (mobj == dummyactor)
-		return dummyactoractor;
+		return dummyactors->default[mobj->type];
 	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
 }
 
@@ -232,6 +232,11 @@ mobj_t *dummyactor;
 
 extern "C" void P_SetDummyActor(mobjtype_t type)
 {
-	dummyactoractor = P_CreateActor(0,0,0,type);
-	dummyactor = dummyactoractor->mobj;
+	Actor^ actor;
+	if (!dummyactors->TryGetValue(type,actor))
+	{
+		actor = P_CreateActor(0,0,0,type);
+		dummyactors->Add(type,actor);
+	}
+	dummyactor = actor->mobj;
 }
