@@ -717,7 +717,8 @@ P_KillMobj
 	
     }
 
-    if (target->health < -target->info->spawnhealth 
+	P_SetDummyActor(target->type);
+    if (target->health < -dummyactor->health
 	&& P_CheckMobjStateLabel(target,"XDeath"))
     {
 	P_SetMobjStateLabel(target,"XDeath");

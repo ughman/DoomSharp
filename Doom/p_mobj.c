@@ -395,7 +395,8 @@ P_NightmareRespawn (mobj_t* mobj)
     mthing = &mobj->spawnpoint;
 	
     // spawn it
-    if (mobj->info->flags & MF_SPAWNCEILING)
+	P_SetDummyActor(mobj->type);
+    if (dummyactor->flags & MF_SPAWNCEILING)
 	z = ONCEILINGZ;
     else
 	z = ONFLOORZ;

@@ -183,7 +183,8 @@ boolean P_CheckMeleeRange (mobj_t*	actor)
     pl = actor->target;
     dist = P_AproxDistance (pl->x-actor->x, pl->y-actor->y);
 
-    if (dist >= MELEERANGE-20*FRACUNIT+pl->info->radius)
+	P_SetDummyActor(pl->type);
+    if (dist >= MELEERANGE-20*FRACUNIT+dummyactor->radius)
 	return false;
 	
     if (! P_CheckSight (actor, actor->target) )
@@ -1140,7 +1141,8 @@ boolean PIT_VileCheck (mobj_t*	thing)
     if (!P_CheckMobjStateLabel(thing,"Raise"))
 	return true;	// monster doesn't have a raise state
     
-    maxdist = thing->info->radius + mobjinfo[MT_VILE].radius;
+	P_SetDummyActor(thing->type);
+	maxdist = dummyactor->radius + mobjinfo[MT_VILE].radius;
 	
     if ( abs(thing->x - viletryx) > maxdist
 	 || abs(thing->y - viletryy) > maxdist )
@@ -1208,12 +1210,12 @@ void A_VileChase (mobj_t* actor)
 					
 		    P_SetMobjState (actor, S_VILE_HEAL1);
 		    S_StartSound (corpsehit, sfx_slop);
-		    info = corpsehit->info;
+			P_SetDummyActor(corpsehit->type);
 		    
 		    P_SetMobjStateLabel(corpsehit,"Raise");
 		    corpsehit->height <<= 2;
-		    corpsehit->flags = info->flags;
-		    corpsehit->health = info->spawnhealth;
+		    corpsehit->flags = dummyactor->flags;
+		    corpsehit->health = dummyactor->health;
 		    corpsehit->target = NULL;
 
 		    return;
@@ -1482,9 +1484,10 @@ A_PainShootSkull
     // okay, there's playe for another one
     an = angle >> ANGLETOFINESHIFT;
     
+	P_SetDummyActor(actor->type);
     prestep =
 	4*FRACUNIT
-	+ 3*(actor->info->radius + mobjinfo[MT_SKULL].radius)/2;
+	+ 3*(dummyactor->radius + mobjinfo[MT_SKULL].radius)/2;
     
     x = actor->x + FixedMul (prestep, finecosine[an]);
     y = actor->y + FixedMul (prestep, finesine[an]);

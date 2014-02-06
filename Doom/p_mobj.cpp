@@ -13,7 +13,7 @@ extern "C"
 gcroot<List<Type^>^> actortypes;
 gcroot<Dictionary<int,Type^>^> doomednumtable;
 
-mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
+Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
 	Actor^ actor;
 	if (actortypes->default[type])
@@ -28,6 +28,12 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	{
 		actor = gcnew LegacyActor(x,y,z,type);
 	}
+	return actor;
+}
+
+mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
+{
+	Actor^ actor = P_CreateActor(x,y,z,type);
 	P_SetThingPosition(actor->mobj);
 	actor->mobj->floorz = actor->mobj->subsector->sector->floorheight;
 	actor->mobj->ceilingz = actor->mobj->subsector->sector->ceilingheight;
@@ -199,4 +205,13 @@ extern "C" void P_SetMobjStateLabel(mobj_t *mobj,char *label)
 {
 	int statenum = P_MobjToActor(mobj)->GetStateNum(gcnew String(label));
 	P_SetMobjState(mobj,(statenum_t)statenum);
+}
+
+mobj_t *dummyactor;
+
+extern "C" void P_SetDummyActor(mobjtype_t type)
+{
+	static gcroot<Actor^> actor;
+	actor = P_CreateActor(0,0,0,type);
+	dummyactor = actor->mobj;
 }
