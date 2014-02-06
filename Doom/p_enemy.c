@@ -1180,7 +1180,6 @@ void A_VileChase (mobj_t* actor)
     int			bx;
     int			by;
 
-    mobjinfo_t*		info;
     mobj_t*		temp;
 	
     if (actor->movedir != DI_NODIR)
