@@ -37,7 +37,6 @@ public:
 		memset(mobj,0,sizeof(mobj_t));
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		mobj->type = P_GetActorType(GetType());
-		mobj->info = NULL;
 		X = Fixed(x);
 		Y = Fixed(y);
 		Z = Fixed(z);
@@ -312,7 +311,6 @@ public:
 		Species = (int)type;
 		mobjinfo_t &info = mobjinfo[type];
 		mobj->type = type;
-		mobj->info = &info;
 		Radius = Fixed(info.radius);
 		Height = Fixed(info.height);
 		mobj->flags = info.flags;
