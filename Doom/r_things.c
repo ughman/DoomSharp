@@ -270,8 +270,6 @@ void R_InitSpriteDefs (char** namelist)
 //
 // GAME FUNCTIONS
 //
-vissprite_t	vissprites[MAXVISSPRITES];
-vissprite_t*	vissprite_p;
 int		newvissprite;
 
 
@@ -290,32 +288,6 @@ void R_InitSprites (char** namelist)
     }
 	
     R_InitSpriteDefs (namelist);
-}
-
-
-
-//
-// R_ClearSprites
-// Called at frame start.
-//
-void R_ClearSprites (void)
-{
-    vissprite_p = vissprites;
-}
-
-
-//
-// R_NewVisSprite
-//
-vissprite_t	overflowsprite;
-
-vissprite_t* R_NewVisSprite (void)
-{
-    if (vissprite_p == &vissprites[MAXVISSPRITES])
-	return &overflowsprite;
-    
-    vissprite_p++;
-    return vissprite_p-1;
 }
 
 
@@ -767,33 +739,38 @@ void R_DrawPlayerSprites (void)
 //
 vissprite_t	vsprsortedhead;
 
+extern vissprite_t *R_FirstVisSprite();
+extern vissprite_t *R_LastVisSprite();
 
 void R_SortVisSprites (void)
 {
     int			i;
     int			count;
     vissprite_t*	ds;
+	vissprite_t* dsprev;
+	vissprite_t* dsnext;
     vissprite_t*	best;
     vissprite_t		unsorted;
     fixed_t		bestscale;
 
-    count = vissprite_p - vissprites;
+    count = R_CountVisSprites();
 	
     unsorted.next = unsorted.prev = &unsorted;
 
     if (!count)
 	return;
 		
-    for (ds=vissprites ; ds<vissprite_p ; ds++)
+	dsprev = NULL;
+    for (ds=R_FirstVisSprite() ; ds ; ds=ds->next)
     {
-	ds->next = ds+1;
-	ds->prev = ds-1;
+	ds->prev = dsprev;
+	dsprev = ds;
     }
     
-    vissprites[0].prev = &unsorted;
-    unsorted.next = &vissprites[0];
-    (vissprite_p-1)->next = &unsorted;
-    unsorted.prev = vissprite_p-1;
+    R_FirstVisSprite()->prev = &unsorted;
+    unsorted.next = R_FirstVisSprite();
+    R_LastVisSprite()->next = &unsorted;
+    unsorted.prev = R_LastVisSprite();
     
     // pull the vissprites out by scale
     //best = 0;		// shut up the compiler warning
@@ -946,7 +923,7 @@ void R_DrawMasked (void)
 	
     R_SortVisSprites ();
 
-    if (vissprite_p > vissprites)
+    if (R_CountVisSprites())
     {
 	// draw all vissprites back to front
 	for (spr = vsprsortedhead.next ;
