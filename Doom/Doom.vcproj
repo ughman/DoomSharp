@@ -329,10 +329,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\p_saveg.c"
-					>
-				</File>
-				<File
 					RelativePath=".\p_setup.c"
 					>
 				</File>
