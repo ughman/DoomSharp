@@ -93,7 +93,7 @@ void P_ExplodeMissile (mobj_t* mo)
 {
     mo->momx = mo->momy = mo->momz = 0;
 
-    P_SetMobjState (mo, mobjinfo[mo->type].deathstate);
+    P_SetMobjStateLabel(mo,"Death");
 
     mo->tics -= P_Random()&3;
 
