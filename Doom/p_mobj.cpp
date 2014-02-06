@@ -17,13 +17,14 @@ gcroot<Dictionary<int,Actor^>^> dummyactors;
 Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
 	Actor^ actor;
-	if (actortypes->default[type])
+	Type^ actortype = actortypes->default[type];
+	if (actortype)
 	{
 		array<Object^>^ args = gcnew array<Object^>(3);
 		args[0] = x;
 		args[1] = y;
 		args[2] = z;
-		actor = (Actor^)Activator::CreateInstance(actortypes->default[type],args);
+		actor = (Actor^)Activator::CreateInstance(actortype,args);
 	}
 	else
 	{
@@ -127,9 +128,10 @@ mobjtype_t P_GetActorType(Type^ type)
 
 extern "C" int P_LookupDoomedNum(int doomednum)
 {
-	if (doomednumtable->ContainsKey(doomednum))
+	Type^ type;
+	if (doomednumtable->TryGetValue(doomednum,type))
 	{
-		return P_GetActorType(doomednumtable->default[doomednum]);
+		return P_GetActorType(type);
 	}
 	else
 	{
