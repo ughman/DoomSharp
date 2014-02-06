@@ -108,10 +108,14 @@ ref class P_RegisterActorTypeClass
 	}
 };
 
+gcroot<Actor^> dummyactoractor;
+
 Actor^ P_MobjToActor(mobj_t *mobj)
 {
 	if (!mobj)
 		return nullptr;
+	if (mobj == dummyactor)
+		return dummyactoractor;
 	return (Actor^)thinkers->default[P_FindLegacyThinker(&mobj->thinker)];
 }
 
@@ -221,7 +225,6 @@ mobj_t *dummyactor;
 
 extern "C" void P_SetDummyActor(mobjtype_t type)
 {
-	static gcroot<Actor^> actor;
-	actor = P_CreateActor(0,0,0,type);
-	dummyactor = actor->mobj;
+	dummyactoractor = P_CreateActor(0,0,0,type);
+	dummyactor = dummyactoractor->mobj;
 }
