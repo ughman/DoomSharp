@@ -1303,36 +1303,6 @@ typedef enum {
 
 } mobjtype_t;
 
-typedef struct
-{
-    int	doomednum;
-    int	spawnstate;
-    int	spawnhealth;
-    int	seestate;
-    int	seesound;
-    int	reactiontime;
-    int	attacksound;
-    int	painstate;
-    int	painchance;
-    int	painsound;
-    int	meleestate;
-    int	missilestate;
-    int	deathstate;
-    int	xdeathstate;
-    int	deathsound;
-    int	speed;
-    int	radius;
-    int	height;
-    int	mass;
-    int	damage;
-    int	activesound;
-    int	flags;
-    int	raisestate;
-
-} mobjinfo_t;
-
-extern mobjinfo_t mobjinfo[NUMMOBJTYPES];
-
 #endif
 //-----------------------------------------------------------------------------
 //

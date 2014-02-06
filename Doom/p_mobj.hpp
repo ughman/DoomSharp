@@ -303,47 +303,6 @@ public:
 	}
 };
 
-ref class LegacyActor : Actor
-{
-public:
-	LegacyActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type) : Actor(x,y,z)
-	{
-		Species = (int)type;
-		mobjinfo_t &info = mobjinfo[type];
-		mobj->type = type;
-		Radius = Fixed(info.radius);
-		Height = Fixed(info.height);
-		mobj->flags = info.flags;
-		Health = info.spawnhealth;
-		ReactionTime = info.reactiontime;
-		Speed = Fixed(info.speed);
-		Mass = info.mass;
-		Damage = info.damage;
-		PainChance = info.painchance;
-		SeeSoundNum = info.seesound;
-		ActiveSoundNum = info.activesound;
-		AttackSoundNum = info.attacksound;
-		PainSoundNum = info.painsound;
-		DeathSoundNum = info.deathsound;
-		if (info.spawnstate)
-			DefineState("Spawn",info.spawnstate);
-		if (info.seestate)
-			DefineState("See",info.seestate);
-		if (info.meleestate)
-			DefineState("Melee",info.meleestate);
-		if (info.missilestate)
-			DefineState("Missile",info.missilestate);
-		if (info.painstate)
-			DefineState("Pain",info.painstate);
-		if (info.deathstate)
-			DefineState("Death",info.deathstate);
-		if (info.xdeathstate)
-			DefineState("XDeath",info.xdeathstate);
-		if (info.raisestate)
-			DefineState("Raise",info.raisestate);
-	}
-};
-
 extern Actor^ P_MobjToActor(mobj_t *mobj);
 
 #endif
