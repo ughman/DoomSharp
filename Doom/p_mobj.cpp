@@ -147,7 +147,7 @@ extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
 
 extern "C" int P_GetActorSpeed(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->Speed;
+	return P_MobjToActor(mobj)->Speed.Value;
 }
 
 extern "C" int P_GetActorMass(mobj_t *mobj)

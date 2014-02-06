@@ -17,7 +17,7 @@ ref class Actor : LegacyThinker
 {
 private:
 	static Actor^ MobjToActor(mobj_t *mobj);
-	int speed;
+	Fixed speed;
 	int mass;
 	int damage;
 	int painchance;
@@ -45,7 +45,7 @@ public:
 		mobj->flags = 0;
 		Health = 1000;
 		ReactionTime = 8;
-		speed = 0;
+		speed = Fixed::FromInt(0);
 		mass = 100;
 		damage = 0;
 		painchance = 0;
@@ -220,10 +220,10 @@ public:
 		void set(Actor^ value) { mobj->tracer = value ? value->mobj : NULL; }
 	}
 
-	property int Speed
+	property Fixed Speed
 	{
-		int get() { return speed; }
-		void set(int value) { speed = value; }
+		Fixed get() { return speed; }
+		void set(Fixed value) { speed = value; }
 	}
 
 	property int Mass
@@ -316,7 +316,7 @@ public:
 		mobj->flags = info.flags;
 		Health = info.spawnhealth;
 		ReactionTime = info.reactiontime;
-		Speed = info.speed;
+		Speed = Fixed(info.speed);
 		Mass = info.mass;
 		Damage = info.damage;
 		PainChance = info.painchance;
