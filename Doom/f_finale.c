@@ -361,8 +361,8 @@ castinfo_t	castorder[] = {
 };
 
 int		castnum;
-int		casttics;
-state_t*	caststate;
+#define casttics (dummyactor->tics)
+#define caststate (dummyactor->state)
 boolean		castdeath;
 int		castframes;
 int		castonmelee;
@@ -379,7 +379,8 @@ void F_StartCast (void)
 {
     wipegamestate = -1;		// force a screen wipe
     castnum = 0;
-    caststate = &states[mobjinfo[castorder[castnum].type].seestate];
+	P_SetDummyActor(castorder[castnum].type);
+    caststate = &states[P_GetActorStateNum(dummyactor,"See")];
     casttics = caststate->tics;
     castdeath = false;
     finalestage = 2;	
@@ -408,9 +409,10 @@ void F_CastTicker (void)
 	castdeath = false;
 	if (castorder[castnum].name == NULL)
 	    castnum = 0;
-	if (mobjinfo[castorder[castnum].type].seesound)
-	    S_StartSound (NULL, mobjinfo[castorder[castnum].type].seesound);
-	caststate = &states[mobjinfo[castorder[castnum].type].seestate];
+	P_SetDummyActor(castorder[castnum].type);
+	if (P_GetActorSeeSound(dummyactor))
+	    S_StartSound (NULL,P_GetActorSeeSound(dummyactor));
+	caststate = &states[P_GetActorStateNum(dummyactor,"See")];
 	castframes = 0;
     }
     else
@@ -463,30 +465,30 @@ void F_CastTicker (void)
 	// go into attack frame
 	castattacking = true;
 	if (castonmelee)
-	    caststate=&states[mobjinfo[castorder[castnum].type].meleestate];
+	    caststate=&states[P_GetActorStateNum(dummyactor,"Melee")];
 	else
-	    caststate=&states[mobjinfo[castorder[castnum].type].missilestate];
+	    caststate=&states[P_GetActorStateNum(dummyactor,"Missile")];
 	castonmelee ^= 1;
 	if (caststate == &states[S_NULL])
 	{
 	    if (castonmelee)
 		caststate=
-		    &states[mobjinfo[castorder[castnum].type].meleestate];
+		    &states[P_GetActorStateNum(dummyactor,"Melee")];
 	    else
 		caststate=
-		    &states[mobjinfo[castorder[castnum].type].missilestate];
+		    &states[P_GetActorStateNum(dummyactor,"Missile")];
 	}
     }
 	
     if (castattacking)
     {
 	if (castframes == 24
-	    ||	caststate == &states[mobjinfo[castorder[castnum].type].seestate] )
+	    ||	caststate == &states[P_GetActorStateNum(dummyactor,"See")] )
 	{
 	  stopattack:
 	    castattacking = false;
 	    castframes = 0;
-	    caststate = &states[mobjinfo[castorder[castnum].type].seestate];
+	    caststate = &states[P_GetActorStateNum(dummyactor,"See")];
 	}
     }
 	
@@ -510,12 +512,12 @@ boolean F_CastResponder (event_t* ev)
 		
     // go into death frame
     castdeath = true;
-    caststate = &states[mobjinfo[castorder[castnum].type].deathstate];
+    caststate = &states[P_GetActorStateNum(dummyactor,"Death")];
     casttics = caststate->tics;
     castframes = 0;
     castattacking = false;
-    if (mobjinfo[castorder[castnum].type].deathsound)
-	S_StartSound (NULL, mobjinfo[castorder[castnum].type].deathsound);
+    if (P_GetActorDeathSound(dummyactor))
+	S_StartSound (NULL,P_GetActorDeathSound(dummyactor));
 	
     return true;
 }
