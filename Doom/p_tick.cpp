@@ -31,6 +31,13 @@ int P_FindLegacyThinker(thinker_t *ptr)
 	throw gcnew Exception();
 }
 
+LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
+{
+	if (!ptr)
+		return nullptr;
+	return LegacyThinker::legacythinkers[(IntPtr)ptr];
+}
+
 extern "C" void P_InitThinkers()
 {
 	thinkers = gcnew List<Thinker^>();
