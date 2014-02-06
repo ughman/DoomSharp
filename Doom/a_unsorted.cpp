@@ -1,10 +1,10 @@
 #include "p_mobj.hpp"
 
 [ActorType(MT_PLAYER)]
-ref class Actor0 : Actor
+ref class Marine : Actor
 {
 public:
-	Actor0(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Marine(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(56);
@@ -24,6 +24,7 @@ public:
 		DefineState("Pain",S_PLAY_PAIN);
 		DefineState("Death",S_PLAY_DIE1);
 		DefineState("XDeath",S_PLAY_XDIE1);
+		Species = nullptr;
 	}
 };
 
@@ -386,10 +387,10 @@ public:
 
 [ActorType(MT_BRUISER)]
 [DoomedNum(3003)]
-ref class Actor15 : Actor
+ref class BaronOfHell : Actor
 {
 public:
-	Actor15(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BaronOfHell(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
 	{
 		Radius = Fixed::FromInt(24);
 		Height = Fixed::FromInt(64);
@@ -436,10 +437,10 @@ public:
 
 [ActorType(MT_KNIGHT)]
 [DoomedNum(69)]
-ref class Actor17 : Actor
+ref class HellKnight : Actor
 {
 public:
-	Actor17(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HellKnight(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
 	{
 		Radius = Fixed::FromInt(24);
 		Height = Fixed::FromInt(64);
@@ -461,6 +462,7 @@ public:
 		DefineState("Pain",S_BOS2_PAIN);
 		DefineState("Death",S_BOS2_DIE1);
 		DefineState("Raise",S_BOS2_RAISE1);
+		Species = BaronOfHell::typeid;
 	}
 };
 
