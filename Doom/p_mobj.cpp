@@ -26,7 +26,7 @@ Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	}
 	else
 	{
-		actor = gcnew LegacyActor(x,y,z,type);
+		throw gcnew ApplicationException();
 	}
 	return actor;
 }
@@ -137,13 +137,6 @@ extern "C" int P_LookupDoomedNum(int doomednum)
 	}
 	else
 	{
-		for (int i = 0;i < NUMMOBJTYPES;i++)
-		{
-			if (mobjinfo[i].doomednum == doomednum)
-			{
-				return i;
-			}
-		}
 		return -1;
 	}
 }
