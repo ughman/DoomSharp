@@ -19,12 +19,10 @@ extern gcroot<List<Thinker^>^> thinkers;
 
 ref class LegacyThinker : Thinker
 {
-	static LegacyThinker()
-	{
-		legacythinkers = gcnew Dictionary<IntPtr,LegacyThinker^>();
-	}
+private:
+	static void AddLegacyThinker(thinker_t *a,LegacyThinker^ b);
+	static void RemoveLegacyThinker(thinker_t *a);
 public:
-	static Dictionary<IntPtr,LegacyThinker^>^ legacythinkers;
 	thinker_t *ptr;
 
 	LegacyThinker(size_t size)
@@ -32,7 +30,7 @@ public:
 		ptr = (thinker_t *)malloc(size + 256);
 		if (!ptr)
 			throw gcnew ApplicationException();
-		legacythinkers->Add((IntPtr)ptr,this);
+		AddLegacyThinker(ptr,this);
 	}
 
 	virtual bool Tick() override
@@ -56,7 +54,7 @@ public:
 	!LegacyThinker()
 	{
 		free(ptr);
-		legacythinkers->Remove((IntPtr)ptr);
+		RemoveLegacyThinker(ptr);
 	}
 };
 

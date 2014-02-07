@@ -1178,6 +1178,10 @@
 			Name="C++ Header Files"
 			Filter="hpp"
 			>
+			<File
+				RelativePath=".\gcweakref.hpp"
+				>
+			</File>
 			<Filter
 				Name="p_ Code"
 				>
