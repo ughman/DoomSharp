@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using OpenTK;
 using OpenTK.Input;
 
@@ -9,12 +10,16 @@ namespace DoomSharp
         private static MusicPlayer music;
         private static MultiArchive archives;
         private static GameState topstate;
+        private static Stopwatch stopwatch;
+        private static int lasttime;
 
         static Core()
         {
             music = new MusicPlayer();
             archives = new MultiArchive();
             topstate = null;
+            stopwatch = Stopwatch.StartNew();
+            lasttime = 0;
             PushState(new RootState());
         }
 
@@ -28,8 +33,11 @@ namespace DoomSharp
             get { return archives; }
         }
 
-        public static void Update(double time)
+        public static void Update()
         {
+            double time = stopwatch.ElapsedMilliseconds - lasttime;
+            lasttime += (int)time;
+            time /= 1000;
             music.Update(time);
             topstate.Update(time,true);
             for (GameState state = topstate.Next;state != null;state = state.Next)
