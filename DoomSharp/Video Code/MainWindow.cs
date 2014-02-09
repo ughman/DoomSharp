@@ -57,6 +57,7 @@ namespace DoomSharp
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+            Core.Update(e.Time);
         }
 
         protected override void OnResize(System.EventArgs e)

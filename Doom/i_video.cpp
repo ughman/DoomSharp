@@ -17,7 +17,6 @@ extern "C"
 #include <vcclr.h>
 
 gcroot<MainWindow^> window;
-gcroot<Queue<IntPtr>^> eventqueue;
 
 extern "C" void I_ShutdownGraphics()
 {
@@ -33,20 +32,6 @@ void I_StartTic2()
 {
 	if (!window)
 		return;
-	Monitor::Enter(eventqueue);
-	try
-	{
-		while (eventqueue->Count)
-		{
-			event_t *ev = (event_t *)(void *)eventqueue->Dequeue();
-			D_PostEvent(ev);
-			delete ev;
-		}
-	}
-	finally
-	{
-		Monitor::Exit(eventqueue);
-	}
 	MouseState mouse = Mouse::GetState();
 	static bool firstmouse = true;
 	static int mousex;
@@ -188,39 +173,16 @@ int TranslateKey(Key key)
 
 void HandleKeyUp(Object^ sender,KeyboardKeyEventArgs^ e)
 {
-	Monitor::Enter(eventqueue);
-	try
-	{
-		event_t *ev = new event_t;
-		ev->type = ev_keyup;
-		ev->data1 = TranslateKey(e->Key);
-		eventqueue->Enqueue((IntPtr)ev);
-	}
-	finally
-	{
-		Monitor::Exit(eventqueue);
-	}
+	Core::KeyUp(e->Key);
 }
 
 void HandleKeyDown(Object^ sender,KeyboardKeyEventArgs^ e)
 {
-	Monitor::Enter(eventqueue);
-	try
-	{
-		event_t *ev = new event_t;
-		ev->type = ev_keydown;
-		ev->data1 = TranslateKey(e->Key);
-		eventqueue->Enqueue((IntPtr)ev);
-	}
-	finally
-	{
-		Monitor::Exit(eventqueue);
-	}
+	Core::KeyDown(e->Key);
 }
 
 extern "C" void I_InitGraphics()
 {
-	eventqueue = gcnew Queue<IntPtr>();
 	window = gcnew MainWindow(M_CheckParm("-fullscreen"));
 	window->Keyboard->KeyUp += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyUp);
 	window->Keyboard->KeyDown += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyDown);

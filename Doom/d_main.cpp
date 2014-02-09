@@ -1,5 +1,6 @@
 using namespace System;
 using namespace OpenTK;
+using namespace OpenTK::Input;
 using namespace DoomSharp;
 
 extern "C"
@@ -24,9 +25,36 @@ extern "C" void D_ProcessEvents();
 extern "C" void D_DoAdvanceDemo();
 extern "C" void G_BuildTiccmd(ticcmd_t *cmd);
 
-void D_DoomTick(Object^ sender,FrameEventArgs^ e);
+void D_DoomTick();
+int TranslateKey(Key key);
 
 extern gcroot<MainWindow^> window;
+
+ref class LegacyGameState : GameState
+{
+public:
+	virtual void Update(double time,bool top) override
+	{
+		if (top)
+			D_DoomTick();
+	}
+
+	virtual void KeyDown(Key key) override
+	{
+		event_t ev;
+		ev.type = ev_keydown;
+		ev.data1 = TranslateKey(key);
+		D_PostEvent(&ev);
+	}
+
+	virtual void KeyUp(Key key) override
+	{
+		event_t ev;
+		ev.type = ev_keyup;
+		ev.data1 = TranslateKey(key);
+		D_PostEvent(&ev);
+	}
+};
 
 extern "C" void D_DoomLoop()
 {
@@ -39,18 +67,18 @@ extern "C" void D_DoomLoop()
 	{
 		while (true)
 		{
-			D_DoomTick(nullptr,nullptr);
+			D_DoomTick();
 		}
 	}
 	else
 	{
+		Core::PushState(gcnew LegacyGameState);
 		I_InitGraphics();
-		window->UpdateFrame += gcnew EventHandler<FrameEventArgs^>(D_DoomTick);
 		window->Run();
 	}
 }
 
-void D_DoomTick(Object^ sender,FrameEventArgs^ e)
+void D_DoomTick()
 {
 	I_StartFrame();
 	if (singletics)
