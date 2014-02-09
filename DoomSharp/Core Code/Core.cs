@@ -58,6 +58,8 @@ namespace DoomSharp
 
         public static void PushState(GameState state)
         {
+            if (state == null)
+                throw new ArgumentNullException("state");
             state.Push(ref topstate);
         }
 
