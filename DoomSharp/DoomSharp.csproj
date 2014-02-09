@@ -52,6 +52,7 @@
     <Compile Include="Music Code\MusicEvent.cs" />
     <Compile Include="Music Code\MusicNoteOffEvent.cs" />
     <Compile Include="Music Code\MusicNoteOnEvent.cs" />
+    <Compile Include="Music Code\MusicPlayer.cs" />
     <Compile Include="Music Code\MusicUnknownEvent.cs" />
     <Compile Include="Music Code\MusicTrack.cs" />
     <Compile Include="Net Code\DoomServer.cs" />

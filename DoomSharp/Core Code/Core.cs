@@ -6,14 +6,21 @@ namespace DoomSharp
 {
     public static class Core
     {
+        private static MusicPlayer music;
         private static MultiArchive archives;
         private static GameState topstate;
 
         static Core()
         {
+            music = new MusicPlayer();
             archives = new MultiArchive();
             topstate = null;
             PushState(new RootState());
+        }
+
+        public static MusicPlayer Music
+        {
+            get { return music; }
         }
 
         public static MultiArchive Archives
@@ -23,6 +30,7 @@ namespace DoomSharp
 
         public static void Update(double time)
         {
+            music.Update(time);
             topstate.Update(time,true);
             for (GameState state = topstate.Next;state != null;state = state.Next)
             {

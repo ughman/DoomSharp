@@ -121,9 +121,6 @@ int 		snd_MusicVolume = 15;
 // whether songs are mus_paused
 static boolean		mus_paused;	
 
-// music currently being played
-static musicinfo_t*	mus_playing=0;
-
 // following is set
 //  by the defaults code in M_misc:
 // number of channels available
@@ -483,20 +480,10 @@ void S_StopSound(void *origin)
 //
 void S_PauseSound(void)
 {
-    if (mus_playing && !mus_paused)
-    {
-	I_PauseSong(mus_playing->handle);
-	mus_paused = true;
-    }
 }
 
 void S_ResumeSound(void)
 {
-    if (mus_playing && mus_paused)
-    {
-	I_ResumeSong(mus_playing->handle);
-	mus_paused = false;
-    }
 }
 
 
@@ -623,70 +610,6 @@ void S_SetSfxVolume(int volume)
 
     snd_SfxVolume = volume;
 
-}
-
-//
-// Starts some music with the music id found in sounds.h.
-//
-void S_StartMusic(int m_id)
-{
-    S_ChangeMusic(m_id, false);
-}
-
-void
-S_ChangeMusic
-( int			musicnum,
-  int			looping )
-{
-    musicinfo_t*	music;
-    char		namebuf[9];
-
-    if ( (musicnum <= mus_None)
-	 || (musicnum >= NUMMUSIC) )
-    {
-	I_Error("Bad music number %d", musicnum);
-    }
-    else
-	music = &S_music[musicnum];
-
-    if (mus_playing == music)
-	return;
-
-    // shutdown old music
-    S_StopMusic();
-
-    // get lumpnum if neccessary
-    if (!music->lumpnum)
-    {
-	sprintf(namebuf, "d_%s", music->name);
-	music->lumpnum = W_GetNumForName(namebuf);
-    }
-
-    // load & register it
-    music->data = (void *) W_CacheLumpNum(music->lumpnum, PU_MUSIC);
-    music->handle = I_RegisterSong(music->data,W_LumpLength(music->lumpnum));
-
-    // play it
-    I_PlaySong(music->handle, looping);
-
-    mus_playing = music;
-}
-
-
-void S_StopMusic(void)
-{
-    if (mus_playing)
-    {
-	if (mus_paused)
-	    I_ResumeSong(mus_playing->handle);
-
-	I_StopSong(mus_playing->handle);
-	I_UnRegisterSong(mus_playing->handle);
-	Z_ChangeTag(mus_playing->data, PU_CACHE);
-	
-	mus_playing->data = 0;
-	mus_playing = 0;
-    }
 }
 
 
