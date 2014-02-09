@@ -33,6 +33,10 @@ namespace DoomSharp
             {
                 throw new ApplicationException();
             }
+            if (scorelength <= 0)
+            {
+                throw new ApplicationException();
+            }
             if (scorestart + scorelength != data.Length)
             {
                 throw new ApplicationException();
