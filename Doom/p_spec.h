@@ -489,47 +489,10 @@ typedef enum
 
 } ceiling_e;
 
-
-
-typedef struct
-{
-    thinker_t	thinker;
-    ceiling_e	type;
-    sector_t*	sector;
-    fixed_t	bottomheight;
-    fixed_t	topheight;
-    fixed_t	speed;
-    boolean	crush;
-
-    // 1 = up, 0 = waiting, -1 = down
-    int		direction;
-
-    // ID
-    int		tag;                   
-    int		olddirection;
-    
-} ceiling_t;
-
-
-
-
-
 #define CEILSPEED		FRACUNIT
-#define CEILWAIT		150
 #define MAXCEILINGS		30
 
-extern ceiling_t*	activeceilings[MAXCEILINGS];
-
-int
-EV_DoCeiling
-( line_t*	line,
-  ceiling_e	type );
-
-void    T_MoveCeiling (ceiling_t* ceiling);
-void    P_AddActiveCeiling(ceiling_t* c);
-void    P_RemoveActiveCeiling(ceiling_t* c);
 int	EV_CeilingCrushStop(line_t* line);
-void    P_ActivateInStasisCeiling(line_t* line);
 
 
 //
