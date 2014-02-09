@@ -13,21 +13,15 @@ extern "C"
 #include <map>
 #include <vcclr.h>
 
-gcroot<MultiArchive^> archives;
-
 extern "C" void W_Reload()
 {
 }
 
 extern "C" void W_InitMultipleFiles(char **filenames)
 {
-	if (!archives)
-	{
-		archives = gcnew MultiArchive();
-	}
 	for (;*filenames;filenames++)
 	{
-		archives->LoadFile(gcnew String(*filenames));
+		Core::Archives->LoadFile(gcnew String(*filenames));
 	}
 }
 
@@ -38,7 +32,7 @@ extern "C" int W_CheckNumForName(char *name)
 	strncpy(termname,name,8);
 	try
 	{
-		return archives->Find(gcnew String(termname));
+		return Core::Archives->Find(gcnew String(termname));
 	}
 	catch (LumpNotFoundException^)
 	{
@@ -51,14 +45,14 @@ extern "C" int W_GetNumForName(char *name)
 	char termname[9];
 	termname[8] = 0;
 	strncpy(termname,name,8);
-	return archives->Find(gcnew String(termname));
+	return Core::Archives->Find(gcnew String(termname));
 }
 
 extern "C" char *W_LumpName(int lump)
 {
 	static char name[9];
 	name[8] = 0;
-	char *managedname = (char *)(void *)Marshal::StringToHGlobalAnsi(archives->default[lump]->Name);
+	char *managedname = (char *)(void *)Marshal::StringToHGlobalAnsi(Core::Archives[lump]->Name);
 	strncpy(name,managedname,8);
 	Marshal::FreeHGlobal((IntPtr)(void *)managedname);
 	return name;
@@ -66,12 +60,12 @@ extern "C" char *W_LumpName(int lump)
 
 extern "C" int W_LumpLength(int lump)
 {
-	return archives->default[lump]->Length;
+	return Core::Archives[lump]->Length;
 }
 
 extern "C" void W_ReadLump(int lump,void *dest)
 {
-	cli::array<unsigned char> ^manageddata = archives->default[lump]->Read();
+	cli::array<unsigned char> ^manageddata = Core::Archives[lump]->Read();
 	Marshal::Copy(manageddata,0,(IntPtr)dest,manageddata->Length);
 }
 

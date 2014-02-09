@@ -4,8 +4,6 @@ using namespace DoomSharp;
 
 #include <vcclr.h>
 
-extern gcroot<MultiArchive^> archives;
-
 gcroot<List<int>^> spritelumps;
 int spritelumpiterator;
 gcroot<List<int>^> flatlumps;
@@ -24,9 +22,9 @@ void B_InitLumps2()
 	String^ name_ff_end = gcnew String("FF_END");
 	bool inspritezone = false;
 	bool inflatzone = false;
-	for (int i = 0;i < archives->LumpCount;i++)
+	for (int i = 0;i < Core::Archives->LumpCount;i++)
 	{
-		ILump^ lump = archives->default[i];
+		ILump^ lump = Core::Archives[i];
 		if (lump->Name == name_s_start || lump->Name == name_ss_start)
 		{
 			inspritezone = true;

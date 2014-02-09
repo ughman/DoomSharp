@@ -6,12 +6,19 @@ namespace DoomSharp
 {
     public static class Core
     {
+        private static MultiArchive archives;
         private static GameState topstate;
 
         static Core()
         {
+            archives = new MultiArchive();
             topstate = null;
             PushState(new RootState());
+        }
+
+        public static MultiArchive Archives
+        {
+            get { return archives; }
         }
 
         public static void Update(double time)
