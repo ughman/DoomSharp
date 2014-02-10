@@ -21,7 +21,6 @@ ref class LegacyThinker : Thinker
 {
 private:
 	static void AddLegacyThinker(thinker_t *a,LegacyThinker^ b);
-	static void RemoveLegacyThinker(thinker_t *a);
 public:
 	thinker_t *ptr;
 
@@ -54,7 +53,6 @@ public:
 	!LegacyThinker()
 	{
 		free(ptr);
-		RemoveLegacyThinker(ptr);
 	}
 };
 

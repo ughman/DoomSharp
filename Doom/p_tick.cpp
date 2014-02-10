@@ -40,11 +40,6 @@ void LegacyThinker::AddLegacyThinker(thinker_t *a,LegacyThinker^ b)
 	legacythinkers[a] = b;
 }
 
-void LegacyThinker::RemoveLegacyThinker(thinker_t *a)
-{
-	legacythinkers[a] = (LegacyThinker^)nullptr;
-}
-
 LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
 {
 	if (!ptr)
@@ -55,6 +50,21 @@ LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
 extern "C" void P_InitThinkers()
 {
 	thinkers = gcnew List<Thinker^>();
+	for (std::map<thinker_t*,gcweakref<LegacyThinker^>>::iterator it = legacythinkers.begin();it != legacythinkers.end();)
+	{
+		// Clear the legacythinkers list, since
+		// apparently we can't do this from the
+		// finalizers because they run on another
+		// thread
+		if (it->second)
+		{
+			it++;
+		}
+		else
+		{
+			it = legacythinkers.erase(it);
+		}
+	}
 }
 
 extern "C" thinker_t *P_NewThinker(size_t size)
