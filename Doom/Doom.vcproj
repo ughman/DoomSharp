@@ -1105,50 +1105,6 @@
 				Name="a_ Code"
 				>
 				<File
-					RelativePath=".\a_bruiser.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							CompileAsManaged="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							CompileAsManaged="1"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\a_marine.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							CompileAsManaged="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							CompileAsManaged="1"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
 					RelativePath=".\a_unsorted.cpp"
 					>
 					<FileConfiguration
