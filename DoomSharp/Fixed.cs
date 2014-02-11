@@ -2,6 +2,11 @@ namespace DoomSharp
 {
     public struct Fixed
     {
+        public static Fixed Zero
+        {
+            get { return new Fixed(0); }
+        }
+
         public static Fixed FromInt(int value)
         {
             return new Fixed(value << 16);
