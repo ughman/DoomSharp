@@ -4,7 +4,7 @@
 ref class Marine : Actor
 {
 public:
-	Marine(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Marine()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(56);
@@ -33,7 +33,7 @@ public:
 ref class Zombieman : Actor
 {
 public:
-	Zombieman(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Zombieman()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -62,7 +62,7 @@ public:
 ref class Shotgunner : Actor
 {
 public:
-	Shotgunner(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Shotgunner()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -90,7 +90,7 @@ public:
 ref class Archvile : Actor
 {
 public:
-	Archvile(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Archvile()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -116,7 +116,7 @@ public:
 ref class Fire : Actor
 {
 public:
-	Fire(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Fire()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -129,7 +129,7 @@ public:
 ref class Revenant : Actor
 {
 public:
-	Revenant(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Revenant()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -157,7 +157,7 @@ public:
 ref class RevenantShot : Actor
 {
 public:
-	RevenantShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RevenantShot()
 	{
 		Radius = Fixed::FromInt(11);
 		Height = Fixed::FromInt(8);
@@ -178,7 +178,7 @@ public:
 ref class Smoke : Actor
 {
 public:
-	Smoke(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Smoke()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -191,7 +191,7 @@ public:
 ref class Mancubus : Actor
 {
 public:
-	Mancubus(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Mancubus()
 	{
 		Radius = Fixed::FromInt(48);
 		Height = Fixed::FromInt(64);
@@ -219,7 +219,7 @@ public:
 ref class MancubusShot : Actor
 {
 public:
-	MancubusShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	MancubusShot()
 	{
 		Radius = Fixed::FromInt(6);
 		Height = Fixed::FromInt(8);
@@ -241,7 +241,7 @@ public:
 ref class Chaingunner : Actor
 {
 public:
-	Chaingunner(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Chaingunner()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -269,7 +269,7 @@ public:
 ref class Imp : Actor
 {
 public:
-	Imp(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Imp()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -298,7 +298,7 @@ public:
 ref class Demon : Actor
 {
 public:
-	Demon(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Demon()
 	{
 		Radius = Fixed::FromInt(30);
 		Height = Fixed::FromInt(56);
@@ -328,7 +328,7 @@ public:
 ref class Spectre : Actor
 {
 public:
-	Spectre(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Spectre()
 	{
 		Radius = Fixed::FromInt(30);
 		Height = Fixed::FromInt(56);
@@ -359,7 +359,7 @@ public:
 ref class Cacodemon : Actor
 {
 public:
-	Cacodemon(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Cacodemon()
 	{
 		Radius = Fixed::FromInt(31);
 		Height = Fixed::FromInt(56);
@@ -390,7 +390,7 @@ public:
 ref class BaronOfHell : Actor
 {
 public:
-	BaronOfHell(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BaronOfHell()
 	{
 		Radius = Fixed::FromInt(24);
 		Height = Fixed::FromInt(64);
@@ -418,7 +418,7 @@ public:
 ref class BaronShot : Actor
 {
 public:
-	BaronShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BaronShot()
 	{
 		Radius = Fixed::FromInt(6);
 		Height = Fixed::FromInt(8);
@@ -440,7 +440,7 @@ public:
 ref class HellKnight : Actor
 {
 public:
-	HellKnight(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HellKnight()
 	{
 		Radius = Fixed::FromInt(24);
 		Height = Fixed::FromInt(64);
@@ -471,7 +471,7 @@ public:
 ref class LostSoul : Actor
 {
 public:
-	LostSoul(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	LostSoul()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(56);
@@ -501,7 +501,7 @@ public:
 ref class SpiderMastermind : Actor
 {
 public:
-	SpiderMastermind(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	SpiderMastermind()
 	{
 		Radius = Fixed::FromInt(128);
 		Height = Fixed::FromInt(100);
@@ -530,7 +530,7 @@ public:
 ref class Arachnotron : Actor
 {
 public:
-	Arachnotron(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Arachnotron()
 	{
 		Radius = Fixed::FromInt(64);
 		Height = Fixed::FromInt(64);
@@ -559,7 +559,7 @@ public:
 ref class Cyberdemon : Actor
 {
 public:
-	Cyberdemon(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Cyberdemon()
 	{
 		Radius = Fixed::FromInt(40);
 		Height = Fixed::FromInt(110);
@@ -587,7 +587,7 @@ public:
 ref class PainElemental : Actor
 {
 public:
-	PainElemental(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	PainElemental()
 	{
 		Radius = Fixed::FromInt(31);
 		Height = Fixed::FromInt(56);
@@ -618,7 +618,7 @@ public:
 ref class Nazi : Actor
 {
 public:
-	Nazi(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Nazi()
 	{
 		Height = Fixed::FromInt(56);
 		Solid = true;
@@ -646,7 +646,7 @@ public:
 ref class CommanderKeen : Actor
 {
 public:
-	CommanderKeen(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	CommanderKeen()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(72);
@@ -671,7 +671,7 @@ public:
 ref class BossBrain : Actor
 {
 public:
-	BossBrain(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BossBrain()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -692,7 +692,7 @@ public:
 ref class BossEye : Actor
 {
 public:
-	BossEye(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BossEye()
 	{
 		Height = Fixed::FromInt(32);
 		NoSector = true;
@@ -707,7 +707,7 @@ public:
 ref class BossTarget : Actor
 {
 public:
-	BossTarget(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BossTarget()
 	{
 		Height = Fixed::FromInt(32);
 		NoSector = true;
@@ -719,7 +719,7 @@ public:
 ref class BossShot : Actor
 {
 public:
-	BossShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BossShot()
 	{
 		Radius = Fixed::FromInt(6);
 		Height = Fixed::FromInt(32);
@@ -740,7 +740,7 @@ public:
 ref class SpawnFire : Actor
 {
 public:
-	SpawnFire(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	SpawnFire()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -753,7 +753,7 @@ public:
 ref class Barrel : Actor
 {
 public:
-	Barrel(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Barrel()
 	{
 		Radius = Fixed::FromInt(10);
 		Height = Fixed::FromInt(42);
@@ -771,7 +771,7 @@ public:
 ref class ImpShot : Actor
 {
 public:
-	ImpShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ImpShot()
 	{
 		Radius = Fixed::FromInt(6);
 		Height = Fixed::FromInt(8);
@@ -792,7 +792,7 @@ public:
 ref class CacodemonShot : Actor
 {
 public:
-	CacodemonShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	CacodemonShot()
 	{
 		Radius = Fixed::FromInt(6);
 		Height = Fixed::FromInt(8);
@@ -813,7 +813,7 @@ public:
 ref class Rocket : Actor
 {
 public:
-	Rocket(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Rocket()
 	{
 		Radius = Fixed::FromInt(11);
 		Height = Fixed::FromInt(8);
@@ -834,7 +834,7 @@ public:
 ref class PlasmaBall : Actor
 {
 public:
-	PlasmaBall(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	PlasmaBall()
 	{
 		Radius = Fixed::FromInt(13);
 		Height = Fixed::FromInt(8);
@@ -855,7 +855,7 @@ public:
 ref class BFGBall : Actor
 {
 public:
-	BFGBall(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BFGBall()
 	{
 		Radius = Fixed::FromInt(13);
 		Height = Fixed::FromInt(8);
@@ -875,7 +875,7 @@ public:
 ref class ArachnotronShot : Actor
 {
 public:
-	ArachnotronShot(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ArachnotronShot()
 	{
 		Radius = Fixed::FromInt(13);
 		Height = Fixed::FromInt(8);
@@ -896,7 +896,7 @@ public:
 ref class Puff : Actor
 {
 public:
-	Puff(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Puff()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -908,7 +908,7 @@ public:
 ref class Blood : Actor
 {
 public:
-	Blood(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Blood()
 	{
 		NoBlockmap = true;
 		DefineState("Spawn",S_BLOOD1);
@@ -919,7 +919,7 @@ public:
 ref class TeleportFog : Actor
 {
 public:
-	TeleportFog(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TeleportFog()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -931,7 +931,7 @@ public:
 ref class ItemFog : Actor
 {
 public:
-	ItemFog(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ItemFog()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -944,7 +944,7 @@ public:
 ref class TeleportDestination : Actor
 {
 public:
-	TeleportDestination(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TeleportDestination()
 	{
 		NoSector = true;
 		NoBlockmap = true;
@@ -955,7 +955,7 @@ public:
 ref class BFGExtra : Actor
 {
 public:
-	BFGExtra(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BFGExtra()
 	{
 		NoBlockmap = true;
 		NoGravity = true;
@@ -968,7 +968,7 @@ public:
 ref class Armor : Actor
 {
 public:
-	Armor(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Armor()
 	{
 		Special = true;
 		DefineState("Spawn",S_ARM1);
@@ -980,7 +980,7 @@ public:
 ref class MegaArmor : Actor
 {
 public:
-	MegaArmor(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	MegaArmor()
 	{
 		Special = true;
 		DefineState("Spawn",S_ARM2);
@@ -992,7 +992,7 @@ public:
 ref class HealthBonus : Actor
 {
 public:
-	HealthBonus(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HealthBonus()
 	{
 		Special = true;
 		CountItem = true;
@@ -1005,7 +1005,7 @@ public:
 ref class ArmorBonus : Actor
 {
 public:
-	ArmorBonus(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ArmorBonus()
 	{
 		Special = true;
 		CountItem = true;
@@ -1018,7 +1018,7 @@ public:
 ref class BlueCard : Actor
 {
 public:
-	BlueCard(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BlueCard()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1031,7 +1031,7 @@ public:
 ref class RedCard : Actor
 {
 public:
-	RedCard(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RedCard()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1044,7 +1044,7 @@ public:
 ref class YellowCard : Actor
 {
 public:
-	YellowCard(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	YellowCard()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1057,7 +1057,7 @@ public:
 ref class YellowSkull : Actor
 {
 public:
-	YellowSkull(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	YellowSkull()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1070,7 +1070,7 @@ public:
 ref class RedSkull : Actor
 {
 public:
-	RedSkull(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RedSkull()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1083,7 +1083,7 @@ public:
 ref class BlueSkull : Actor
 {
 public:
-	BlueSkull(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BlueSkull()
 	{
 		Special = true;
 		NotDMatch = true;
@@ -1096,7 +1096,7 @@ public:
 ref class Stimpack : Actor
 {
 public:
-	Stimpack(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Stimpack()
 	{
 		Special = true;
 		DefineState("Spawn",S_STIM);
@@ -1108,7 +1108,7 @@ public:
 ref class Medikit : Actor
 {
 public:
-	Medikit(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Medikit()
 	{
 		Special = true;
 		DefineState("Spawn",S_MEDI);
@@ -1120,7 +1120,7 @@ public:
 ref class Soulsphere : Actor
 {
 public:
-	Soulsphere(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Soulsphere()
 	{
 		Special = true;
 		CountItem = true;
@@ -1133,7 +1133,7 @@ public:
 ref class Invulnerability : Actor
 {
 public:
-	Invulnerability(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Invulnerability()
 	{
 		Special = true;
 		CountItem = true;
@@ -1146,7 +1146,7 @@ public:
 ref class Berserk : Actor
 {
 public:
-	Berserk(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Berserk()
 	{
 		Special = true;
 		CountItem = true;
@@ -1159,7 +1159,7 @@ public:
 ref class Invisibility : Actor
 {
 public:
-	Invisibility(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Invisibility()
 	{
 		Special = true;
 		CountItem = true;
@@ -1172,7 +1172,7 @@ public:
 ref class RadiationSuit : Actor
 {
 public:
-	RadiationSuit(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RadiationSuit()
 	{
 		Special = true;
 		DefineState("Spawn",S_SUIT);
@@ -1184,7 +1184,7 @@ public:
 ref class ComputerMap : Actor
 {
 public:
-	ComputerMap(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ComputerMap()
 	{
 		Special = true;
 		CountItem = true;
@@ -1197,7 +1197,7 @@ public:
 ref class LightVisor : Actor
 {
 public:
-	LightVisor(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	LightVisor()
 	{
 		Special = true;
 		CountItem = true;
@@ -1210,7 +1210,7 @@ public:
 ref class Megasphere : Actor
 {
 public:
-	Megasphere(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Megasphere()
 	{
 		Special = true;
 		CountItem = true;
@@ -1223,7 +1223,7 @@ public:
 ref class Clip : Actor
 {
 public:
-	Clip(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Clip()
 	{
 		Special = true;
 		DefineState("Spawn",S_CLIP);
@@ -1235,7 +1235,7 @@ public:
 ref class AmmoBox : Actor
 {
 public:
-	AmmoBox(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	AmmoBox()
 	{
 		Special = true;
 		DefineState("Spawn",S_AMMO);
@@ -1247,7 +1247,7 @@ public:
 ref class RocketAmmo : Actor
 {
 public:
-	RocketAmmo(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RocketAmmo()
 	{
 		Special = true;
 		DefineState("Spawn",S_ROCK);
@@ -1259,7 +1259,7 @@ public:
 ref class RocketBox : Actor
 {
 public:
-	RocketBox(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RocketBox()
 	{
 		Special = true;
 		DefineState("Spawn",S_BROK);
@@ -1271,7 +1271,7 @@ public:
 ref class Cell : Actor
 {
 public:
-	Cell(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Cell()
 	{
 		Special = true;
 		DefineState("Spawn",S_CELL);
@@ -1283,7 +1283,7 @@ public:
 ref class CellPack : Actor
 {
 public:
-	CellPack(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	CellPack()
 	{
 		Special = true;
 		DefineState("Spawn",S_CELP);
@@ -1295,7 +1295,7 @@ public:
 ref class Shells : Actor
 {
 public:
-	Shells(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Shells()
 	{
 		Special = true;
 		DefineState("Spawn",S_SHEL);
@@ -1307,7 +1307,7 @@ public:
 ref class ShellBox : Actor
 {
 public:
-	ShellBox(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShellBox()
 	{
 		Special = true;
 		DefineState("Spawn",S_SBOX);
@@ -1319,7 +1319,7 @@ public:
 ref class Backpack : Actor
 {
 public:
-	Backpack(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Backpack()
 	{
 		Special = true;
 		DefineState("Spawn",S_BPAK);
@@ -1331,7 +1331,7 @@ public:
 ref class BFG9000 : Actor
 {
 public:
-	BFG9000(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BFG9000()
 	{
 		Special = true;
 		DefineState("Spawn",S_BFUG);
@@ -1343,7 +1343,7 @@ public:
 ref class Chaingun : Actor
 {
 public:
-	Chaingun(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Chaingun()
 	{
 		Special = true;
 		DefineState("Spawn",S_MGUN);
@@ -1355,7 +1355,7 @@ public:
 ref class Chainsaw : Actor
 {
 public:
-	Chainsaw(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Chainsaw()
 	{
 		Special = true;
 		DefineState("Spawn",S_CSAW);
@@ -1367,7 +1367,7 @@ public:
 ref class RocketLauncher : Actor
 {
 public:
-	RocketLauncher(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RocketLauncher()
 	{
 		Special = true;
 		DefineState("Spawn",S_LAUN);
@@ -1379,7 +1379,7 @@ public:
 ref class PlasmaRifle : Actor
 {
 public:
-	PlasmaRifle(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	PlasmaRifle()
 	{
 		Special = true;
 		DefineState("Spawn",S_PLAS);
@@ -1391,7 +1391,7 @@ public:
 ref class Shotgun : Actor
 {
 public:
-	Shotgun(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Shotgun()
 	{
 		Special = true;
 		DefineState("Spawn",S_SHOT);
@@ -1403,7 +1403,7 @@ public:
 ref class SuperShotgun : Actor
 {
 public:
-	SuperShotgun(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	SuperShotgun()
 	{
 		Special = true;
 		DefineState("Spawn",S_SHOT2);
@@ -1415,7 +1415,7 @@ public:
 ref class TechLamp : Actor
 {
 public:
-	TechLamp(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TechLamp()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1428,7 +1428,7 @@ public:
 ref class TechLamp2 : Actor
 {
 public:
-	TechLamp2(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TechLamp2()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1441,7 +1441,7 @@ public:
 ref class Column : Actor
 {
 public:
-	Column(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Column()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1454,7 +1454,7 @@ public:
 ref class TallGreenColumn : Actor
 {
 public:
-	TallGreenColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TallGreenColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1467,7 +1467,7 @@ public:
 ref class ShortGreenColumn : Actor
 {
 public:
-	ShortGreenColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShortGreenColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1480,7 +1480,7 @@ public:
 ref class TallRedColumn : Actor
 {
 public:
-	TallRedColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TallRedColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1493,7 +1493,7 @@ public:
 ref class ShortRedColumn : Actor
 {
 public:
-	ShortRedColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShortRedColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1506,7 +1506,7 @@ public:
 ref class SkullColumn : Actor
 {
 public:
-	SkullColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	SkullColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1519,7 +1519,7 @@ public:
 ref class HeartColumn : Actor
 {
 public:
-	HeartColumn(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HeartColumn()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1532,7 +1532,7 @@ public:
 ref class EvilEye : Actor
 {
 public:
-	EvilEye(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	EvilEye()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1545,7 +1545,7 @@ public:
 ref class FloatingSkulls : Actor
 {
 public:
-	FloatingSkulls(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	FloatingSkulls()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1558,7 +1558,7 @@ public:
 ref class TorchedTree : Actor
 {
 public:
-	TorchedTree(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TorchedTree()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1571,7 +1571,7 @@ public:
 ref class BlueTorch : Actor
 {
 public:
-	BlueTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BlueTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1584,7 +1584,7 @@ public:
 ref class GreenTorch : Actor
 {
 public:
-	GreenTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	GreenTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1597,7 +1597,7 @@ public:
 ref class RedTorch : Actor
 {
 public:
-	RedTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	RedTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1610,7 +1610,7 @@ public:
 ref class ShortBlueTorch : Actor
 {
 public:
-	ShortBlueTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShortBlueTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1623,7 +1623,7 @@ public:
 ref class ShortGreenTorch : Actor
 {
 public:
-	ShortGreenTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShortGreenTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1636,7 +1636,7 @@ public:
 ref class ShortRedTorch : Actor
 {
 public:
-	ShortRedTorch(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	ShortRedTorch()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1649,7 +1649,7 @@ public:
 ref class Stalagtite : Actor
 {
 public:
-	Stalagtite(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Stalagtite()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1662,7 +1662,7 @@ public:
 ref class TechPillar : Actor
 {
 public:
-	TechPillar(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	TechPillar()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1675,7 +1675,7 @@ public:
 ref class Candle : Actor
 {
 public:
-	Candle(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Candle()
 	{
 		DefineState("Spawn",S_CANDLESTIK);
 	}
@@ -1686,7 +1686,7 @@ public:
 ref class Candelabra : Actor
 {
 public:
-	Candelabra(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Candelabra()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1699,7 +1699,7 @@ public:
 ref class Actor101 : Actor
 {
 public:
-	Actor101(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor101()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(68);
@@ -1715,7 +1715,7 @@ public:
 ref class Actor102 : Actor
 {
 public:
-	Actor102(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor102()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(84);
@@ -1731,7 +1731,7 @@ public:
 ref class Actor103 : Actor
 {
 public:
-	Actor103(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor103()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(84);
@@ -1747,7 +1747,7 @@ public:
 ref class Actor104 : Actor
 {
 public:
-	Actor104(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor104()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(68);
@@ -1763,7 +1763,7 @@ public:
 ref class Actor105 : Actor
 {
 public:
-	Actor105(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor105()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(52);
@@ -1779,7 +1779,7 @@ public:
 ref class Actor106 : Actor
 {
 public:
-	Actor106(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor106()
 	{
 		Height = Fixed::FromInt(84);
 		SpawnCeiling = true;
@@ -1793,7 +1793,7 @@ public:
 ref class Actor107 : Actor
 {
 public:
-	Actor107(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor107()
 	{
 		Height = Fixed::FromInt(68);
 		SpawnCeiling = true;
@@ -1807,7 +1807,7 @@ public:
 ref class Actor108 : Actor
 {
 public:
-	Actor108(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor108()
 	{
 		Height = Fixed::FromInt(52);
 		SpawnCeiling = true;
@@ -1821,7 +1821,7 @@ public:
 ref class Actor109 : Actor
 {
 public:
-	Actor109(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor109()
 	{
 		Height = Fixed::FromInt(52);
 		SpawnCeiling = true;
@@ -1835,7 +1835,7 @@ public:
 ref class Actor110 : Actor
 {
 public:
-	Actor110(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor110()
 	{
 		Height = Fixed::FromInt(68);
 		SpawnCeiling = true;
@@ -1849,7 +1849,7 @@ public:
 ref class DeadCacodemon : Actor
 {
 public:
-	DeadCacodemon(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadCacodemon()
 	{
 		DefineState("Spawn",S_HEAD_DIE6);
 	}
@@ -1860,7 +1860,7 @@ public:
 ref class DeadMarine : Actor
 {
 public:
-	DeadMarine(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadMarine()
 	{
 		DefineState("Spawn",S_PLAY_DIE7);
 	}
@@ -1871,7 +1871,7 @@ public:
 ref class DeadZombieman : Actor
 {
 public:
-	DeadZombieman(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadZombieman()
 	{
 		DefineState("Spawn",S_POSS_DIE5);
 	}
@@ -1882,7 +1882,7 @@ public:
 ref class DeadDemon : Actor
 {
 public:
-	DeadDemon(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadDemon()
 	{
 		DefineState("Spawn",S_SARG_DIE6);
 	}
@@ -1893,7 +1893,7 @@ public:
 ref class DeadLostSoul : Actor
 {
 public:
-	DeadLostSoul(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadLostSoul()
 	{
 		DefineState("Spawn",S_SKULL_DIE6);
 	}
@@ -1904,7 +1904,7 @@ public:
 ref class DeadImp : Actor
 {
 public:
-	DeadImp(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadImp()
 	{
 		DefineState("Spawn",S_TROO_DIE5);
 	}
@@ -1915,7 +1915,7 @@ public:
 ref class DeadShotgunner : Actor
 {
 public:
-	DeadShotgunner(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadShotgunner()
 	{
 		DefineState("Spawn",S_SPOS_DIE5);
 	}
@@ -1926,7 +1926,7 @@ public:
 ref class MarineGib : Actor
 {
 public:
-	MarineGib(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	MarineGib()
 	{
 		DefineState("Spawn",S_PLAY_XDIE9);
 	}
@@ -1937,7 +1937,7 @@ public:
 ref class MarineGib2 : Actor
 {
 public:
-	MarineGib2(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	MarineGib2()
 	{
 		DefineState("Spawn",S_PLAY_XDIE9);
 	}
@@ -1948,7 +1948,7 @@ public:
 ref class HeadsOnAStick : Actor
 {
 public:
-	HeadsOnAStick(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HeadsOnAStick()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1961,7 +1961,7 @@ public:
 ref class Actor121 : Actor
 {
 public:
-	Actor121(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor121()
 	{
 		DefineState("Spawn",S_GIBS);
 	}
@@ -1972,7 +1972,7 @@ public:
 ref class HeadOnAStick : Actor
 {
 public:
-	HeadOnAStick(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HeadOnAStick()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1985,7 +1985,7 @@ public:
 ref class HeadCandles : Actor
 {
 public:
-	HeadCandles(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	HeadCandles()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -1998,7 +1998,7 @@ public:
 ref class DeadStick : Actor
 {
 public:
-	DeadStick(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	DeadStick()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -2011,7 +2011,7 @@ public:
 ref class LiveStick : Actor
 {
 public:
-	LiveStick(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	LiveStick()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -2024,7 +2024,7 @@ public:
 ref class BigTree : Actor
 {
 public:
-	BigTree(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BigTree()
 	{
 		Radius = Fixed::FromInt(32);
 		Solid = true;
@@ -2037,7 +2037,7 @@ public:
 ref class BurningBarrel : Actor
 {
 public:
-	BurningBarrel(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	BurningBarrel()
 	{
 		Radius = Fixed::FromInt(16);
 		Solid = true;
@@ -2050,7 +2050,7 @@ public:
 ref class Actor128 : Actor
 {
 public:
-	Actor128(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor128()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(88);
@@ -2066,7 +2066,7 @@ public:
 ref class Actor129 : Actor
 {
 public:
-	Actor129(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor129()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(88);
@@ -2082,7 +2082,7 @@ public:
 ref class Actor130 : Actor
 {
 public:
-	Actor130(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor130()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(64);
@@ -2098,7 +2098,7 @@ public:
 ref class Actor131 : Actor
 {
 public:
-	Actor131(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor131()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(64);
@@ -2114,7 +2114,7 @@ public:
 ref class Actor132 : Actor
 {
 public:
-	Actor132(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor132()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(64);
@@ -2130,7 +2130,7 @@ public:
 ref class Actor133 : Actor
 {
 public:
-	Actor133(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor133()
 	{
 		Radius = Fixed::FromInt(16);
 		Height = Fixed::FromInt(64);
@@ -2146,7 +2146,7 @@ public:
 ref class Actor134 : Actor
 {
 public:
-	Actor134(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor134()
 	{
 		NoBlockmap = true;
 		DefineState("Spawn",S_COLONGIBS);
@@ -2158,7 +2158,7 @@ public:
 ref class Actor135 : Actor
 {
 public:
-	Actor135(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor135()
 	{
 		NoBlockmap = true;
 		DefineState("Spawn",S_SMALLPOOL);
@@ -2170,7 +2170,7 @@ public:
 ref class Actor136 : Actor
 {
 public:
-	Actor136(fixed_t x,fixed_t y,fixed_t z) : Actor(x,y,z)
+	Actor136()
 	{
 		NoBlockmap = true;
 		DefineState("Spawn",S_BRAINSTEM);

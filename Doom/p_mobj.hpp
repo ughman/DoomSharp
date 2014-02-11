@@ -31,15 +31,15 @@ private:
 public:
 	mobj_t *mobj;
 
-	Actor(fixed_t x,fixed_t y,fixed_t z) : LegacyThinker(sizeof(mobj_t))
+	Actor() : LegacyThinker(sizeof(mobj_t))
 	{
 		mobj = (mobj_t *)ptr;
 		memset(mobj,0,sizeof(mobj_t));
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		mobj->type = P_GetActorType(GetType());
-		X = Fixed(x);
-		Y = Fixed(y);
-		Z = Fixed(z);
+		X = Fixed::Zero;
+		Y = Fixed::Zero;
+		Z = Fixed::Zero;
 		Radius = Fixed::FromInt(20);
 		Height = Fixed::FromInt(16);
 		mobj->flags = 0;

@@ -14,17 +14,13 @@ gcroot<List<Type^>^> actortypes;
 gcroot<Dictionary<int,Type^>^> doomednumtable;
 gcroot<Dictionary<int,Actor^>^> dummyactors;
 
-Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
+Actor^ P_CreateActor(mobjtype_t type)
 {
 	Actor^ actor;
 	Type^ actortype = actortypes->default[type];
 	if (actortype)
 	{
-		array<Object^>^ args = gcnew array<Object^>(3);
-		args[0] = x;
-		args[1] = y;
-		args[2] = z;
-		actor = (Actor^)Activator::CreateInstance(actortype,args);
+		actor = (Actor^)Activator::CreateInstance(actortype,nullptr);
 	}
 	else
 	{
@@ -35,7 +31,9 @@ Actor^ P_CreateActor(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 
 mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
-	Actor^ actor = P_CreateActor(x,y,z,type);
+	Actor^ actor = P_CreateActor(type);
+	actor->X = Fixed(x);
+	actor->Y = Fixed(y);
 	P_SetThingPosition(actor->mobj);
 	actor->mobj->floorz = actor->mobj->subsector->sector->floorheight;
 	actor->mobj->ceilingz = actor->mobj->subsector->sector->ceilingheight;
@@ -43,6 +41,8 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 		actor->mobj->z = actor->mobj->floorz;
 	else if (z == ONCEILINGZ)
 		actor->mobj->z = actor->mobj->ceilingz;
+	else
+		actor->mobj->z = z;
 	if (gameskill == sk_nightmare)
 	{
 		actor->mobj->reactiontime = 0;
@@ -236,7 +236,7 @@ extern "C" void P_SetDummyActor(mobjtype_t type)
 	Actor^ actor;
 	if (!dummyactors->TryGetValue(type,actor))
 	{
-		actor = P_CreateActor(0,0,0,type);
+		actor = P_CreateActor(type);
 		dummyactors->Add(type,actor);
 	}
 	dummyactor = actor->mobj;
