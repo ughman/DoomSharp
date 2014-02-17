@@ -102,14 +102,7 @@ ref class P_RegisterActorTypeClass
 		}
 		for each (DoomedNumAttribute^ attribute in type->GetCustomAttributes(DoomedNumAttribute::typeid,false))
 		{
-			if (doomednumtable->ContainsKey(attribute->Value))
-			{
-				doomednumtable->default[attribute->Value] = type;
-			}
-			else
-			{
-				doomednumtable->Add(attribute->Value,type);
-			}
+			doomednumtable->default[attribute->Value] = type;
 		}
 	}
 };

@@ -282,14 +282,7 @@ public:
 
 	void DefineState(String^ name,int statenum)
 	{
-		if (states->ContainsKey(name))
-		{
-			states[name] = statenum;
-		}
-		else
-		{
-			states->Add(name,statenum);
-		}
+		states[name] = statenum;
 	}
 
 	bool HasState(String^ name)
