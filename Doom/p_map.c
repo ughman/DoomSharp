@@ -242,7 +242,7 @@ boolean PIT_CheckLine (line_t* ld)
     {
 		if (numspechit >= MAXSPECIALCROSS)
 		{
-			fprintf(stderr,"PIT_CheckLine: SPECHITS Overflow\n");
+			B_LogWarning("A SPECHITS overflow occurred.");
 			return true;
 		}
 	spechit[numspechit] = ld;

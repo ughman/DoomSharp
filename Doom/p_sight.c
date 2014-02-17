@@ -320,7 +320,7 @@ P_CheckSight
     // Check in REJECT table.
 	if (bytenum >= rejectsize)
 	{
-		fprintf(stderr,"P_CheckSight: REJECT overflow\n");
+		B_LogWarning("A REJECT overflow occurred.");
 	}
     else if (rejectmatrix[bytenum]&bitnum)
     {

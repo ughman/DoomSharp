@@ -7,6 +7,7 @@ namespace DoomSharp
 {
     public static class Core
     {
+        private static DoomConsole console;
         private static MusicPlayer music;
         private static MultiArchive archives;
         private static GameState topstate;
@@ -15,12 +16,18 @@ namespace DoomSharp
 
         static Core()
         {
+            console = new DoomConsole();
             music = new MusicPlayer();
             archives = new MultiArchive();
             topstate = null;
             stopwatch = Stopwatch.StartNew();
             lasttime = 0;
             PushState(new RootState());
+        }
+
+        public static DoomConsole Console
+        {
+            get { return console; }
         }
 
         public static MusicPlayer Music

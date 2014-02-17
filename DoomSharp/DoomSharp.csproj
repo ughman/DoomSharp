@@ -38,6 +38,7 @@
   -->
   <ItemGroup>
     <Compile Include="Core Code\Core.cs" />
+    <Compile Include="Core Code\DoomConsole.cs" />
     <Compile Include="Core Code\GameState.cs" />
     <Compile Include="Fixed.cs" />
     <Compile Include="Game Code\ActorTypeAttribute.cs" />

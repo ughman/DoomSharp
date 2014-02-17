@@ -783,6 +783,26 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\b_console.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\b_lumps.cpp"
 					>
 					<FileConfiguration
