@@ -122,9 +122,6 @@ R_InstallSpriteLump
     if (rotation == 0)
     {
 	// the lump should be used for all rotations
-	if (sprtemp[frame].rotate == true)
-	    I_Error ("R_InitSprites: Sprite %s frame %c has rotations "
-		     "and a rot=0 lump", spritename, 'A'+frame);
 			
 	sprtemp[frame].rotate = false;
 	for (r=0 ; r<8 ; r++)
@@ -136,9 +133,6 @@ R_InstallSpriteLump
     }
 	
     // the lump is only used for one rotation
-    if (sprtemp[frame].rotate == false)
-	I_Error ("R_InitSprites: Sprite %s frame %c has rotations "
-		 "and a rot=0 lump", spritename, 'A'+frame);
 		
     sprtemp[frame].rotate = true;
 
