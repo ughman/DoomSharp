@@ -25,13 +25,24 @@ namespace DoomSharp
         {
             if (name == null)
                 throw new ArgumentNullException("name");
-            byte[] data = Core.Archives[Core.Archives.Find(name)].Read();
-            MusicTrack track = new MusicTrack(data);
-            Stop();
-            this.track = track;
-            this.looping = looping;
-            position = 0;
-            duration = 0;
+            try
+            {
+                byte[] data = Core.Archives[Core.Archives.Find(name)].Read();
+                MusicTrack track = new MusicTrack(data);
+                Stop();
+                this.track = track;
+                this.looping = looping;
+                position = 0;
+                duration = 0;
+            }
+            catch (LumpNotFoundException)
+            {
+                Core.Console.LogError("The music track '{0}' could not be found.",name);
+            }
+            catch (ApplicationException)
+            {
+                Core.Console.LogError("An error occurred while trying to play the music track '{0}'.",name);
+            }
         }
 
         public void Stop()
