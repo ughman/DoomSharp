@@ -605,9 +605,6 @@ P_SetupLevel
     // will be set by player think.
     players[consoleplayer].viewz = 1; 
 
-    // Make sure all sounds are stopped before Z_FreeTags.
-    S_Start ();			
-
     
 #if 0 // UNUSED
     if (debugfile)
@@ -652,6 +649,8 @@ P_SetupLevel
 			title = title2 + 2;
 		B_LogEnterLevel(lumpname,title);
 	}
+
+	S_Start();
 
     lumpnum = W_GetNumForName (lumpname);
 	
