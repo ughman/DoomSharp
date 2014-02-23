@@ -31,8 +31,6 @@
 
 #define MAXVISSPRITES  	128
 
-extern vissprite_t	vsprsortedhead;
-
 // Constant arrays used for psprite clipping
 //  and initializing clipping.
 extern short		negonearray[SCREENWIDTH];

@@ -16,25 +16,25 @@ extern "C" void R_ClearSprites()
 
 extern "C" vissprite_t *R_NewVisSprite()
 {
-	vissprite_t *prev = NULL;
-	if (vissprites.size())
-		prev = &vissprites.back();
 	vissprites.push_back(vissprite_t());
-	if (prev)
-		return prev->next = &vissprites.back();
 	return &vissprites.back();
 }
 
-extern "C" int R_CountVisSprites()
+static bool SortVisSprite(const vissprite_t &left,const vissprite_t &right)
 {
-	return vissprites.size();
+	return left.scale < right.scale;
 }
 
-extern "C" vissprite_t *R_FirstVisSprite()
+extern "C" void R_SortVisSprites()
 {
-	return &vissprites.front();
+	vissprites.sort(SortVisSprite);
 }
-extern "C" vissprite_t *R_LastVisSprite()
+
+extern "C" void R_DrawSprite(vissprite_t* spr);
+extern "C" void R_DrawVisSprites()
 {
-	return &vissprites.back();
+	for (std::list<vissprite_t>::iterator it = vissprites.begin();it != vissprites.end();it++)
+	{
+		R_DrawSprite(&*it);
+	}
 }

@@ -727,70 +727,6 @@ void R_DrawPlayerSprites (void)
 
 
 
-
-//
-// R_SortVisSprites
-//
-vissprite_t	vsprsortedhead;
-
-extern vissprite_t *R_FirstVisSprite();
-extern vissprite_t *R_LastVisSprite();
-
-void R_SortVisSprites (void)
-{
-    int			i;
-    int			count;
-    vissprite_t*	ds;
-	vissprite_t* dsprev;
-	vissprite_t* dsnext;
-    vissprite_t*	best;
-    vissprite_t		unsorted;
-    fixed_t		bestscale;
-
-    count = R_CountVisSprites();
-	
-    unsorted.next = unsorted.prev = &unsorted;
-
-    if (!count)
-	return;
-		
-	dsprev = NULL;
-    for (ds=R_FirstVisSprite() ; ds ; ds=ds->next)
-    {
-	ds->prev = dsprev;
-	dsprev = ds;
-    }
-    
-    R_FirstVisSprite()->prev = &unsorted;
-    unsorted.next = R_FirstVisSprite();
-    R_LastVisSprite()->next = &unsorted;
-    unsorted.prev = R_LastVisSprite();
-    
-    // pull the vissprites out by scale
-    //best = 0;		// shut up the compiler warning
-    vsprsortedhead.next = vsprsortedhead.prev = &vsprsortedhead;
-    for (i=0 ; i<count ; i++)
-    {
-	bestscale = MAXINT;
-	for (ds=unsorted.next ; ds!= &unsorted ; ds=ds->next)
-	{
-	    if (ds->scale < bestscale)
-	    {
-		bestscale = ds->scale;
-		best = ds;
-	    }
-	}
-	best->next->prev = best->prev;
-	best->prev->next = best->next;
-	best->next = &vsprsortedhead;
-	best->prev = vsprsortedhead.prev;
-	vsprsortedhead.prev->next = best;
-	vsprsortedhead.prev = best;
-    }
-}
-
-
-
 //
 // R_DrawSprite
 //
@@ -917,17 +853,7 @@ void R_DrawMasked (void)
 	
     R_SortVisSprites ();
 
-    if (R_CountVisSprites())
-    {
-	// draw all vissprites back to front
-	for (spr = vsprsortedhead.next ;
-	     spr != &vsprsortedhead ;
-	     spr=spr->next)
-	{
-	    
-	    R_DrawSprite (spr);
-	}
-    }
+	R_DrawVisSprites();
     
     // render any remaining masked mid textures
     for (ds=ds_p-1 ; ds >= drawsegs ; ds--)
