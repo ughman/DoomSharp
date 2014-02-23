@@ -139,10 +139,6 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 			}
 		}
 	}
-	if (ceilingcount >= MAXCEILINGS)
-	{
-		return false;
-	}
 	bool result = false;
 	sectornum = -1;
 	while ((sectornum = P_FindSectorFromLineTag(line,sectornum)) >= 0)
@@ -154,6 +150,11 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 		sector->specialdata = (void *)1;
 		Ceiling^ ceiling = gcnew Ceiling(sector,(CeilingType)type);
 		P_AddManagedThinker(ceiling);
+		ceilingcount++;
+	}
+	if (ceilingcount > MAXCEILINGS)
+	{
+		Core::Console->LogWarning("The vanilla ceiling limit has been exceeded.");
 	}
 	return result;
 }
