@@ -34,5 +34,21 @@ namespace DoomSharp
             Console.WriteLine(message);
             Console.ResetColor();
         }
+
+        public void LogEnterLevel(string name,string title)
+        {
+            if (name == null)
+                throw new ArgumentNullException("name");
+            if (title == null)
+                throw new ArgumentNullException("title");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("# {0}: ",name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(title);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" #");
+            Console.ResetColor();
+        }
     }
 }

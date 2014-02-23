@@ -643,6 +643,16 @@ P_SetupLevel
 	lumpname[4] = 0;
     }
 
+	{
+		extern char *mapnames[];
+		extern char *mapnames2[];
+		const char *title = (gamemode == commercial) ? mapnames2[gamemap-1] : mapnames[(gameepisode-1)*9+gamemap-1];
+		const char *title2 = strstr(title,": ");
+		if (title2)
+			title = title2 + 2;
+		B_LogEnterLevel(lumpname,title);
+	}
+
     lumpnum = W_GetNumForName (lumpname);
 	
     leveltime = 0;
