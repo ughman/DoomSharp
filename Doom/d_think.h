@@ -64,6 +64,7 @@ typedef actionf_t  think_t;
 // Doubly linked list of actors.
 typedef struct thinker_s
 {
+	void *handle;
     think_t		function;
     
 } thinker_t;

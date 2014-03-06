@@ -33,8 +33,10 @@ public:
 
 	Actor() : LegacyThinker(sizeof(mobj_t))
 	{
+		void *handle = ptr->handle;
 		mobj = (mobj_t *)ptr;
 		memset(mobj,0,sizeof(mobj_t));
+		mobj->thinker.handle = handle;
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		mobj->type = P_GetActorType(GetType());
 		X = Fixed::Zero;

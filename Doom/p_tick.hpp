@@ -3,6 +3,7 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace System::Runtime::InteropServices;
 using namespace DoomSharp;
 
 #include <vcclr.h>
@@ -19,8 +20,6 @@ extern gcroot<List<Thinker^>^> thinkers;
 
 ref class LegacyThinker : Thinker
 {
-private:
-	static void AddLegacyThinker(thinker_t *a,LegacyThinker^ b);
 public:
 	thinker_t *ptr;
 
@@ -29,7 +28,7 @@ public:
 		ptr = (thinker_t *)malloc(size + 256);
 		if (!ptr)
 			throw gcnew ApplicationException();
-		AddLegacyThinker(ptr,this);
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
 	}
 
 	virtual bool Tick() override
@@ -52,6 +51,7 @@ public:
 
 	!LegacyThinker()
 	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
 		free(ptr);
 	}
 };

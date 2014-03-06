@@ -11,8 +11,6 @@ extern "C"
 #include <vcclr.h>
 #include <stdlib.h>
 #include "p_tick.hpp"
-#include "gcweakref.hpp"
-#include <map>
 
 gcroot<List<Thinker^>^> thinkers;
 
@@ -33,38 +31,16 @@ int P_FindLegacyThinker(thinker_t *ptr)
 	throw gcnew Exception();
 }
 
-std::map<thinker_t *,gcweakref<LegacyThinker^>> legacythinkers;
-
-void LegacyThinker::AddLegacyThinker(thinker_t *a,LegacyThinker^ b)
-{
-	legacythinkers[a] = b;
-}
-
 LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
 {
 	if (!ptr)
 		return nullptr;
-	return legacythinkers[ptr];
+	return (LegacyThinker^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target;
 }
 
 extern "C" void P_InitThinkers()
 {
 	thinkers = gcnew List<Thinker^>();
-	for (std::map<thinker_t*,gcweakref<LegacyThinker^>>::iterator it = legacythinkers.begin();it != legacythinkers.end();)
-	{
-		// Clear the legacythinkers list, since
-		// apparently we can't do this from the
-		// finalizers because they run on another
-		// thread
-		if (it->second)
-		{
-			it++;
-		}
-		else
-		{
-			it = legacythinkers.erase(it);
-		}
-	}
 }
 
 extern "C" thinker_t *P_NewThinker(size_t size)
