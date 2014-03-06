@@ -14,7 +14,7 @@ namespace DoomSharp
 
         public MainWindow(bool fullscreen) : base(fullscreen ? DisplayDevice.Default.Width : 800,fullscreen ? DisplayDevice.Default.Height : 600,GraphicsMode.Default,"DoomSharp",fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
-            this.display = new byte [320 * 200];
+            this.display = new byte [512 * 256];
             this.palette = new byte [256 * 3];
             CursorVisible = false;
         }
@@ -30,24 +30,29 @@ namespace DoomSharp
             GL.LoadIdentity();
             GL.Enable(EnableCap.Texture2D);
             byte[] rgbdisplay = new byte [display.Length * 3];
-            for (int i = 0;i < display.Length;i++)
+            for (int y = 0;y < 200;y++)
             {
-                byte color = display[i];
-                rgbdisplay[i * 3 + 0] = palette[color * 3 + 0];
-                rgbdisplay[i * 3 + 1] = palette[color * 3 + 1];
-                rgbdisplay[i * 3 + 2] = palette[color * 3 + 2];
+                for (int x = 0;x < 320;x++)
+                {
+                    byte color = display[x + y * 320];
+                    rgbdisplay[(x + y * 512) * 3 + 0] = palette[color * 3 + 0];
+                    rgbdisplay[(x + y * 512) * 3 + 1] = palette[color * 3 + 1];
+                    rgbdisplay[(x + y * 512) * 3 + 2] = palette[color * 3 + 2];
+                }
             }
-            GL.TexImage2D<byte>(TextureTarget.Texture2D,0,PixelInternalFormat.Rgb,320,200,0,PixelFormat.Rgb,PixelType.UnsignedByte,rgbdisplay);
+            GL.TexImage2D<byte>(TextureTarget.Texture2D,0,PixelInternalFormat.Rgb,512,256,0,PixelFormat.Rgb,PixelType.UnsignedByte,rgbdisplay);
             GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Nearest);
             GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
+            double x2 = 320.0 / 512.0;
+            double y2 = 200.0 / 256.0;
             GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(0,0);
             GL.Vertex2(0,0);
-            GL.TexCoord2(0,1);
+            GL.TexCoord2(0,y2);
             GL.Vertex2(0,200);
-            GL.TexCoord2(1,1);
+            GL.TexCoord2(x2,y2);
             GL.Vertex2(320,200);
-            GL.TexCoord2(1,0);
+            GL.TexCoord2(x2,0);
             GL.Vertex2(320,0);
             GL.End();
             GL.Disable(EnableCap.Texture2D);
