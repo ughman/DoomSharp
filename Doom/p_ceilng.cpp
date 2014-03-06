@@ -11,8 +11,7 @@ extern "C"
 
 #include <vcclr.h>
 
-extern void P_AddManagedThinker(Thinker^ thinker);
-extern gcroot<List<Thinker^>^> thinkers;
+extern gcroot<World^> world;
 
 ref class Ceiling : Thinker
 {
@@ -124,7 +123,7 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 {
 	int sectornum = -1;
 	int ceilingcount = 0;
-	for each (Thinker ^thinker in (List<Thinker^>^)thinkers)
+	for each (Thinker ^thinker in world->Thinkers)
 	{
 		if (dynamic_cast<Ceiling^>(thinker))
 		{
@@ -149,7 +148,7 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 		result = true;
 		sector->specialdata = (void *)1;
 		Ceiling^ ceiling = gcnew Ceiling(sector,(CeilingType)type);
-		P_AddManagedThinker(ceiling);
+		world->AddThinker(ceiling);
 		ceilingcount++;
 	}
 	if (ceilingcount > MAXCEILINGS)
@@ -167,7 +166,7 @@ extern "C" int EV_DoCeiling(line_t *line,ceiling_e type)
 extern "C" int EV_CeilingCrushStop(line_t *line)
 {
 	bool result = false;
-	for each (Thinker ^thinker in (List<Thinker^>^)thinkers)
+	for each (Thinker ^thinker in world->Thinkers)
 	{
 		if (dynamic_cast<Ceiling^>(thinker))
 		{

@@ -12,24 +12,7 @@ extern "C"
 #include <stdlib.h>
 #include "p_tick.hpp"
 
-gcroot<List<Thinker^>^> thinkers;
-
-int P_FindLegacyThinker(thinker_t *ptr)
-{
-	for (int i = 0;i < thinkers->Count;i++)
-	{
-		Thinker^ thinker = thinkers->default[i];
-		if (dynamic_cast<LegacyThinker^>(thinker))
-		{
-			if (((LegacyThinker^)thinker)->ptr == ptr)
-			{
-				return i;
-			}
-		}
-	}
-	I_Error("P_FindLegacyThinker: Couldn't find thinker!");
-	throw gcnew Exception();
-}
+gcroot<World^> world;
 
 LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
 {
@@ -38,15 +21,15 @@ LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
 	return (LegacyThinker^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target;
 }
 
-extern "C" void P_InitThinkers()
+extern "C" void P_InitWorld()
 {
-	thinkers = gcnew List<Thinker^>();
+	world = gcnew World();
 }
 
 extern "C" thinker_t *P_NewThinker(size_t size)
 {
 	LegacyThinker ^thinker = gcnew LegacyThinker(size);
-	thinkers->Add(thinker);
+	world->AddThinker(thinker);
 	return thinker->ptr;
 }
 
@@ -57,9 +40,8 @@ extern "C" void P_RemoveThinker(thinker_t *thinker)
 
 extern "C" thinker_t *P_FirstThinker()
 {
-	for (int i = 0;i < thinkers->Count;i++)
+	for each (Thinker^ thinker in world->Thinkers)
 	{
-		Thinker^ thinker = thinkers->default[i];
 		if (dynamic_cast<LegacyThinker^>(thinker))
 		{
 			return ((LegacyThinker^)thinker)->ptr;
@@ -70,12 +52,19 @@ extern "C" thinker_t *P_FirstThinker()
 
 extern "C" thinker_t *P_NextThinker(thinker_t *it)
 {
-	for (int i = P_FindLegacyThinker(it) + 1;i < thinkers->Count;i++)
+	bool found = false;
+	for each (Thinker^ thinker in world->Thinkers)
 	{
-		Thinker^ thinker = thinkers->default[i];
 		if (dynamic_cast<LegacyThinker^>(thinker))
 		{
-			return ((LegacyThinker^)thinker)->ptr;
+			if (found)
+			{
+				return ((LegacyThinker^)thinker)->ptr;
+			}
+			else if (((LegacyThinker^)thinker)->ptr == it)
+			{
+				found = true;
+			}
 		}
 	}
 	return NULL;
@@ -83,18 +72,5 @@ extern "C" thinker_t *P_NextThinker(thinker_t *it)
 
 extern "C" void P_RunThinkers()
 {
-	for (int i = 0;i < thinkers->Count;i++)
-	{
-		Thinker^ thinker = thinkers->default[i];
-		if (thinker->Tick())
-		{
-			thinkers->RemoveAt(i);
-			i--;
-		}
-	}
-}
-
-void P_AddManagedThinker(Thinker^ thinker)
-{
-	thinkers->Add(thinker);
+	world->Tick();
 }

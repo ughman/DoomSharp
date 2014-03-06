@@ -14,9 +14,7 @@ extern "C"
 #include "d_think.h"
 }
 
-extern int P_FindLegacyThinker(thinker_t *ptr);
-
-extern gcroot<List<Thinker^>^> thinkers;
+extern gcroot<World^> world;
 
 ref class LegacyThinker : Thinker
 {

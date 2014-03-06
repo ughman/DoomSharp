@@ -618,7 +618,7 @@ P_SetupLevel
 
 
     // UNUSED W_Profile ();
-    P_InitThinkers ();
+	P_InitWorld();
 
     // if working with a devlopment map, reload it
     W_Reload ();			
