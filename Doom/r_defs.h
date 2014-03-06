@@ -71,6 +71,7 @@
 //
 typedef struct
 {
+	void *handle;
     fixed_t	x;
     fixed_t	y;
     

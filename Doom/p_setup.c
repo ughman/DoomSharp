@@ -54,9 +54,6 @@ void	P_SpawnMapThing (mapthing_t*	mthing);
 // MAP related Lookup tables.
 // Store VERTEXES, LINEDEFS, SIDEDEFS, etc.
 //
-int		numvertexes;
-vertex_t*	vertexes;
-
 int		numsegs;
 seg_t*		segs;
 
@@ -118,40 +115,6 @@ mapthing_t	playerstarts[MAXPLAYERS];
 
 
 
-//
-// P_LoadVertexes
-//
-void P_LoadVertexes (int lump)
-{
-    byte*		data;
-    int			i;
-    mapvertex_t*	ml;
-    vertex_t*		li;
-
-    // Determine number of lumps:
-    //  total lump length / vertex record length.
-    numvertexes = W_LumpLength (lump) / sizeof(mapvertex_t);
-
-    // Allocate zone memory for buffer.
-    vertexes = Z_Malloc (numvertexes*sizeof(vertex_t),PU_LEVEL,0);	
-
-    // Load data into cache.
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    ml = (mapvertex_t *)data;
-    li = vertexes;
-
-    // Copy and convert vertex coordinates,
-    // internal representation as fixed.
-    for (i=0 ; i<numvertexes ; i++, li++, ml++)
-    {
-	li->x = SHORT(ml->x)<<FRACBITS;
-	li->y = SHORT(ml->y)<<FRACBITS;
-    }
-
-    // Free buffer memory.
-    Z_Free (data);
-}
 
 
 
@@ -177,8 +140,8 @@ void P_LoadSegs (int lump)
     li = segs;
     for (i=0 ; i<numsegs ; i++, li++, ml++)
     {
-	li->v1 = &vertexes[SHORT(ml->v1)];
-	li->v2 = &vertexes[SHORT(ml->v2)];
+	li->v1 = P_GetVertex(SHORT(ml->v1));
+	li->v2 = P_GetVertex(SHORT(ml->v2));
 					
 	li->angle = (SHORT(ml->angle))<<16;
 	li->offset = (SHORT(ml->offset))<<16;
@@ -377,8 +340,8 @@ void P_LoadLineDefs (int lump)
 	ld->flags = SHORT(mld->flags);
 	ld->special = SHORT(mld->special);
 	ld->tag = SHORT(mld->tag);
-	v1 = ld->v1 = &vertexes[SHORT(mld->v1)];
-	v2 = ld->v2 = &vertexes[SHORT(mld->v2)];
+	v1 = ld->v1 = P_GetVertex(SHORT(mld->v1));
+	v2 = ld->v2 = P_GetVertex(SHORT(mld->v2));
 	ld->dx = v2->x - v1->x;
 	ld->dy = v2->y - v1->y;
 	

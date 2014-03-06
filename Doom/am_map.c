@@ -397,17 +397,18 @@ void AM_findMinMaxBoundaries(void)
     min_x = min_y =  MAXINT;
     max_x = max_y = -MAXINT;
   
-    for (i=0;i<numvertexes;i++)
+    for (i=0;i<P_CountVertexes();i++)
     {
-	if (vertexes[i].x < min_x)
-	    min_x = vertexes[i].x;
-	else if (vertexes[i].x > max_x)
-	    max_x = vertexes[i].x;
+		vertex_t *vertex = P_GetVertex(i);
+	if (vertex->x < min_x)
+	    min_x = vertex->x;
+	else if (vertex->x > max_x)
+	    max_x = vertex->x;
     
-	if (vertexes[i].y < min_y)
-	    min_y = vertexes[i].y;
-	else if (vertexes[i].y > max_y)
-	    max_y = vertexes[i].y;
+	if (vertex->y < min_y)
+	    min_y = vertex->y;
+	else if (vertex->y > max_y)
+	    max_y = vertex->y;
     }
   
     max_w = max_x - min_x;
