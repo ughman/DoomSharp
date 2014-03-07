@@ -45,6 +45,7 @@
     <Compile Include="Game Code\CeilingDirection.cs" />
     <Compile Include="Game Code\CeilingType.cs" />
     <Compile Include="Game Code\CompatFlags.cs" />
+    <Compile Include="Game Code\Sidedef.cs" />
     <Compile Include="Game Code\DoomedNumAttribute.cs" />
     <Compile Include="Game Code\Sector.cs" />
     <Compile Include="Game Code\Thinker.cs" />

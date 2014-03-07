@@ -115,4 +115,55 @@ public:
 	}
 };
 
+ref class DSidedef : Sidedef
+{
+public:
+	static DSidedef^ FromPtr(side_t *ptr)
+	{
+		return ptr ? (DSidedef^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
+	side_t *ptr;
+
+	DSidedef(DSector^ sector) : Sidedef(sector)
+	{
+		ptr = new side_t;
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
+		ptr->sector = sector->ptr;
+		ptr->textureoffset = 0;
+		ptr->rowoffset = 0;
+		ptr->toptexture = 0;
+		ptr->bottomtexture = 0;
+		ptr->midtexture = 0;
+	}
+
+	virtual property DoomSharp::Sector^ Sector
+	{
+		DoomSharp::Sector^ get() override { return DSector::FromPtr(ptr->sector); }
+	}
+
+	virtual property Fixed XOffset
+	{
+		Fixed get() override { return Fixed(ptr->textureoffset); }
+		void set(Fixed value) override { ptr->textureoffset = value.Value; }
+	}
+
+	virtual property Fixed YOffset
+	{
+		Fixed get() override { return Fixed(ptr->rowoffset); }
+		void set(Fixed value) override { ptr->rowoffset = value.Value; }
+	}
+
+	~DSidedef()
+	{
+		this->!DSidedef();
+	}
+
+	!DSidedef()
+	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
+		delete ptr;
+	}
+};
+
 #endif

@@ -146,6 +146,7 @@ typedef	struct
 
 typedef struct
 {
+	void *handle;
     // add this to the calculated texture column
     fixed_t	textureoffset;
     
@@ -196,7 +197,7 @@ typedef struct line_s
 
     // Visual appearance: SideDefs.
     //  sidenum[1] will be -1 if one sided
-    short	sidenum[2];			
+	side_t *side[2];
 
     // Neat. Another bounding box, for the extent
     //  of the LineDef.

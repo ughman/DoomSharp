@@ -303,7 +303,7 @@ void P_LineOpening (line_t* linedef)
     sector_t*	front;
     sector_t*	back;
 	
-    if (linedef->sidenum[1] == -1)
+    if (linedef->side[1] == NULL)
     {
 	// single sided line
 	openrange = 0;

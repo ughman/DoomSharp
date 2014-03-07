@@ -207,7 +207,7 @@ getSide
   int		line,
   int		side )
 {
-    return &sides[ (P_GetSector(currentSector)->lines[line])->sidenum[side] ];
+    return (P_GetSector(currentSector)->lines[line])->side[side];
 }
 
 
@@ -223,7 +223,7 @@ getSector
   int		line,
   int		side )
 {
-    return sides[ (P_GetSector(currentSector)->lines[line])->sidenum[side] ].sector;
+    return (P_GetSector(currentSector)->lines[line])->side[side]->sector;
 }
 
 
@@ -1119,7 +1119,7 @@ void P_UpdateSpecials (void)
 	{
 	  case 48:
 	    // EFFECT FIRSTCOL SCROLL +
-	    sides[line->sidenum[0]].textureoffset += FRACUNIT;
+	    line->side[0]->textureoffset += FRACUNIT;
 	    break;
 	}
     }
@@ -1135,17 +1135,17 @@ void P_UpdateSpecials (void)
 		switch(buttonlist[i].where)
 		{
 		  case top:
-		    sides[buttonlist[i].line->sidenum[0]].toptexture =
+		    buttonlist[i].line->side[0]->toptexture =
 			buttonlist[i].btexture;
 		    break;
 		    
 		  case middle:
-		    sides[buttonlist[i].line->sidenum[0]].midtexture =
+		    buttonlist[i].line->side[0]->midtexture =
 			buttonlist[i].btexture;
 		    break;
 		    
 		  case bottom:
-		    sides[buttonlist[i].line->sidenum[0]].bottomtexture =
+		    buttonlist[i].line->side[0]->bottomtexture =
 			buttonlist[i].btexture;
 		    break;
 		}

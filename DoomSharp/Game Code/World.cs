@@ -8,12 +8,14 @@ namespace DoomSharp
         private List<Thinker> thinkers;
         private List<Vertex> vertices;
         private List<Sector> sectors;
+        private List<Sidedef> sidedefs;
 
         public World()
         {
             this.thinkers = new List<Thinker>();
             this.vertices = new List<Vertex>();
             this.sectors = new List<Sector>();
+            this.sidedefs = new List<Sidedef>();
         }
 
         public IEnumerable<Thinker> Thinkers
@@ -29,6 +31,11 @@ namespace DoomSharp
         public IList<Sector> Sectors
         {
             get { return sectors; }
+        }
+
+        public IList<Sidedef> Sidedefs
+        {
+            get { return sidedefs; }
         }
 
         public void AddThinker(Thinker thinker)

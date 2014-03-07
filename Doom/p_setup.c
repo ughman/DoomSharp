@@ -66,9 +66,6 @@ node_t*		nodes;
 int		numlines;
 line_t*		lines;
 
-int		numsides;
-side_t*		sides;
-
 
 // BLOCKMAP
 // Created from axis aligned bounding box
@@ -146,10 +143,10 @@ void P_LoadSegs (int lump)
 	ldef = &lines[linedef];
 	li->linedef = ldef;
 	side = SHORT(ml->side);
-	li->sidedef = &sides[ldef->sidenum[side]];
-	li->frontsector = sides[ldef->sidenum[side]].sector;
+	li->sidedef = ldef->side[side];
+	li->frontsector = ldef->side[side]->sector;
 	if (ldef-> flags & ML_TWOSIDED)
-	    li->backsector = sides[ldef->sidenum[side^1]].sector;
+	    li->backsector = ldef->side[side^1]->sector;
 	else
 	    li->backsector = 0;
     }
@@ -290,6 +287,7 @@ void P_LoadLineDefs (int lump)
     line_t*		ld;
     vertex_t*		v1;
     vertex_t*		v2;
+	int sidenum[2];
 	
     numlines = W_LumpLength (lump) / sizeof(maplinedef_t);
     lines = Z_Malloc (numlines*sizeof(line_t),PU_LEVEL,0);	
@@ -342,49 +340,21 @@ void P_LoadLineDefs (int lump)
 	    ld->bbox[BOXTOP] = v1->y;
 	}
 
-	ld->sidenum[0] = SHORT(mld->sidenum[0]);
-	ld->sidenum[1] = SHORT(mld->sidenum[1]);
+	sidenum[0] = SHORT(mld->sidenum[0]);
+	sidenum[1] = SHORT(mld->sidenum[1]);
 
-	if (ld->sidenum[0] != -1)
-	    ld->frontsector = sides[ld->sidenum[0]].sector;
+	ld->side[0] = sidenum[0] == -1 ? NULL : P_GetSideDef(sidenum[0]);
+	ld->side[1] = sidenum[1] == -1 ? NULL : P_GetSideDef(sidenum[1]);
+
+	if (ld->side[0])
+	    ld->frontsector = ld->side[0]->sector;
 	else
 	    ld->frontsector = 0;
 
-	if (ld->sidenum[1] != -1)
-	    ld->backsector = sides[ld->sidenum[1]].sector;
+	if (ld->side[1])
+	    ld->backsector = ld->side[1]->sector;
 	else
 	    ld->backsector = 0;
-    }
-	
-    Z_Free (data);
-}
-
-
-//
-// P_LoadSideDefs
-//
-void P_LoadSideDefs (int lump)
-{
-    byte*		data;
-    int			i;
-    mapsidedef_t*	msd;
-    side_t*		sd;
-	
-    numsides = W_LumpLength (lump) / sizeof(mapsidedef_t);
-    sides = Z_Malloc (numsides*sizeof(side_t),PU_LEVEL,0);	
-    memset (sides, 0, numsides*sizeof(side_t));
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    msd = (mapsidedef_t *)data;
-    sd = sides;
-    for (i=0 ; i<numsides ; i++, msd++, sd++)
-    {
-	sd->textureoffset = SHORT(msd->textureoffset)<<FRACBITS;
-	sd->rowoffset = SHORT(msd->rowoffset)<<FRACBITS;
-	sd->toptexture = R_TextureNumForName(msd->toptexture);
-	sd->bottomtexture = R_TextureNumForName(msd->bottomtexture);
-	sd->midtexture = R_TextureNumForName(msd->midtexture);
-	sd->sector = P_GetSector(SHORT(msd->sector));
     }
 	
     Z_Free (data);

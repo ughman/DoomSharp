@@ -73,9 +73,6 @@ extern node_t*		nodes;
 extern int		numlines;
 extern line_t*		lines;
 
-extern int		numsides;
-extern side_t*		sides;
-
 extern sector_t *P_GetSector(int);
 
 //

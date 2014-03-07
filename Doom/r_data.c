@@ -699,11 +699,12 @@ void R_PrecacheLevel (void)
     texturepresent = _alloca(numtextures);
     memset (texturepresent,0, numtextures);
 	
-    for (i=0 ; i<numsides ; i++)
+    for (i=0 ; i<P_CountSideDefs() ; i++)
     {
-	texturepresent[sides[i].toptexture] = 1;
-	texturepresent[sides[i].midtexture] = 1;
-	texturepresent[sides[i].bottomtexture] = 1;
+		side_t *side = P_GetSideDef(i);
+	texturepresent[side->toptexture] = 1;
+	texturepresent[side->midtexture] = 1;
+	texturepresent[side->bottomtexture] = 1;
     }
 
     // Sky texture is always present.
