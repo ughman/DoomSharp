@@ -272,7 +272,7 @@ EV_DoFloor
     rtn = 0;
     while ((secnum = P_FindSectorFromLineTag(line,secnum)) >= 0)
     {
-	sec = &sectors[secnum];
+	sec = P_GetSector(secnum);
 		
 	// ALREADY MOVING?  IF SO, KEEP GOING...
 	if (sec->specialdata)
@@ -412,7 +412,7 @@ EV_DoFloor
 	    {
 		if ( twoSided(secnum, i) )
 		{
-		    if (getSide(secnum,i,0)->sector-sectors == secnum)
+		    if (P_UngetSector(getSide(secnum,i,0)->sector) == secnum)
 		    {
 			sec = getSector(secnum,i,1);
 
@@ -474,7 +474,7 @@ EV_BuildStairs
     rtn = 0;
     while ((secnum = P_FindSectorFromLineTag(line,secnum)) >= 0)
     {
-	sec = &sectors[secnum];
+	sec = P_GetSector(secnum);
 		
 	// ALREADY MOVING?  IF SO, KEEP GOING...
 	if (sec->specialdata)
@@ -516,13 +516,13 @@ EV_BuildStairs
 		    continue;
 					
 		tsec = (sec->lines[i])->frontsector;
-		newsecnum = tsec-sectors;
+		newsecnum = P_UngetSector(tsec);
 		
 		if (secnum != newsecnum)
 		    continue;
 
 		tsec = (sec->lines[i])->backsector;
-		newsecnum = tsec - sectors;
+		newsecnum = P_UngetSector(tsec);
 
 		if (tsec->floorpic != texture)
 		    continue;

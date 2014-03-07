@@ -164,7 +164,7 @@ EV_DoPlat
 	
     while ((secnum = P_FindSectorFromLineTag(line,secnum)) >= 0)
     {
-	sec = &sectors[secnum];
+	sec = P_GetSector(secnum);
 
 	if (sec->specialdata)
 	    continue;

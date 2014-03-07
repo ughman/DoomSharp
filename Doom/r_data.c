@@ -688,10 +688,11 @@ void R_PrecacheLevel (void)
 	return;
     
     // Precache flats.
-    for (i=0 ; i<numsectors ; i++)
+    for (i=0 ; i<P_CountSectors() ; i++)
     {
-		W_CacheLumpNum(sectors[i].floorpic,PU_CACHE);
-		W_CacheLumpNum(sectors[i].ceilingpic,PU_CACHE);
+		sector_t *sector = P_GetSector(i);
+		W_CacheLumpNum(sector->floorpic,PU_CACHE);
+		W_CacheLumpNum(sector->ceilingpic,PU_CACHE);
     }
     
     // Precache textures.

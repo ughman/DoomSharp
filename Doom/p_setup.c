@@ -57,9 +57,6 @@ void	P_SpawnMapThing (mapthing_t*	mthing);
 int		numsegs;
 seg_t*		segs;
 
-int		numsectors;
-sector_t*	sectors;
-
 int		numsubsectors;
 subsector_t*	subsectors;
 
@@ -183,40 +180,6 @@ void P_LoadSubsectors (int lump)
     {
 	ss->numlines = SHORT(ms->numsegs);
 	ss->firstline = SHORT(ms->firstseg);
-    }
-	
-    Z_Free (data);
-}
-
-
-
-//
-// P_LoadSectors
-//
-void P_LoadSectors (int lump)
-{
-    byte*		data;
-    int			i;
-    mapsector_t*	ms;
-    sector_t*		ss;
-	
-    numsectors = W_LumpLength (lump) / sizeof(mapsector_t);
-    sectors = Z_Malloc (numsectors*sizeof(sector_t),PU_LEVEL,0);	
-    memset (sectors, 0, numsectors*sizeof(sector_t));
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    ms = (mapsector_t *)data;
-    ss = sectors;
-    for (i=0 ; i<numsectors ; i++, ss++, ms++)
-    {
-	ss->floorheight = SHORT(ms->floorheight)<<FRACBITS;
-	ss->ceilingheight = SHORT(ms->ceilingheight)<<FRACBITS;
-	ss->floorpic = R_FlatNumForName(ms->floorpic);
-	ss->ceilingpic = R_FlatNumForName(ms->ceilingpic);
-	ss->lightlevel = SHORT(ms->lightlevel);
-	ss->special = SHORT(ms->special);
-	ss->tag = SHORT(ms->tag);
-	ss->thinglist = NULL;
     }
 	
     Z_Free (data);
@@ -421,7 +384,7 @@ void P_LoadSideDefs (int lump)
 	sd->toptexture = R_TextureNumForName(msd->toptexture);
 	sd->bottomtexture = R_TextureNumForName(msd->bottomtexture);
 	sd->midtexture = R_TextureNumForName(msd->midtexture);
-	sd->sector = &sectors[SHORT(msd->sector)];
+	sd->sector = P_GetSector(SHORT(msd->sector));
     }
 	
     Z_Free (data);
@@ -499,9 +462,9 @@ void P_GroupLines (void)
 	
     // build line tables for each sector	
     linebuffer = Z_Malloc (total*4, PU_LEVEL, 0);
-    sector = sectors;
-    for (i=0 ; i<numsectors ; i++, sector++)
+    for (i=0 ; i<P_CountSectors() ; i++)
     {
+		sector = P_GetSector(i);
 	M_ClearBox (bbox);
 	sector->lines = linebuffer;
 	li = lines;

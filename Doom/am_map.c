@@ -1292,9 +1292,9 @@ AM_drawThings
     int		i;
     mobj_t*	t;
 
-    for (i=0;i<numsectors;i++)
+    for (i=0;i<P_CountSectors();i++)
     {
-	t = sectors[i].thinglist;
+	t = P_GetSector(i)->thinglist;
 	while (t)
 	{
 	    AM_drawLineCharacter

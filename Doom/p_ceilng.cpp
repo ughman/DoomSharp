@@ -142,7 +142,7 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 	sectornum = -1;
 	while ((sectornum = P_FindSectorFromLineTag(line,sectornum)) >= 0)
 	{
-		sector_t *sector = &sectors[sectornum];
+		sector_t *sector = P_GetSector(sectornum);
 		if (sector->specialdata)
 			continue;
 		result = true;

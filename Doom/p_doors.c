@@ -275,7 +275,7 @@ EV_DoDoor
     
     while ((secnum = P_FindSectorFromLineTag(line,secnum)) >= 0)
     {
-	sec = &sectors[secnum];
+	sec = P_GetSector(secnum);
 	if (sec->specialdata)
 	    continue;
 		
@@ -356,7 +356,6 @@ EV_VerticalDoor
   mobj_t*	thing )
 {
     player_t*	player;
-    int		secnum;
     sector_t*	sec;
     vldoor_t*	door;
     int		side;
@@ -411,7 +410,6 @@ EV_VerticalDoor
 	
     // if the sector has an active thinker, use it
     sec = sides[ line->sidenum[side^1]] .sector;
-    secnum = sec-sectors;
 
     if (sec->specialdata)
     {

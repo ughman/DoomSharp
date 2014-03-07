@@ -64,9 +64,6 @@ extern spritedef_t*	sprites;
 extern int		numsegs;
 extern seg_t*		segs;
 
-extern int		numsectors;
-extern sector_t*	sectors;
-
 extern int		numsubsectors;
 extern subsector_t*	subsectors;
 
@@ -79,6 +76,7 @@ extern line_t*		lines;
 extern int		numsides;
 extern side_t*		sides;
 
+extern sector_t *P_GetSector(int);
 
 //
 // POV data.

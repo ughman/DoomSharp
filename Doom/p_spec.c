@@ -207,7 +207,7 @@ getSide
   int		line,
   int		side )
 {
-    return &sides[ (sectors[currentSector].lines[line])->sidenum[side] ];
+    return &sides[ (P_GetSector(currentSector)->lines[line])->sidenum[side] ];
 }
 
 
@@ -223,7 +223,7 @@ getSector
   int		line,
   int		side )
 {
-    return sides[ (sectors[currentSector].lines[line])->sidenum[side] ].sector;
+    return sides[ (P_GetSector(currentSector)->lines[line])->sidenum[side] ].sector;
 }
 
 
@@ -237,7 +237,7 @@ twoSided
 ( int	sector,
   int	line )
 {
-    return (sectors[sector].lines[line])->flags & ML_TWOSIDED;
+    return (P_GetSector(sector)->lines[line])->flags & ML_TWOSIDED;
 }
 
 
@@ -438,8 +438,8 @@ P_FindSectorFromLineTag
 {
     int	i;
 	
-    for (i=start+1;i<numsectors;i++)
-	if (sectors[i].tag == line->tag)
+    for (i=start+1;i<P_CountSectors();i++)
+	if (P_GetSector(i)->tag == line->tag)
 	    return i;
     
     return -1;
@@ -1175,7 +1175,7 @@ int EV_DoDonut(line_t*	line)
     rtn = 0;
     while ((secnum = P_FindSectorFromLineTag(line,secnum)) >= 0)
     {
-	s1 = &sectors[secnum];
+	s1 = P_GetSector(secnum);
 		
 	// ALREADY MOVING?  IF SO, KEEP GOING...
 	if (s1->specialdata)
@@ -1266,9 +1266,9 @@ void P_SpawnSpecials (void)
     }
     
     //	Init special SECTORs.
-    sector = sectors;
-    for (i=0 ; i<numsectors ; i++, sector++)
+    for (i=0 ; i<P_CountSectors() ; i++)
     {
+		sector = P_GetSector(i);
 	if (!sector->special)
 	    continue;
 	

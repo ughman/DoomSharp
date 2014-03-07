@@ -74,9 +74,9 @@ EV_Teleport
 
     
     tag = line->tag;
-    for (i = 0; i < numsectors; i++)
+    for (i = 0; i < P_CountSectors(); i++)
     {
-	if (sectors[ i ].tag == tag )
+	if (P_GetSector(i)->tag == tag )
 	{
 	    for (thinker = P_FirstThinker();
 		 thinker;
@@ -94,7 +94,7 @@ EV_Teleport
 
 		sector = m->subsector->sector;
 		// wrong sector
-		if (sector-sectors != i )
+		if (P_UngetSector(sector) != i )
 		    continue;	
 
 		oldx = thing->x;

@@ -102,6 +102,7 @@ typedef struct
 //
 typedef	struct
 {
+	void *handle;
     fixed_t	floorheight;
     fixed_t	ceilingheight;
     short	floorpic;
