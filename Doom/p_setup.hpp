@@ -9,6 +9,7 @@ extern "C"
 {
 #include "r_defs.h"
 #include "r_data.h"
+#include "m_bbox.h"
 }
 
 #include <vcclr.h>
@@ -160,6 +161,89 @@ public:
 	}
 
 	!DSidedef()
+	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
+		delete ptr;
+	}
+};
+
+ref class DLinedef : Linedef
+{
+public:
+	static DLinedef^ FromPtr(line_t *ptr)
+	{
+		return ptr ? (DLinedef^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
+	line_t *ptr;
+
+	DLinedef(DVertex^ start,DVertex^ end,DSidedef^ front,DSidedef^ back) : Linedef(start,end,front,back)
+	{
+		ptr = new line_t;
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
+		ptr->v1 = start->ptr;
+		ptr->v2 = end->ptr;
+		ptr->side[0] = front ? front->ptr : NULL;
+		ptr->side[1] = back ? back->ptr : NULL;
+		ptr->flags = 0;
+		ptr->special = 0;
+		ptr->tag = 0;
+		ptr->dx = ptr->v2->x - ptr->v1->x;
+		ptr->dy = ptr->v2->y - ptr->v1->y;
+		if (!ptr->dx)
+			ptr->slopetype = ST_VERTICAL;
+		else if (!ptr->dy)
+			ptr->slopetype = ST_HORIZONTAL;
+		else if (FixedDiv(ptr->dy,ptr->dx) > 0)
+			ptr->slopetype = ST_POSITIVE;
+		else
+			ptr->slopetype = ST_NEGATIVE;
+		ptr->bbox[BOXLEFT] = Math::Min(ptr->v1->x,ptr->v2->x);
+		ptr->bbox[BOXRIGHT] = Math::Max(ptr->v1->x,ptr->v2->x);
+		ptr->bbox[BOXBOTTOM] = Math::Min(ptr->v1->y,ptr->v2->y);
+		ptr->bbox[BOXTOP] = Math::Max(ptr->v1->y,ptr->v2->y);
+		ptr->frontsector = ptr->side[0] ? ptr->side[0]->sector : NULL;
+		ptr->backsector = ptr->side[1] ? ptr->side[1]->sector : NULL;
+	}
+
+	virtual property Vertex^ Start
+	{
+		Vertex^ get() override { return DVertex::FromPtr(ptr->v1); }
+	}
+
+	virtual property Vertex^ End
+	{
+		Vertex^ get() override { return DVertex::FromPtr(ptr->v2); }
+	}
+
+	virtual property Sidedef^ Front
+	{
+		Sidedef^ get() override { return DSidedef::FromPtr(ptr->side[0]); }
+	}
+
+	virtual property Sidedef^ Back
+	{
+		Sidedef^ get() override { return DSidedef::FromPtr(ptr->side[1]); }
+	}
+
+	virtual property int Special
+	{
+		int get() override { return ptr->special; }
+		void set(int value) override { ptr->special = value; }
+	}
+
+	virtual property int Tag
+	{
+		int get() override { return ptr->tag; }
+		void set(int value) override { ptr->tag = value; }
+	}
+
+	~DLinedef()
+	{
+		this->!DLinedef();
+	}
+
+	!DLinedef()
 	{
 		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
 		delete ptr;

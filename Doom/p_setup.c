@@ -63,9 +63,6 @@ subsector_t*	subsectors;
 int		numnodes;
 node_t*		nodes;
 
-int		numlines;
-line_t*		lines;
-
 
 // BLOCKMAP
 // Created from axis aligned bounding box
@@ -140,7 +137,7 @@ void P_LoadSegs (int lump)
 	li->angle = (SHORT(ml->angle))<<16;
 	li->offset = (SHORT(ml->offset))<<16;
 	linedef = SHORT(ml->linedef);
-	ldef = &lines[linedef];
+	ldef = P_GetLineDef(linedef);
 	li->linedef = ldef;
 	side = SHORT(ml->side);
 	li->sidedef = ldef->side[side];
@@ -276,92 +273,6 @@ void P_LoadThings (int lump)
 
 
 //
-// P_LoadLineDefs
-// Also counts secret lines for intermissions.
-//
-void P_LoadLineDefs (int lump)
-{
-    byte*		data;
-    int			i;
-    maplinedef_t*	mld;
-    line_t*		ld;
-    vertex_t*		v1;
-    vertex_t*		v2;
-	int sidenum[2];
-	
-    numlines = W_LumpLength (lump) / sizeof(maplinedef_t);
-    lines = Z_Malloc (numlines*sizeof(line_t),PU_LEVEL,0);	
-    memset (lines, 0, numlines*sizeof(line_t));
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    mld = (maplinedef_t *)data;
-    ld = lines;
-    for (i=0 ; i<numlines ; i++, mld++, ld++)
-    {
-	ld->flags = SHORT(mld->flags);
-	ld->special = SHORT(mld->special);
-	ld->tag = SHORT(mld->tag);
-	v1 = ld->v1 = P_GetVertex(SHORT(mld->v1));
-	v2 = ld->v2 = P_GetVertex(SHORT(mld->v2));
-	ld->dx = v2->x - v1->x;
-	ld->dy = v2->y - v1->y;
-	
-	if (!ld->dx)
-	    ld->slopetype = ST_VERTICAL;
-	else if (!ld->dy)
-	    ld->slopetype = ST_HORIZONTAL;
-	else
-	{
-	    if (FixedDiv (ld->dy , ld->dx) > 0)
-		ld->slopetype = ST_POSITIVE;
-	    else
-		ld->slopetype = ST_NEGATIVE;
-	}
-		
-	if (v1->x < v2->x)
-	{
-	    ld->bbox[BOXLEFT] = v1->x;
-	    ld->bbox[BOXRIGHT] = v2->x;
-	}
-	else
-	{
-	    ld->bbox[BOXLEFT] = v2->x;
-	    ld->bbox[BOXRIGHT] = v1->x;
-	}
-
-	if (v1->y < v2->y)
-	{
-	    ld->bbox[BOXBOTTOM] = v1->y;
-	    ld->bbox[BOXTOP] = v2->y;
-	}
-	else
-	{
-	    ld->bbox[BOXBOTTOM] = v2->y;
-	    ld->bbox[BOXTOP] = v1->y;
-	}
-
-	sidenum[0] = SHORT(mld->sidenum[0]);
-	sidenum[1] = SHORT(mld->sidenum[1]);
-
-	ld->side[0] = sidenum[0] == -1 ? NULL : P_GetSideDef(sidenum[0]);
-	ld->side[1] = sidenum[1] == -1 ? NULL : P_GetSideDef(sidenum[1]);
-
-	if (ld->side[0])
-	    ld->frontsector = ld->side[0]->sector;
-	else
-	    ld->frontsector = 0;
-
-	if (ld->side[1])
-	    ld->backsector = ld->side[1]->sector;
-	else
-	    ld->backsector = 0;
-    }
-	
-    Z_Free (data);
-}
-
-
-//
 // P_LoadBlockMap
 //
 void P_LoadBlockMap (int lump)
@@ -416,10 +327,10 @@ void P_GroupLines (void)
     }
 
     // count number of lines in each sector
-    li = lines;
     total = 0;
-    for (i=0 ; i<numlines ; i++, li++)
+    for (i=0 ; i<P_CountLineDefs() ; i++)
     {
+		li = P_GetLineDef(i);
 	total++;
 	li->frontsector->linecount++;
 
@@ -437,9 +348,9 @@ void P_GroupLines (void)
 		sector = P_GetSector(i);
 	M_ClearBox (bbox);
 	sector->lines = linebuffer;
-	li = lines;
-	for (j=0 ; j<numlines ; j++, li++)
+	for (j=0 ; j<P_CountLineDefs() ; j++)
 	{
+		li = P_GetLineDef(j);
 	    if (li->frontsector == sector || li->backsector == sector)
 	    {
 		*linebuffer++ = li;

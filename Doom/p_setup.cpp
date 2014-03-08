@@ -104,3 +104,78 @@ extern "C" int P_CountSideDefs()
 {
 	return world->Sidedefs->Count;
 }
+
+extern "C" void P_LoadLineDefs(int lumpid)
+{
+	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
+	int count = data->Length / 14;
+	if (data->Length % 14)
+		Core::Console->LogWarning("This map's LINEDEFS lump has an irregular length.");
+	for (int i = 0;i < count;i++)
+	{
+		int startnum = (unsigned short)BitConv::FromInt16(data,i * 14 + 0);
+		int endnum = (unsigned short)BitConv::FromInt16(data,i * 14 + 2);
+		int frontnum = (unsigned short)BitConv::FromInt16(data,i * 14 + 10);
+		int backnum = (unsigned short)BitConv::FromInt16(data,i * 14 + 12);
+		if (startnum >= world->Vertices->Count)
+		{
+			Core::Console->LogError("Linedef {0} references a non-existent vertex.",i);
+			I_Error("Bad linedef->vertex reference");
+		}
+		DVertex^ start = (DVertex^)world->Vertices[startnum];
+		if (endnum >= world->Vertices->Count)
+		{
+			Core::Console->LogError("Linedef {0} references a non-existent vertex.",i);
+			I_Error("Bad linedef->vertex reference");
+		}
+		DVertex^ end = (DVertex^)world->Vertices[endnum];
+		DSidedef^ front;
+		if (frontnum == 0xFFFF)
+		{
+			front = nullptr;
+		}
+		else if (frontnum >= world->Sidedefs->Count)
+		{
+			Core::Console->LogError("Linedef {0} references a non-existent sidedef.",i);
+			front = nullptr;
+		}
+		else
+		{
+			front = (DSidedef^)world->Sidedefs[frontnum];
+		}
+		DSidedef^ back;
+		if (backnum == 0xFFFF)
+		{
+			back = nullptr;
+		}
+		else if (backnum >= world->Sidedefs->Count)
+		{
+			Core::Console->LogError("Linedef {0} references a non-existent sidedef.",i);
+			back = nullptr;
+		}
+		else
+		{
+			back = (DSidedef^)world->Sidedefs[backnum];
+		}
+		DLinedef^ linedef = gcnew DLinedef(start,end,front,back);
+		linedef->ptr->flags = BitConv::FromInt16(data,i * 14 + 4);
+		linedef->Special = BitConv::FromInt16(data,i * 14 + 6);
+		linedef->Tag = BitConv::FromInt16(data,i * 14 + 8);
+		world->Linedefs->Add(linedef);
+	}
+}
+
+extern "C" line_t *P_GetLineDef(int i)
+{
+	return ((DLinedef^)world->Linedefs[i])->ptr;
+}
+
+extern "C" int P_CountLineDefs()
+{
+	return world->Linedefs->Count;
+}
+
+extern "C" int P_UngetLineDef(line_t *ptr)
+{
+	return world->Linedefs->IndexOf(DLinedef::FromPtr(ptr));
+}

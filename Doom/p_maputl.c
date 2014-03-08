@@ -493,7 +493,7 @@ P_BlockLinesIterator
 
     for ( list = blockmaplump+offset ; *list != -1 ; list++)
     {
-	ld = &lines[*list];
+	ld = P_GetLineDef(*list);
 
 	if (ld->validcount == validcount)
 	    continue; 	// line has already been checked

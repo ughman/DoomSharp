@@ -182,6 +182,7 @@ typedef enum
 
 typedef struct line_s
 {
+	void *handle;
     // Vertices, from v1 to v2.
     vertex_t*	v1;
     vertex_t*	v2;

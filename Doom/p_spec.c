@@ -498,7 +498,7 @@ P_CrossSpecialLine
     line_t*	line;
     int		ok;
 
-    line = &lines[linenum];
+    line = P_GetLineDef(linenum);
     
     //	Triggers that other things can activate
     if (!thing->player)
@@ -1333,13 +1333,14 @@ void P_SpawnSpecials (void)
     
     //	Init line EFFECTs
     numlinespecials = 0;
-    for (i = 0;i < numlines; i++)
+    for (i = 0;i < P_CountLineDefs(); i++)
     {
-	switch(lines[i].special)
+		line_t *line = P_GetLineDef(i);
+	switch(line->special)
 	{
 	  case 48:
 	    // EFFECT FIRSTCOL SCROLL+
-	    linespeciallist[numlinespecials] = &lines[i];
+	    linespeciallist[numlinespecials] = line;
 	    numlinespecials++;
 	    break;
 	}

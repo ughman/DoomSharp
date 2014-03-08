@@ -1122,37 +1122,38 @@ void AM_drawWalls(void)
     int i;
     static mline_t l;
 
-    for (i=0;i<numlines;i++)
+    for (i=0;i<P_CountLineDefs();i++)
     {
-	l.a.x = lines[i].v1->x;
-	l.a.y = lines[i].v1->y;
-	l.b.x = lines[i].v2->x;
-	l.b.y = lines[i].v2->y;
-	if (cheating || (lines[i].flags & ML_MAPPED))
+		line_t *line = P_GetLineDef(i);
+	l.a.x = line->v1->x;
+	l.a.y = line->v1->y;
+	l.b.x = line->v2->x;
+	l.b.y = line->v2->y;
+	if (cheating || (line->flags & ML_MAPPED))
 	{
-	    if ((lines[i].flags & LINE_NEVERSEE) && !cheating)
+	    if ((line->flags & LINE_NEVERSEE) && !cheating)
 		continue;
-	    if (!lines[i].backsector)
+	    if (!line->backsector)
 	    {
 		AM_drawMline(&l, WALLCOLORS+lightlev);
 	    }
 	    else
 	    {
-		if (lines[i].special == 39)
+		if (line->special == 39)
 		{ // teleporters
 		    AM_drawMline(&l, WALLCOLORS+WALLRANGE/2);
 		}
-		else if (lines[i].flags & ML_SECRET) // secret door
+		else if (line->flags & ML_SECRET) // secret door
 		{
 		    if (cheating) AM_drawMline(&l, SECRETWALLCOLORS + lightlev);
 		    else AM_drawMline(&l, WALLCOLORS+lightlev);
 		}
-		else if (lines[i].backsector->floorheight
-			   != lines[i].frontsector->floorheight) {
+		else if (line->backsector->floorheight
+			   != line->frontsector->floorheight) {
 		    AM_drawMline(&l, FDWALLCOLORS + lightlev); // floor level change
 		}
-		else if (lines[i].backsector->ceilingheight
-			   != lines[i].frontsector->ceilingheight) {
+		else if (line->backsector->ceilingheight
+			   != line->frontsector->ceilingheight) {
 		    AM_drawMline(&l, CDWALLCOLORS+lightlev); // ceiling level change
 		}
 		else if (cheating) {
@@ -1162,7 +1163,7 @@ void AM_drawWalls(void)
 	}
 	else if (plr->powers[pw_allmap])
 	{
-	    if (!(lines[i].flags & LINE_NEVERSEE)) AM_drawMline(&l, GRAYS+3);
+	    if (!(line->flags & LINE_NEVERSEE)) AM_drawMline(&l, GRAYS+3);
 	}
     }
 }
