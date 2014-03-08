@@ -107,16 +107,6 @@ ref class P_RegisterActorTypeClass
 	}
 };
 
-Actor^ P_MobjToActor(mobj_t *mobj)
-{
-	return (Actor^)P_GetLegacyThinker(&mobj->thinker);
-}
-
-Actor^ Actor::MobjToActor(mobj_t *mobj)
-{
-	return P_MobjToActor(mobj);
-}
-
 mobjtype_t P_GetActorType(Type^ type)
 {
 	return (mobjtype_t)actortypes->IndexOf(type);
@@ -141,59 +131,59 @@ extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
 	{
 		return false;
 	}
-	Actor^ a2 = P_MobjToActor(a);
-	Actor^ b2 = P_MobjToActor(b);
+	Actor^ a2 = Actor::FromPtr(a);
+	Actor^ b2 = Actor::FromPtr(b);
 	return (a2->Species != nullptr && a2->Species->Equals(b2->Species));
 }
 
 extern "C" int P_GetActorSpeed(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->Speed.Value;
+	return Actor::FromPtr(mobj)->Speed.Value;
 }
 
 extern "C" int P_GetActorMass(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->Mass;
+	return Actor::FromPtr(mobj)->Mass;
 }
 
 extern "C" int P_GetActorDamage(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->Damage;
+	return Actor::FromPtr(mobj)->Damage;
 }
 
 extern "C" int P_GetActorPainChance(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->PainChance;
+	return Actor::FromPtr(mobj)->PainChance;
 }
 
 extern "C" int P_GetActorSeeSound(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->SeeSoundNum;
+	return Actor::FromPtr(mobj)->SeeSoundNum;
 }
 
 extern "C" int P_GetActorActiveSound(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->ActiveSoundNum;
+	return Actor::FromPtr(mobj)->ActiveSoundNum;
 }
 
 extern "C" int P_GetActorAttackSound(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->AttackSoundNum;
+	return Actor::FromPtr(mobj)->AttackSoundNum;
 }
 
 extern "C" int P_GetActorPainSound(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->PainSoundNum;
+	return Actor::FromPtr(mobj)->PainSoundNum;
 }
 
 extern "C" int P_GetActorDeathSound(mobj_t *mobj)
 {
-	return P_MobjToActor(mobj)->DeathSoundNum;
+	return Actor::FromPtr(mobj)->DeathSoundNum;
 }
 
 extern "C" int P_GetActorStateNum(mobj_t *mobj,char *label)
 {
-	Actor^ actor = P_MobjToActor(mobj);
+	Actor^ actor = Actor::FromPtr(mobj);
 	String^ label2 = gcnew String(label);
 	if (actor->HasState(label2))
 	{
@@ -207,18 +197,18 @@ extern "C" int P_GetActorStateNum(mobj_t *mobj,char *label)
 
 extern "C" bool P_CheckMobjStateLabel(mobj_t *mobj,char *label)
 {
-	return P_MobjToActor(mobj)->HasState(gcnew String(label));
+	return Actor::FromPtr(mobj)->HasState(gcnew String(label));
 }
 
 extern "C" bool P_CheckMobjStateLabelIs(mobj_t *mobj,char *label)
 {
-	Actor^ actor = P_MobjToActor(mobj);
+	Actor^ actor = Actor::FromPtr(mobj);
 	return actor->StateNum == actor->GetStateNum(gcnew String(label));
 }
 
 extern "C" void P_SetMobjStateLabel(mobj_t *mobj,char *label)
 {
-	int statenum = P_MobjToActor(mobj)->GetStateNum(gcnew String(label));
+	int statenum = Actor::FromPtr(mobj)->GetStateNum(gcnew String(label));
 	P_SetMobjState(mobj,(statenum_t)statenum);
 }
 

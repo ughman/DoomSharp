@@ -16,7 +16,6 @@ extern mobjtype_t P_GetActorType(Type^ type);
 ref class Actor : LegacyThinker
 {
 private:
-	static Actor^ MobjToActor(mobj_t *mobj);
 	Fixed speed;
 	int mass;
 	int damage;
@@ -29,6 +28,11 @@ private:
 	Dictionary<String^,int>^ states;
 	Object^ species;
 public:
+	static Actor^ FromPtr(mobj_t *ptr)
+	{
+		return (Actor^)LegacyThinker::FromPtr((thinker_t *)ptr);
+	}
+
 	mobj_t *mobj;
 
 	Actor() : LegacyThinker(sizeof(mobj_t))
@@ -200,7 +204,7 @@ public:
 
 	property Actor^ Target
 	{
-		Actor^ get() { return MobjToActor(mobj->target); }
+		Actor^ get() { return FromPtr(mobj->target); }
 		void set(Actor^ value) { mobj->target = value ? value->mobj : NULL; }
 	}
 
@@ -218,7 +222,7 @@ public:
 
 	property Actor^ Tracer
 	{
-		Actor^ get() { return MobjToActor(mobj->tracer); }
+		Actor^ get() { return FromPtr(mobj->tracer); }
 		void set(Actor^ value) { mobj->tracer = value ? value->mobj : NULL; }
 	}
 
@@ -297,7 +301,5 @@ public:
 		return states[name];
 	}
 };
-
-extern Actor^ P_MobjToActor(mobj_t *mobj);
 
 #endif

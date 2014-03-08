@@ -19,6 +19,11 @@ extern gcroot<World^> world;
 ref class LegacyThinker : Thinker
 {
 public:
+	static LegacyThinker^ FromPtr(thinker_t *ptr)
+	{
+		return ptr ? (LegacyThinker^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
 	thinker_t *ptr;
 
 	LegacyThinker(size_t size)
@@ -53,7 +58,5 @@ public:
 		free(ptr);
 	}
 };
-
-extern LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr);
 
 #endif

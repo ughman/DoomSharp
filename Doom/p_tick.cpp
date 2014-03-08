@@ -14,13 +14,6 @@ extern "C"
 
 gcroot<World^> world;
 
-LegacyThinker^ P_GetLegacyThinker(thinker_t *ptr)
-{
-	if (!ptr)
-		return nullptr;
-	return (LegacyThinker^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target;
-}
-
 extern "C" void P_InitWorld()
 {
 	world = gcnew World();
