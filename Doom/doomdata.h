@@ -203,6 +203,7 @@ typedef struct
 // plus skill/visibility flags and attributes.
 typedef struct
 {
+	void *handle;
     short		x;
     short		y;
     short		angle;

@@ -369,8 +369,8 @@ P_NightmareRespawn (mobj_t* mobj)
     mobj_t*		mo;
     mapthing_t*		mthing;
 		
-    x = mobj->spawnpoint.x << FRACBITS; 
-    y = mobj->spawnpoint.y << FRACBITS; 
+    x = mobj->spawnpoint->x << FRACBITS;
+    y = mobj->spawnpoint->y << FRACBITS;
 
     // somthing is occupying it's position?
     if (!P_CheckPosition (mobj, x, y) ) 
@@ -392,7 +392,7 @@ P_NightmareRespawn (mobj_t* mobj)
     S_StartSound (mo, sfx_telept);
 
     // spawn the new monster
-    mthing = &mobj->spawnpoint;
+    mthing = mobj->spawnpoint;
 	
     // spawn it
 	P_SetDummyActor(mobj->type);
@@ -483,7 +483,7 @@ void P_MobjThinker (mobj_t* mobj)
 //
 // P_RemoveMobj
 //
-mapthing_t	itemrespawnque[ITEMQUESIZE];
+mapthing_t	*itemrespawnque[ITEMQUESIZE];
 int		itemrespawntime[ITEMQUESIZE];
 int		iquehead;
 int		iquetail;
@@ -545,7 +545,7 @@ void P_RespawnSpecials (void)
     if (leveltime - itemrespawntime[iquetail] < 30*35)
 	return;			
 
-    mthing = &itemrespawnque[iquetail];
+    mthing = itemrespawnque[iquetail];
 	
     x = mthing->x << FRACBITS; 
     y = mthing->y << FRACBITS; 
@@ -566,7 +566,7 @@ void P_RespawnSpecials (void)
 	z = ONFLOORZ;
 
     mo = P_SpawnMobj (x,y,z, i);
-    mo->spawnpoint = *mthing;	
+    mo->spawnpoint = mthing;
     mo->angle = ANG45 * (mthing->angle/45);
 
     // pull it from the que
@@ -728,7 +728,7 @@ void P_SpawnMapThing (mapthing_t* mthing)
 	z = ONFLOORZ;
     
     mobj = P_SpawnMobj (x,y,z, i);
-    mobj->spawnpoint = *mthing;
+    mobj->spawnpoint = mthing;
 
     if (mobj->tics > 0)
 	mobj->tics = 1 + (P_Random () % mobj->tics);

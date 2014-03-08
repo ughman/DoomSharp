@@ -250,4 +250,61 @@ public:
 	}
 };
 
+ref class DThing : Thing
+{
+public:
+	static DThing^ FromPtr(mapthing_t *ptr)
+	{
+		return ptr ? (DThing^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
+	mapthing_t *ptr;
+
+	DThing()
+	{
+		ptr = new mapthing_t;
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
+		ptr->x = 0;
+		ptr->y = 0;
+		ptr->angle = 0;
+		ptr->type = 0;
+		ptr->options = 0;
+	}
+
+	virtual property Fixed X
+	{
+		Fixed get() override { return Fixed::FromInt(ptr->x); }
+		void set(Fixed value) override { ptr->x = value.IntValue; }
+	}
+
+	virtual property Fixed Y
+	{
+		Fixed get() override { return Fixed(ptr->y); }
+		void set(Fixed value) override { ptr->y = value.IntValue; }
+	}
+
+	virtual property int Angle
+	{
+		int get() override { return ptr->angle; }
+		void set(int value) override { ptr->angle = value; }
+	}
+
+	virtual property int DoomedNum
+	{
+		int get() override { return ptr->type; }
+		void set(int value) override { ptr->type = value; }
+	}
+
+	~DThing()
+	{
+		this->!DThing();
+	}
+
+	!DThing()
+	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
+		delete ptr;
+	}
+};
+
 #endif

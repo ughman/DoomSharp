@@ -179,3 +179,30 @@ extern "C" int P_UngetLineDef(line_t *ptr)
 {
 	return world->Linedefs->IndexOf(DLinedef::FromPtr(ptr));
 }
+
+extern "C" void P_LoadThings(int lumpid)
+{
+	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
+	int count = data->Length / 10;
+	if (data->Length % 10)
+		Core::Console->LogWarning("This map's THINGS lump has an irregular length.");
+	for (int i = 0;i < count;i++)
+	{
+		DThing^ thing = gcnew DThing();
+		thing->X = Fixed::FromInt(BitConv::FromInt16(data,i * 10 + 0));
+		thing->Y = Fixed::FromInt(BitConv::FromInt16(data,i * 10 + 2));
+		thing->Angle = BitConv::FromInt16(data,i * 10 + 4);
+		thing->DoomedNum = BitConv::FromInt16(data,i * 10 + 6);
+		thing->ptr->options = BitConv::FromInt16(data,i * 10 + 8);
+		world->Things->Add(thing);
+	}
+}
+
+extern "C" void P_SpawnMapThing(mapthing_t *mthing);
+extern "C" void P_SpawnThings()
+{
+	for each (DThing^ thing in world->Things)
+	{
+		P_SpawnMapThing(thing->ptr);
+	}
+}
