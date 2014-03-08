@@ -130,7 +130,7 @@ public:
 		void set(Fixed value) { mobj->momz = value.Value; }
 	}
 
-	property int Tics
+	property int Ticks
 	{
 		int get() { return mobj->tics; }
 		void set(int value) { mobj->tics = value; }

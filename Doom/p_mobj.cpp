@@ -61,7 +61,7 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	actor->LastLook = P_Random() % MAXPLAYERS;
 	actor->StateNum = actor->GetStateNum("Spawn");
 	state_t &state = states[actor->StateNum];
-	actor->Tics = state.tics;
+	actor->Ticks = state.tics;
 	actor->SpriteNum = state.sprite;
 	actor->SpriteFrame = state.frame;
 	world->AddThinker(actor);
