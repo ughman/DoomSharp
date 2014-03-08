@@ -11,6 +11,7 @@ extern "C"
 #include <vcclr.h>
 #include <stdlib.h>
 #include "p_tick.hpp"
+#include "p_mobj.hpp"
 
 gcroot<World^> world;
 
@@ -35,9 +36,9 @@ extern "C" thinker_t *P_FirstThinker()
 {
 	for each (Thinker^ thinker in world->Thinkers)
 	{
-		if (dynamic_cast<LegacyThinker^>(thinker))
+		if (dynamic_cast<Actor^>(thinker))
 		{
-			return ((LegacyThinker^)thinker)->ptr;
+			return (thinker_t *)((Actor^)thinker)->mobj;
 		}
 	}
 	return NULL;
@@ -48,13 +49,13 @@ extern "C" thinker_t *P_NextThinker(thinker_t *it)
 	bool found = false;
 	for each (Thinker^ thinker in world->Thinkers)
 	{
-		if (dynamic_cast<LegacyThinker^>(thinker))
+		if (dynamic_cast<Actor^>(thinker))
 		{
 			if (found)
 			{
-				return ((LegacyThinker^)thinker)->ptr;
+				return (thinker_t *)((Actor^)thinker)->mobj;
 			}
-			else if (((LegacyThinker^)thinker)->ptr == it)
+			else if ((thinker_t *)((Actor^)thinker)->mobj == it)
 			{
 				found = true;
 			}

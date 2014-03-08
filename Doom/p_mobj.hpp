@@ -13,7 +13,7 @@ extern "C"
 
 extern mobjtype_t P_GetActorType(Type^ type);
 
-ref class Actor : LegacyThinker
+ref class Actor : Thinker
 {
 private:
 	Fixed speed;
@@ -30,17 +30,16 @@ private:
 public:
 	static Actor^ FromPtr(mobj_t *ptr)
 	{
-		return (Actor^)LegacyThinker::FromPtr((thinker_t *)ptr);
+		return ptr ? (Actor^)GCHandle::FromIntPtr((IntPtr)ptr->thinker.handle).Target : nullptr;
 	}
 
 	mobj_t *mobj;
 
-	Actor() : LegacyThinker(sizeof(mobj_t))
+	Actor()
 	{
-		void *handle = ptr->handle;
-		mobj = (mobj_t *)ptr;
+		mobj = new mobj_t;
 		memset(mobj,0,sizeof(mobj_t));
-		mobj->thinker.handle = handle;
+		mobj->thinker.handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
 		mobj->thinker.function.acp1 = (actionf_p1)P_MobjThinker;
 		mobj->type = P_GetActorType(GetType());
 		X = Fixed::Zero;
@@ -299,6 +298,30 @@ public:
 	int GetStateNum(String^ name)
 	{
 		return states[name];
+	}
+
+	virtual bool Tick() override
+	{
+		if (mobj->thinker.function.acp1 == (actionf_p1)-1)
+		{
+			return true;
+		}
+		if (mobj->thinker.function.acp1)
+		{
+			mobj->thinker.function.acp1(mobj);
+		}
+		return false;
+	}
+
+	~Actor()
+	{
+		this->!Actor();
+	}
+
+	!Actor()
+	{
+		GCHandle::FromIntPtr((IntPtr)mobj->thinker.handle).Free();
+		delete mobj;
 	}
 };
 
