@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace DoomSharp
 {
     public abstract class Actor : Thinker
@@ -48,16 +51,17 @@ namespace DoomSharp
         // TODO :: reactiontime
         // TODO :: lastlook
         // TODO :: tracer
-        // TODO :: speed
-        // TODO :: mass
-        // TODO :: damage
-        // TODO :: painchance
-        // TODO :: seesoundnum
-        // TODO :: activesoundnum
-        // TODO :: attacksoundnum
-        // TODO :: painsoundnum
-        // TODO :: deathsoundnum
-        // TODO :: species
+        private Fixed speed;
+        private int mass;
+        private int damage;
+        private int painchance;
+        private int seesoundnum;
+        private int activesoundnum;
+        private int attacksoundnum;
+        private int painsoundnum;
+        private int deathsoundnum;
+        private object species;
+        private Dictionary<string,int> states;
 
         public Actor()
         {
@@ -107,16 +111,18 @@ namespace DoomSharp
             // TODO :: reactiontime
             // TODO :: lastlook
             // TODO :: tracer
-            // TODO :: speed
-            // TODO :: mass
-            // TODO :: damage
-            // TODO :: painchance
-            // TODO :: seesoundnum
-            // TODO :: activesoundnum
-            // TODO :: attacksoundnum
-            // TODO :: painsoundnum
-            // TODO :: deathsoundnum
-            // TODO :: species
+            this.speed = Fixed.Zero;
+            this.mass = 100;
+            this.damage = 0;
+            this.painchance = 0;
+            this.seesoundnum = 0;
+            this.activesoundnum = 0;
+            this.attacksoundnum = 0;
+            this.painsoundnum = 0;
+            this.deathsoundnum = 0;
+            this.species = GetType();
+            this.states = new Dictionary<string,int>();
+            DefineState("Spawn",0);
         }
 
         public abstract Fixed X
@@ -395,70 +401,93 @@ namespace DoomSharp
             set;
         }
 
-        public abstract Fixed Speed
+        public Fixed Speed
         {
-            get;
-            set;
+            get { return speed; }
+            set { speed = value; }
         }
 
-        public abstract int Mass
+        public int Mass
         {
-            get;
-            set;
+            get { return mass; }
+            set { mass = value; }
         }
 
-        public abstract int Damage
+        public int Damage
         {
-            get;
-            set;
+            get { return damage; }
+            set { damage = value; }
         }
 
-        public abstract int PainChance
+        public int PainChance
         {
-            get;
-            set;
+            get { return painchance; }
+            set { painchance = value; }
         }
 
-        public abstract int SeeSoundNum
+        public int SeeSoundNum
         {
-            get;
-            set;
+            get { return seesoundnum; }
+            set { seesoundnum = value; }
         }
 
-        public abstract int ActiveSoundNum
+        public int ActiveSoundNum
         {
-            get;
-            set;
+            get { return activesoundnum; }
+            set { activesoundnum = value; }
         }
 
-        public abstract int AttackSoundNum
+        public int AttackSoundNum
         {
-            get;
-            set;
+            get { return attacksoundnum; }
+            set { attacksoundnum = value; }
         }
 
-        public abstract int PainSoundNum
+        public int PainSoundNum
         {
-            get;
-            set;
+            get { return painsoundnum; }
+            set { painsoundnum = value; }
         }
 
-        public abstract int DeathSoundNum
+        public int DeathSoundNum
         {
-            get;
-            set;
+            get { return deathsoundnum; }
+            set { deathsoundnum = value; }
         }
 
-        public abstract object Species
+        public object Species
         {
-            get;
-            set;
+            get { return species; }
+            set { species = value; }
         }
 
-        public abstract void DefineState(string name,int statenum);
+        public void DefineState(string name,int statenum)
+        {
+            if (name == null)
+                throw new ArgumentNullException("name");
+            states[name] = statenum;
+        }
 
-        public abstract bool HasState(string name);
+        public bool HasState(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException("name");
+            return states.ContainsKey(name);
+        }
 
-        public abstract int GetStateNum(string name);
+        public int GetStateNum(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException("name");
+            int statenum;
+            if (states.TryGetValue(name,out statenum))
+            {
+                return statenum;
+            }
+            else
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }
