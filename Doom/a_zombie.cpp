@@ -2,7 +2,7 @@
 
 [ActorType(MT_POSSESSED)]
 [DoomedNum(3004)]
-ref class Zombieman : Actor
+ref class Zombieman : DActor
 {
 public:
 	Zombieman()
@@ -31,7 +31,7 @@ public:
 
 [ActorType(MT_SHOTGUY)]
 [DoomedNum(9)]
-ref class Shotgunner : Actor
+ref class Shotgunner : DActor
 {
 public:
 	Shotgunner()
@@ -59,7 +59,7 @@ public:
 
 [ActorType(MT_CHAINGUY)]
 [DoomedNum(65)]
-ref class Chaingunner : Actor
+ref class Chaingunner : DActor
 {
 public:
 	Chaingunner()

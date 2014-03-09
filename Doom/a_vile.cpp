@@ -2,7 +2,7 @@
 
 [ActorType(MT_VILE)]
 [DoomedNum(64)]
-ref class Archvile : Actor
+ref class Archvile : DActor
 {
 public:
 	Archvile()
@@ -28,7 +28,7 @@ public:
 };
 
 [ActorType(MT_FIRE)]
-ref class Fire : Actor
+ref class Fire : DActor
 {
 public:
 	Fire()

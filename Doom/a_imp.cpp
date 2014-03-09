@@ -2,7 +2,7 @@
 
 [ActorType(MT_TROOP)]
 [DoomedNum(3001)]
-ref class Imp : Actor
+ref class Imp : DActor
 {
 public:
 	Imp()
@@ -30,7 +30,7 @@ public:
 };
 
 [ActorType(MT_TROOPSHOT)]
-ref class ImpShot : Actor
+ref class ImpShot : DActor
 {
 public:
 	ImpShot()

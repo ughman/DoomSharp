@@ -2,7 +2,7 @@
 
 [ActorType(MT_BRUISER)]
 [DoomedNum(3003)]
-ref class BaronOfHell : Actor
+ref class BaronOfHell : DActor
 {
 public:
 	BaronOfHell()
@@ -30,7 +30,7 @@ public:
 };
 
 [ActorType(MT_BRUISERSHOT)]
-ref class BaronShot : Actor
+ref class BaronShot : DActor
 {
 public:
 	BaronShot()
@@ -52,7 +52,7 @@ public:
 
 [ActorType(MT_KNIGHT)]
 [DoomedNum(69)]
-ref class HellKnight : Actor
+ref class HellKnight : DActor
 {
 public:
 	HellKnight()

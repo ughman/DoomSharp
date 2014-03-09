@@ -2,7 +2,7 @@
 
 [ActorType(MT_BABY)]
 [DoomedNum(68)]
-ref class Arachnotron : Actor
+ref class Arachnotron : DActor
 {
 public:
 	Arachnotron()
@@ -30,7 +30,7 @@ public:
 };
 
 [ActorType(MT_ARACHPLAZ)]
-ref class ArachnotronShot : Actor
+ref class ArachnotronShot : DActor
 {
 public:
 	ArachnotronShot()

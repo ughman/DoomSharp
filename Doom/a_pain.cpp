@@ -2,7 +2,7 @@
 
 [ActorType(MT_PAIN)]
 [DoomedNum(71)]
-ref class PainElemental : Actor
+ref class PainElemental : DActor
 {
 public:
 	PainElemental()

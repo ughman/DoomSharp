@@ -2,7 +2,7 @@
 
 [ActorType(MT_HEAD)]
 [DoomedNum(3005)]
-ref class Cacodemon : Actor
+ref class Cacodemon : DActor
 {
 public:
 	Cacodemon()
@@ -32,7 +32,7 @@ public:
 };
 
 [ActorType(MT_HEADSHOT)]
-ref class CacodemonShot : Actor
+ref class CacodemonShot : DActor
 {
 public:
 	CacodemonShot()

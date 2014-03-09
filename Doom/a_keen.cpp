@@ -2,7 +2,7 @@
 
 [ActorType(MT_KEEN)]
 [DoomedNum(72)]
-ref class CommanderKeen : Actor
+ref class CommanderKeen : DActor
 {
 public:
 	CommanderKeen()

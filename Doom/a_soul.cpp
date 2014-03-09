@@ -2,7 +2,7 @@
 
 [ActorType(MT_SKULL)]
 [DoomedNum(3006)]
-ref class LostSoul : Actor
+ref class LostSoul : DActor
 {
 public:
 	LostSoul()

@@ -2,7 +2,7 @@
 
 [ActorType(MT_SPIDER)]
 [DoomedNum(7)]
-ref class SpiderMastermind : Actor
+ref class SpiderMastermind : DActor
 {
 public:
 	SpiderMastermind()

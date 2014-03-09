@@ -36,9 +36,9 @@ extern "C" thinker_t *P_FirstThinker()
 {
 	for each (Thinker^ thinker in world->Thinkers)
 	{
-		if (dynamic_cast<Actor^>(thinker))
+		if (dynamic_cast<DActor^>(thinker))
 		{
-			return (thinker_t *)((Actor^)thinker)->mobj;
+			return (thinker_t *)((DActor^)thinker)->mobj;
 		}
 	}
 	return NULL;
@@ -49,13 +49,13 @@ extern "C" thinker_t *P_NextThinker(thinker_t *it)
 	bool found = false;
 	for each (Thinker^ thinker in world->Thinkers)
 	{
-		if (dynamic_cast<Actor^>(thinker))
+		if (dynamic_cast<DActor^>(thinker))
 		{
 			if (found)
 			{
-				return (thinker_t *)((Actor^)thinker)->mobj;
+				return (thinker_t *)((DActor^)thinker)->mobj;
 			}
-			else if ((thinker_t *)((Actor^)thinker)->mobj == it)
+			else if ((thinker_t *)((DActor^)thinker)->mobj == it)
 			{
 				found = true;
 			}

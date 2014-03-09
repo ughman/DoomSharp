@@ -2,7 +2,7 @@
 
 [ActorType(MT_MISC0)]
 [DoomedNum(2018)]
-ref class Armor : Actor
+ref class Armor : DActor
 {
 public:
 	Armor()
@@ -14,7 +14,7 @@ public:
 
 [ActorType(MT_MISC1)]
 [DoomedNum(2019)]
-ref class MegaArmor : Actor
+ref class MegaArmor : DActor
 {
 public:
 	MegaArmor()
@@ -26,7 +26,7 @@ public:
 
 [ActorType(MT_MISC2)]
 [DoomedNum(2014)]
-ref class HealthBonus : Actor
+ref class HealthBonus : DActor
 {
 public:
 	HealthBonus()
@@ -39,7 +39,7 @@ public:
 
 [ActorType(MT_MISC3)]
 [DoomedNum(2015)]
-ref class ArmorBonus : Actor
+ref class ArmorBonus : DActor
 {
 public:
 	ArmorBonus()
@@ -52,7 +52,7 @@ public:
 
 [ActorType(MT_MISC10)]
 [DoomedNum(2011)]
-ref class Stimpack : Actor
+ref class Stimpack : DActor
 {
 public:
 	Stimpack()
@@ -64,7 +64,7 @@ public:
 
 [ActorType(MT_MISC11)]
 [DoomedNum(2012)]
-ref class Medikit : Actor
+ref class Medikit : DActor
 {
 public:
 	Medikit()
@@ -76,7 +76,7 @@ public:
 
 [ActorType(MT_MISC12)]
 [DoomedNum(2013)]
-ref class Soulsphere : Actor
+ref class Soulsphere : DActor
 {
 public:
 	Soulsphere()
@@ -89,7 +89,7 @@ public:
 
 [ActorType(MT_INV)]
 [DoomedNum(2022)]
-ref class Invulnerability : Actor
+ref class Invulnerability : DActor
 {
 public:
 	Invulnerability()
@@ -102,7 +102,7 @@ public:
 
 [ActorType(MT_MISC13)]
 [DoomedNum(2023)]
-ref class Berserk : Actor
+ref class Berserk : DActor
 {
 public:
 	Berserk()
@@ -115,7 +115,7 @@ public:
 
 [ActorType(MT_INS)]
 [DoomedNum(2024)]
-ref class Invisibility : Actor
+ref class Invisibility : DActor
 {
 public:
 	Invisibility()
@@ -128,7 +128,7 @@ public:
 
 [ActorType(MT_MISC14)]
 [DoomedNum(2025)]
-ref class RadiationSuit : Actor
+ref class RadiationSuit : DActor
 {
 public:
 	RadiationSuit()
@@ -140,7 +140,7 @@ public:
 
 [ActorType(MT_MISC15)]
 [DoomedNum(2026)]
-ref class ComputerMap : Actor
+ref class ComputerMap : DActor
 {
 public:
 	ComputerMap()
@@ -153,7 +153,7 @@ public:
 
 [ActorType(MT_MISC16)]
 [DoomedNum(2045)]
-ref class LightVisor : Actor
+ref class LightVisor : DActor
 {
 public:
 	LightVisor()
@@ -166,7 +166,7 @@ public:
 
 [ActorType(MT_MEGA)]
 [DoomedNum(83)]
-ref class Megasphere : Actor
+ref class Megasphere : DActor
 {
 public:
 	Megasphere()

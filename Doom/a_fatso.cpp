@@ -2,7 +2,7 @@
 
 [ActorType(MT_FATSO)]
 [DoomedNum(67)]
-ref class Mancubus : Actor
+ref class Mancubus : DActor
 {
 public:
 	Mancubus()
@@ -30,7 +30,7 @@ public:
 };
 
 [ActorType(MT_FATSHOT)]
-ref class MancubusShot : Actor
+ref class MancubusShot : DActor
 {
 public:
 	MancubusShot()

@@ -2,7 +2,7 @@
 
 [ActorType(MT_MISC29)]
 [DoomedNum(85)]
-ref class TechLamp : Actor
+ref class TechLamp : DActor
 {
 public:
 	TechLamp()
@@ -15,7 +15,7 @@ public:
 
 [ActorType(MT_MISC30)]
 [DoomedNum(86)]
-ref class TechLamp2 : Actor
+ref class TechLamp2 : DActor
 {
 public:
 	TechLamp2()
@@ -28,7 +28,7 @@ public:
 
 [ActorType(MT_MISC31)]
 [DoomedNum(2028)]
-ref class Column : Actor
+ref class Column : DActor
 {
 public:
 	Column()
@@ -41,7 +41,7 @@ public:
 
 [ActorType(MT_MISC32)]
 [DoomedNum(30)]
-ref class TallGreenColumn : Actor
+ref class TallGreenColumn : DActor
 {
 public:
 	TallGreenColumn()
@@ -54,7 +54,7 @@ public:
 
 [ActorType(MT_MISC33)]
 [DoomedNum(31)]
-ref class ShortGreenColumn : Actor
+ref class ShortGreenColumn : DActor
 {
 public:
 	ShortGreenColumn()
@@ -67,7 +67,7 @@ public:
 
 [ActorType(MT_MISC34)]
 [DoomedNum(32)]
-ref class TallRedColumn : Actor
+ref class TallRedColumn : DActor
 {
 public:
 	TallRedColumn()
@@ -80,7 +80,7 @@ public:
 
 [ActorType(MT_MISC35)]
 [DoomedNum(33)]
-ref class ShortRedColumn : Actor
+ref class ShortRedColumn : DActor
 {
 public:
 	ShortRedColumn()
@@ -93,7 +93,7 @@ public:
 
 [ActorType(MT_MISC36)]
 [DoomedNum(37)]
-ref class SkullColumn : Actor
+ref class SkullColumn : DActor
 {
 public:
 	SkullColumn()
@@ -106,7 +106,7 @@ public:
 
 [ActorType(MT_MISC37)]
 [DoomedNum(36)]
-ref class HeartColumn : Actor
+ref class HeartColumn : DActor
 {
 public:
 	HeartColumn()
@@ -119,7 +119,7 @@ public:
 
 [ActorType(MT_MISC38)]
 [DoomedNum(41)]
-ref class EvilEye : Actor
+ref class EvilEye : DActor
 {
 public:
 	EvilEye()
@@ -132,7 +132,7 @@ public:
 
 [ActorType(MT_MISC39)]
 [DoomedNum(42)]
-ref class FloatingSkulls : Actor
+ref class FloatingSkulls : DActor
 {
 public:
 	FloatingSkulls()
@@ -145,7 +145,7 @@ public:
 
 [ActorType(MT_MISC40)]
 [DoomedNum(43)]
-ref class TorchedTree : Actor
+ref class TorchedTree : DActor
 {
 public:
 	TorchedTree()
@@ -158,7 +158,7 @@ public:
 
 [ActorType(MT_MISC41)]
 [DoomedNum(44)]
-ref class BlueTorch : Actor
+ref class BlueTorch : DActor
 {
 public:
 	BlueTorch()
@@ -171,7 +171,7 @@ public:
 
 [ActorType(MT_MISC42)]
 [DoomedNum(45)]
-ref class GreenTorch : Actor
+ref class GreenTorch : DActor
 {
 public:
 	GreenTorch()
@@ -184,7 +184,7 @@ public:
 
 [ActorType(MT_MISC43)]
 [DoomedNum(46)]
-ref class RedTorch : Actor
+ref class RedTorch : DActor
 {
 public:
 	RedTorch()
@@ -197,7 +197,7 @@ public:
 
 [ActorType(MT_MISC44)]
 [DoomedNum(55)]
-ref class ShortBlueTorch : Actor
+ref class ShortBlueTorch : DActor
 {
 public:
 	ShortBlueTorch()
@@ -210,7 +210,7 @@ public:
 
 [ActorType(MT_MISC45)]
 [DoomedNum(56)]
-ref class ShortGreenTorch : Actor
+ref class ShortGreenTorch : DActor
 {
 public:
 	ShortGreenTorch()
@@ -223,7 +223,7 @@ public:
 
 [ActorType(MT_MISC46)]
 [DoomedNum(57)]
-ref class ShortRedTorch : Actor
+ref class ShortRedTorch : DActor
 {
 public:
 	ShortRedTorch()
@@ -236,7 +236,7 @@ public:
 
 [ActorType(MT_MISC47)]
 [DoomedNum(47)]
-ref class Stalagtite : Actor
+ref class Stalagtite : DActor
 {
 public:
 	Stalagtite()
@@ -249,7 +249,7 @@ public:
 
 [ActorType(MT_MISC48)]
 [DoomedNum(48)]
-ref class TechPillar : Actor
+ref class TechPillar : DActor
 {
 public:
 	TechPillar()
@@ -262,7 +262,7 @@ public:
 
 [ActorType(MT_MISC49)]
 [DoomedNum(34)]
-ref class Candle : Actor
+ref class Candle : DActor
 {
 public:
 	Candle()
@@ -273,7 +273,7 @@ public:
 
 [ActorType(MT_MISC50)]
 [DoomedNum(35)]
-ref class Candelabra : Actor
+ref class Candelabra : DActor
 {
 public:
 	Candelabra()
@@ -286,7 +286,7 @@ public:
 
 [ActorType(MT_MISC51)]
 [DoomedNum(49)]
-ref class Actor101 : Actor
+ref class Actor101 : DActor
 {
 public:
 	Actor101()
@@ -302,7 +302,7 @@ public:
 
 [ActorType(MT_MISC52)]
 [DoomedNum(50)]
-ref class Actor102 : Actor
+ref class Actor102 : DActor
 {
 public:
 	Actor102()
@@ -318,7 +318,7 @@ public:
 
 [ActorType(MT_MISC53)]
 [DoomedNum(51)]
-ref class Actor103 : Actor
+ref class Actor103 : DActor
 {
 public:
 	Actor103()
@@ -334,7 +334,7 @@ public:
 
 [ActorType(MT_MISC54)]
 [DoomedNum(52)]
-ref class Actor104 : Actor
+ref class Actor104 : DActor
 {
 public:
 	Actor104()
@@ -350,7 +350,7 @@ public:
 
 [ActorType(MT_MISC55)]
 [DoomedNum(53)]
-ref class Actor105 : Actor
+ref class Actor105 : DActor
 {
 public:
 	Actor105()
@@ -366,7 +366,7 @@ public:
 
 [ActorType(MT_MISC56)]
 [DoomedNum(59)]
-ref class Actor106 : Actor
+ref class Actor106 : DActor
 {
 public:
 	Actor106()
@@ -380,7 +380,7 @@ public:
 
 [ActorType(MT_MISC57)]
 [DoomedNum(60)]
-ref class Actor107 : Actor
+ref class Actor107 : DActor
 {
 public:
 	Actor107()
@@ -394,7 +394,7 @@ public:
 
 [ActorType(MT_MISC58)]
 [DoomedNum(61)]
-ref class Actor108 : Actor
+ref class Actor108 : DActor
 {
 public:
 	Actor108()
@@ -408,7 +408,7 @@ public:
 
 [ActorType(MT_MISC59)]
 [DoomedNum(62)]
-ref class Actor109 : Actor
+ref class Actor109 : DActor
 {
 public:
 	Actor109()
@@ -422,7 +422,7 @@ public:
 
 [ActorType(MT_MISC60)]
 [DoomedNum(63)]
-ref class Actor110 : Actor
+ref class Actor110 : DActor
 {
 public:
 	Actor110()
@@ -436,7 +436,7 @@ public:
 
 [ActorType(MT_MISC61)]
 [DoomedNum(22)]
-ref class DeadCacodemon : Actor
+ref class DeadCacodemon : DActor
 {
 public:
 	DeadCacodemon()
@@ -447,7 +447,7 @@ public:
 
 [ActorType(MT_MISC62)]
 [DoomedNum(15)]
-ref class DeadMarine : Actor
+ref class DeadMarine : DActor
 {
 public:
 	DeadMarine()
@@ -458,7 +458,7 @@ public:
 
 [ActorType(MT_MISC63)]
 [DoomedNum(18)]
-ref class DeadZombieman : Actor
+ref class DeadZombieman : DActor
 {
 public:
 	DeadZombieman()
@@ -469,7 +469,7 @@ public:
 
 [ActorType(MT_MISC64)]
 [DoomedNum(21)]
-ref class DeadDemon : Actor
+ref class DeadDemon : DActor
 {
 public:
 	DeadDemon()
@@ -480,7 +480,7 @@ public:
 
 [ActorType(MT_MISC65)]
 [DoomedNum(23)]
-ref class DeadLostSoul : Actor
+ref class DeadLostSoul : DActor
 {
 public:
 	DeadLostSoul()
@@ -491,7 +491,7 @@ public:
 
 [ActorType(MT_MISC66)]
 [DoomedNum(20)]
-ref class DeadImp : Actor
+ref class DeadImp : DActor
 {
 public:
 	DeadImp()
@@ -502,7 +502,7 @@ public:
 
 [ActorType(MT_MISC67)]
 [DoomedNum(19)]
-ref class DeadShotgunner : Actor
+ref class DeadShotgunner : DActor
 {
 public:
 	DeadShotgunner()
@@ -513,7 +513,7 @@ public:
 
 [ActorType(MT_MISC68)]
 [DoomedNum(10)]
-ref class MarineGib : Actor
+ref class MarineGib : DActor
 {
 public:
 	MarineGib()
@@ -524,7 +524,7 @@ public:
 
 [ActorType(MT_MISC69)]
 [DoomedNum(12)]
-ref class MarineGib2 : Actor
+ref class MarineGib2 : DActor
 {
 public:
 	MarineGib2()
@@ -535,7 +535,7 @@ public:
 
 [ActorType(MT_MISC70)]
 [DoomedNum(28)]
-ref class HeadsOnAStick : Actor
+ref class HeadsOnAStick : DActor
 {
 public:
 	HeadsOnAStick()
@@ -548,7 +548,7 @@ public:
 
 [ActorType(MT_MISC71)]
 [DoomedNum(24)]
-ref class Actor121 : Actor
+ref class Actor121 : DActor
 {
 public:
 	Actor121()
@@ -559,7 +559,7 @@ public:
 
 [ActorType(MT_MISC72)]
 [DoomedNum(27)]
-ref class HeadOnAStick : Actor
+ref class HeadOnAStick : DActor
 {
 public:
 	HeadOnAStick()
@@ -572,7 +572,7 @@ public:
 
 [ActorType(MT_MISC73)]
 [DoomedNum(29)]
-ref class HeadCandles : Actor
+ref class HeadCandles : DActor
 {
 public:
 	HeadCandles()
@@ -585,7 +585,7 @@ public:
 
 [ActorType(MT_MISC74)]
 [DoomedNum(25)]
-ref class DeadStick : Actor
+ref class DeadStick : DActor
 {
 public:
 	DeadStick()
@@ -598,7 +598,7 @@ public:
 
 [ActorType(MT_MISC75)]
 [DoomedNum(26)]
-ref class LiveStick : Actor
+ref class LiveStick : DActor
 {
 public:
 	LiveStick()
@@ -611,7 +611,7 @@ public:
 
 [ActorType(MT_MISC76)]
 [DoomedNum(54)]
-ref class BigTree : Actor
+ref class BigTree : DActor
 {
 public:
 	BigTree()
@@ -624,7 +624,7 @@ public:
 
 [ActorType(MT_MISC77)]
 [DoomedNum(70)]
-ref class BurningBarrel : Actor
+ref class BurningBarrel : DActor
 {
 public:
 	BurningBarrel()
@@ -637,7 +637,7 @@ public:
 
 [ActorType(MT_MISC78)]
 [DoomedNum(73)]
-ref class Actor128 : Actor
+ref class Actor128 : DActor
 {
 public:
 	Actor128()
@@ -653,7 +653,7 @@ public:
 
 [ActorType(MT_MISC79)]
 [DoomedNum(74)]
-ref class Actor129 : Actor
+ref class Actor129 : DActor
 {
 public:
 	Actor129()
@@ -669,7 +669,7 @@ public:
 
 [ActorType(MT_MISC80)]
 [DoomedNum(75)]
-ref class Actor130 : Actor
+ref class Actor130 : DActor
 {
 public:
 	Actor130()
@@ -685,7 +685,7 @@ public:
 
 [ActorType(MT_MISC81)]
 [DoomedNum(76)]
-ref class Actor131 : Actor
+ref class Actor131 : DActor
 {
 public:
 	Actor131()
@@ -701,7 +701,7 @@ public:
 
 [ActorType(MT_MISC82)]
 [DoomedNum(77)]
-ref class Actor132 : Actor
+ref class Actor132 : DActor
 {
 public:
 	Actor132()
@@ -717,7 +717,7 @@ public:
 
 [ActorType(MT_MISC83)]
 [DoomedNum(78)]
-ref class Actor133 : Actor
+ref class Actor133 : DActor
 {
 public:
 	Actor133()
@@ -733,7 +733,7 @@ public:
 
 [ActorType(MT_MISC84)]
 [DoomedNum(79)]
-ref class Actor134 : Actor
+ref class Actor134 : DActor
 {
 public:
 	Actor134()
@@ -745,7 +745,7 @@ public:
 
 [ActorType(MT_MISC85)]
 [DoomedNum(80)]
-ref class Actor135 : Actor
+ref class Actor135 : DActor
 {
 public:
 	Actor135()
@@ -757,7 +757,7 @@ public:
 
 [ActorType(MT_MISC86)]
 [DoomedNum(81)]
-ref class Actor136 : Actor
+ref class Actor136 : DActor
 {
 public:
 	Actor136()

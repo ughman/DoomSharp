@@ -1,7 +1,7 @@
 #include "p_mobj.hpp"
 
 [ActorType(MT_PLAYER)]
-ref class Marine : Actor
+ref class Marine : DActor
 {
 public:
 	Marine()

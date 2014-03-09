@@ -2,7 +2,7 @@
 
 [ActorType(MT_BARREL)]
 [DoomedNum(2035)]
-ref class Barrel : Actor
+ref class Barrel : DActor
 {
 public:
 	Barrel()
@@ -20,7 +20,7 @@ public:
 };
 
 [ActorType(MT_ROCKET)]
-ref class Rocket : Actor
+ref class Rocket : DActor
 {
 public:
 	Rocket()
@@ -41,7 +41,7 @@ public:
 };
 
 [ActorType(MT_PLASMA)]
-ref class PlasmaBall : Actor
+ref class PlasmaBall : DActor
 {
 public:
 	PlasmaBall()
@@ -62,7 +62,7 @@ public:
 };
 
 [ActorType(MT_BFG)]
-ref class BFGBall : Actor
+ref class BFGBall : DActor
 {
 public:
 	BFGBall()
@@ -82,7 +82,7 @@ public:
 };
 
 [ActorType(MT_PUFF)]
-ref class Puff : Actor
+ref class Puff : DActor
 {
 public:
 	Puff()
@@ -94,7 +94,7 @@ public:
 };
 
 [ActorType(MT_BLOOD)]
-ref class Blood : Actor
+ref class Blood : DActor
 {
 public:
 	Blood()
@@ -105,7 +105,7 @@ public:
 };
 
 [ActorType(MT_TFOG)]
-ref class TeleportFog : Actor
+ref class TeleportFog : DActor
 {
 public:
 	TeleportFog()
@@ -117,7 +117,7 @@ public:
 };
 
 [ActorType(MT_IFOG)]
-ref class ItemFog : Actor
+ref class ItemFog : DActor
 {
 public:
 	ItemFog()
@@ -130,7 +130,7 @@ public:
 
 [ActorType(MT_TELEPORTMAN)]
 [DoomedNum(14)]
-ref class TeleportDestination : Actor
+ref class TeleportDestination : DActor
 {
 public:
 	TeleportDestination()
@@ -141,7 +141,7 @@ public:
 };
 
 [ActorType(MT_EXTRABFG)]
-ref class BFGExtra : Actor
+ref class BFGExtra : DActor
 {
 public:
 	BFGExtra()

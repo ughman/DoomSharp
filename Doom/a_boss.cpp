@@ -2,7 +2,7 @@
 
 [ActorType(MT_BOSSBRAIN)]
 [DoomedNum(88)]
-ref class BossBrain : Actor
+ref class BossBrain : DActor
 {
 public:
 	BossBrain()
@@ -23,7 +23,7 @@ public:
 
 [ActorType(MT_BOSSSPIT)]
 [DoomedNum(89)]
-ref class BossEye : Actor
+ref class BossEye : DActor
 {
 public:
 	BossEye()
@@ -38,7 +38,7 @@ public:
 
 [ActorType(MT_BOSSTARGET)]
 [DoomedNum(87)]
-ref class BossTarget : Actor
+ref class BossTarget : DActor
 {
 public:
 	BossTarget()
@@ -50,7 +50,7 @@ public:
 };
 
 [ActorType(MT_SPAWNSHOT)]
-ref class BossShot : Actor
+ref class BossShot : DActor
 {
 public:
 	BossShot()
@@ -71,7 +71,7 @@ public:
 };
 
 [ActorType(MT_SPAWNFIRE)]
-ref class SpawnFire : Actor
+ref class SpawnFire : DActor
 {
 public:
 	SpawnFire()

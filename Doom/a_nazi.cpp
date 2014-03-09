@@ -2,7 +2,7 @@
 
 [ActorType(MT_WOLFSS)]
 [DoomedNum(84)]
-ref class Nazi : Actor
+ref class Nazi : DActor
 {
 public:
 	Nazi()

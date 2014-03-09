@@ -2,7 +2,7 @@
 
 [ActorType(MT_MISC4)]
 [DoomedNum(5)]
-ref class BlueCard : Actor
+ref class BlueCard : DActor
 {
 public:
 	BlueCard()
@@ -15,7 +15,7 @@ public:
 
 [ActorType(MT_MISC5)]
 [DoomedNum(13)]
-ref class RedCard : Actor
+ref class RedCard : DActor
 {
 public:
 	RedCard()
@@ -28,7 +28,7 @@ public:
 
 [ActorType(MT_MISC6)]
 [DoomedNum(6)]
-ref class YellowCard : Actor
+ref class YellowCard : DActor
 {
 public:
 	YellowCard()
@@ -41,7 +41,7 @@ public:
 
 [ActorType(MT_MISC7)]
 [DoomedNum(39)]
-ref class YellowSkull : Actor
+ref class YellowSkull : DActor
 {
 public:
 	YellowSkull()
@@ -54,7 +54,7 @@ public:
 
 [ActorType(MT_MISC8)]
 [DoomedNum(38)]
-ref class RedSkull : Actor
+ref class RedSkull : DActor
 {
 public:
 	RedSkull()
@@ -67,7 +67,7 @@ public:
 
 [ActorType(MT_MISC9)]
 [DoomedNum(40)]
-ref class BlueSkull : Actor
+ref class BlueSkull : DActor
 {
 public:
 	BlueSkull()

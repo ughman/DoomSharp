@@ -2,7 +2,7 @@
 
 [ActorType(MT_SERGEANT)]
 [DoomedNum(3002)]
-ref class Demon : Actor
+ref class Demon : DActor
 {
 public:
 	Demon()
@@ -32,7 +32,7 @@ public:
 
 [ActorType(MT_SHADOWS)]
 [DoomedNum(58)]
-ref class Spectre : Actor
+ref class Spectre : DActor
 {
 public:
 	Spectre()

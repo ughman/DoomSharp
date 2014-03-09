@@ -2,7 +2,7 @@
 
 [ActorType(MT_UNDEAD)]
 [DoomedNum(66)]
-ref class Revenant : Actor
+ref class Revenant : DActor
 {
 public:
 	Revenant()
@@ -30,7 +30,7 @@ public:
 };
 
 [ActorType(MT_TRACER)]
-ref class RevenantShot : Actor
+ref class RevenantShot : DActor
 {
 public:
 	RevenantShot()
@@ -51,7 +51,7 @@ public:
 };
 
 [ActorType(MT_SMOKE)]
-ref class Smoke : Actor
+ref class Smoke : DActor
 {
 public:
 	Smoke()

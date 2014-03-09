@@ -13,7 +13,7 @@ extern "C"
 
 extern mobjtype_t P_GetActorType(Type^ type);
 
-ref class Actor : Thinker
+ref class DActor : Actor
 {
 private:
 	Fixed speed;
@@ -28,14 +28,14 @@ private:
 	Dictionary<String^,int>^ states;
 	Object^ species;
 public:
-	static Actor^ FromPtr(mobj_t *ptr)
+	static DActor^ FromPtr(mobj_t *ptr)
 	{
-		return ptr ? (Actor^)GCHandle::FromIntPtr((IntPtr)ptr->thinker.handle).Target : nullptr;
+		return ptr ? (DActor^)GCHandle::FromIntPtr((IntPtr)ptr->thinker.handle).Target : nullptr;
 	}
 
 	mobj_t *mobj;
 
-	Actor()
+	DActor()
 	{
 		mobj = new mobj_t;
 		memset(mobj,0,sizeof(mobj_t));
@@ -64,89 +64,89 @@ public:
 		species = GetType();
 	}
 
-	property Fixed X
+	virtual property Fixed X
 	{
-		Fixed get() { return Fixed(mobj->x); }
-		void set(Fixed value) { mobj->x = value.Value; }
+		Fixed get() override { return Fixed(mobj->x); }
+		void set(Fixed value) override { mobj->x = value.Value; }
 	}
 
-	property Fixed Y
+	virtual property Fixed Y
 	{
-		Fixed get() { return Fixed(mobj->y); }
-		void set(Fixed value) { mobj->y = value.Value; }
+		Fixed get() override { return Fixed(mobj->y); }
+		void set(Fixed value) override { mobj->y = value.Value; }
 	}
 
-	property Fixed Z
+	virtual property Fixed Z
 	{
-		Fixed get() { return Fixed(mobj->z); }
-		void set(Fixed value) { mobj->z = value.Value; }
+		Fixed get() override { return Fixed(mobj->z); }
+		void set(Fixed value) override { mobj->z = value.Value; }
 	}
 
-	property unsigned int Angle
+	virtual property unsigned int Angle
 	{
-		unsigned int get() { return mobj->angle; }
-		void set(unsigned int value) { mobj->angle = value; }
+		unsigned int get() override { return mobj->angle; }
+		void set(unsigned int value) override { mobj->angle = value; }
 	}
 
-	property int SpriteNum
+	virtual property int SpriteNum
 	{
-		int get() { return mobj->sprite; }
-		void set(int value) { mobj->sprite = (spritenum_t)value; }
+		int get() override { return mobj->sprite; }
+		void set(int value) override { mobj->sprite = (spritenum_t)value; }
 	}
 
-	property int SpriteFrame
+	virtual property int SpriteFrame
 	{
-		int get() { return mobj->frame; }
-		void set(int value) { mobj->frame = value; }
+		int get() override { return mobj->frame; }
+		void set(int value) override { mobj->frame = value; }
 	}
 
-	property Fixed Radius
+	virtual property Fixed Radius
 	{
-		Fixed get() { return Fixed(mobj->radius); }
-		void set(Fixed value) { mobj->radius = value.Value; }
+		Fixed get() override { return Fixed(mobj->radius); }
+		void set(Fixed value) override { mobj->radius = value.Value; }
 	}
 
-	property Fixed Height
+	virtual property Fixed Height
 	{
-		Fixed get() { return Fixed(mobj->height); }
-		void set(Fixed value) { mobj->height = value.Value; }
+		Fixed get() override { return Fixed(mobj->height); }
+		void set(Fixed value) override { mobj->height = value.Value; }
 	}
 
-	property Fixed XMomentum
+	virtual property Fixed XMomentum
 	{
-		Fixed get() { return Fixed(mobj->momx); }
-		void set(Fixed value) { mobj->momx = value.Value; }
+		Fixed get() override { return Fixed(mobj->momx); }
+		void set(Fixed value) override { mobj->momx = value.Value; }
 	}
 
-	property Fixed YMomentum
+	virtual property Fixed YMomentum
 	{
-		Fixed get() { return Fixed(mobj->momy); }
-		void set(Fixed value) { mobj->momy = value.Value; }
+		Fixed get() override { return Fixed(mobj->momy); }
+		void set(Fixed value) override { mobj->momy = value.Value; }
 	}
 
-	property Fixed ZMomentum
+	virtual property Fixed ZMomentum
 	{
-		Fixed get() { return Fixed(mobj->momz); }
-		void set(Fixed value) { mobj->momz = value.Value; }
+		Fixed get() override { return Fixed(mobj->momz); }
+		void set(Fixed value) override { mobj->momz = value.Value; }
 	}
 
-	property int Ticks
+	virtual property int Ticks
 	{
-		int get() { return mobj->tics; }
-		void set(int value) { mobj->tics = value; }
+		int get() override { return mobj->tics; }
+		void set(int value) override { mobj->tics = value; }
 	}
 
-	property int StateNum
+	virtual property int StateNum
 	{
-		int get() { return mobj->state - ::states; }
-		void set(int value) { mobj->state = &::states[value]; }
+		int get() override { return mobj->state - ::states; }
+		void set(int value) override { mobj->state = &::states[value]; }
 	}
 
 #define LEGACYFLAG(propname,legacyname) \
-	property bool propname \
+	virtual property bool propname \
 	{ \
-		bool get() { return mobj->flags & legacyname; } \
-		void set(bool value) \
+		bool get() override { return mobj->flags & legacyname; } \
+		void set(bool value) override \
 		{ \
 			if (value) \
 				mobj->flags |= legacyname; \
@@ -183,119 +183,119 @@ public:
 	LEGACYFLAG(NotDMatch,MF_NOTDMATCH)
 #undef LEGACYFLAG
 
-	property int Health
+	virtual property int Health
 	{
-		int get() { return mobj->health; }
-		void set(int value) { mobj->health = value; }
+		int get() override { return mobj->health; }
+		void set(int value) override { mobj->health = value; }
 	}
 
-	property int MovementDirection
+	virtual property int MovementDirection
 	{
-		int get() { return mobj->movedir; }
-		void set(int value) { mobj->movedir = value; }
+		int get() override { return mobj->movedir; }
+		void set(int value) override { mobj->movedir = value; }
 	}
 
-	property int MovementCount
+	virtual property int MovementCount
 	{
-		int get() { return mobj->movecount; }
-		void set(int value) { mobj->movecount = value; }
+		int get() override { return mobj->movecount; }
+		void set(int value) override { mobj->movecount = value; }
 	}
 
-	property Actor^ Target
+	virtual property Actor^ Target
 	{
-		Actor^ get() { return FromPtr(mobj->target); }
-		void set(Actor^ value) { mobj->target = value ? value->mobj : NULL; }
+		Actor^ get() override { return FromPtr(mobj->target); }
+		void set(Actor^ value) override { mobj->target = value ? ((DActor^)value)->mobj : NULL; }
 	}
 
-	property int ReactionTime
+	virtual property int ReactionTime
 	{
-		int get() { return mobj->reactiontime; }
-		void set(int value) { mobj->reactiontime = value; }
+		int get() override { return mobj->reactiontime; }
+		void set(int value) override { mobj->reactiontime = value; }
 	}
 
-	property int LastLook
+	virtual property int LastLook
 	{
-		int get() { return mobj->lastlook; }
-		void set(int value) { mobj->lastlook = value; }
+		int get() override { return mobj->lastlook; }
+		void set(int value) override { mobj->lastlook = value; }
 	}
 
-	property Actor^ Tracer
+	virtual property Actor^ Tracer
 	{
-		Actor^ get() { return FromPtr(mobj->tracer); }
-		void set(Actor^ value) { mobj->tracer = value ? value->mobj : NULL; }
+		Actor^ get() override { return FromPtr(mobj->tracer); }
+		void set(Actor^ value) override { mobj->tracer = value ? ((DActor^)value)->mobj : NULL; }
 	}
 
-	property Fixed Speed
+	virtual property Fixed Speed
 	{
-		Fixed get() { return speed; }
-		void set(Fixed value) { speed = value; }
+		Fixed get() override { return speed; }
+		void set(Fixed value) override { speed = value; }
 	}
 
-	property int Mass
+	virtual property int Mass
 	{
-		int get() { return mass; }
-		void set(int value) { mass = value; }
+		int get() override { return mass; }
+		void set(int value) override { mass = value; }
 	}
 
-	property int Damage
+	virtual property int Damage
 	{
-		int get() { return damage; }
-		void set(int value) { damage = value; }
+		int get() override { return damage; }
+		void set(int value) override { damage = value; }
 	}
 
-	property int PainChance
+	virtual property int PainChance
 	{
-		int get() { return painchance; }
-		void set(int value) { painchance = value; }
+		int get() override { return painchance; }
+		void set(int value) override { painchance = value; }
 	}
 
-	property int SeeSoundNum
+	virtual property int SeeSoundNum
 	{
-		int get() { return seesoundnum; }
-		void set(int value) { seesoundnum = value; }
+		int get() override { return seesoundnum; }
+		void set(int value) override { seesoundnum = value; }
 	}
 
-	property int ActiveSoundNum
+	virtual property int ActiveSoundNum
 	{
-		int get() { return activesoundnum; }
-		void set(int value) { activesoundnum = value; }
+		int get() override { return activesoundnum; }
+		void set(int value) override { activesoundnum = value; }
 	}
 
-	property int AttackSoundNum
+	virtual property int AttackSoundNum
 	{
-		int get() { return attacksoundnum; }
-		void set(int value) { attacksoundnum = value; }
+		int get() override { return attacksoundnum; }
+		void set(int value) override { attacksoundnum = value; }
 	}
 
-	property int PainSoundNum
+	virtual property int PainSoundNum
 	{
-		int get() { return painsoundnum; }
-		void set(int value) { painsoundnum = value; }
+		int get() override { return painsoundnum; }
+		void set(int value) override { painsoundnum = value; }
 	}
 
-	property int DeathSoundNum
+	virtual property int DeathSoundNum
 	{
-		int get() { return deathsoundnum; }
-		void set(int value) { deathsoundnum = value; }
+		int get() override { return deathsoundnum; }
+		void set(int value) override { deathsoundnum = value; }
 	}
 
-	property Object^ Species
+	virtual property Object^ Species
 	{
-		Object^ get() { return species; }
-		void set(Object^ value) { species = value; }
+		Object^ get() override { return species; }
+		void set(Object^ value) override { species = value; }
 	}
 
-	void DefineState(String^ name,int statenum)
+	virtual void DefineState(String^ name,int statenum) override
 	{
 		states[name] = statenum;
 	}
 
-	bool HasState(String^ name)
+	virtual bool HasState(String^ name) override
 	{
 		return states->ContainsKey(name);
 	}
 
-	int GetStateNum(String^ name)
+	virtual int GetStateNum(String^ name) override
 	{
 		return states[name];
 	}
@@ -313,12 +313,12 @@ public:
 		return false;
 	}
 
-	~Actor()
+	~DActor()
 	{
-		this->!Actor();
+		this->!DActor();
 	}
 
-	!Actor()
+	!DActor()
 	{
 		GCHandle::FromIntPtr((IntPtr)mobj->thinker.handle).Free();
 		delete mobj;

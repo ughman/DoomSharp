@@ -12,15 +12,15 @@ extern "C"
 
 gcroot<List<Type^>^> actortypes;
 gcroot<Dictionary<int,Type^>^> doomednumtable;
-gcroot<Dictionary<int,Actor^>^> dummyactors;
+gcroot<Dictionary<int,DActor^>^> dummyactors;
 
-Actor^ P_CreateActor(mobjtype_t type)
+DActor^ P_CreateActor(mobjtype_t type)
 {
-	Actor^ actor;
+	DActor^ actor;
 	Type^ actortype = actortypes->default[type];
 	if (actortype)
 	{
-		actor = (Actor^)Activator::CreateInstance(actortype,nullptr);
+		actor = (DActor^)Activator::CreateInstance(actortype,nullptr);
 	}
 	else
 	{
@@ -31,7 +31,7 @@ Actor^ P_CreateActor(mobjtype_t type)
 
 mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 {
-	Actor^ actor = P_CreateActor(type);
+	DActor^ actor = P_CreateActor(type);
 	actor->X = Fixed(x);
 	actor->Y = Fixed(y);
 	P_SetThingPosition(actor->mobj);
@@ -84,7 +84,7 @@ public:
 			actortypes->Add(nullptr);
 		}
 		doomednumtable = gcnew Dictionary<int,Type^>();
-		dummyactors = gcnew Dictionary<int,Actor^>();
+		dummyactors = gcnew Dictionary<int,DActor^>();
 	}
 } initactortypetable;
 
@@ -131,59 +131,59 @@ extern "C" bool P_CheckSameSpecies(mobj_t *a,mobj_t *b)
 	{
 		return false;
 	}
-	Actor^ a2 = Actor::FromPtr(a);
-	Actor^ b2 = Actor::FromPtr(b);
+	Actor^ a2 = DActor::FromPtr(a);
+	Actor^ b2 = DActor::FromPtr(b);
 	return (a2->Species != nullptr && a2->Species->Equals(b2->Species));
 }
 
 extern "C" int P_GetActorSpeed(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->Speed.Value;
+	return DActor::FromPtr(mobj)->Speed.Value;
 }
 
 extern "C" int P_GetActorMass(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->Mass;
+	return DActor::FromPtr(mobj)->Mass;
 }
 
 extern "C" int P_GetActorDamage(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->Damage;
+	return DActor::FromPtr(mobj)->Damage;
 }
 
 extern "C" int P_GetActorPainChance(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->PainChance;
+	return DActor::FromPtr(mobj)->PainChance;
 }
 
 extern "C" int P_GetActorSeeSound(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->SeeSoundNum;
+	return DActor::FromPtr(mobj)->SeeSoundNum;
 }
 
 extern "C" int P_GetActorActiveSound(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->ActiveSoundNum;
+	return DActor::FromPtr(mobj)->ActiveSoundNum;
 }
 
 extern "C" int P_GetActorAttackSound(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->AttackSoundNum;
+	return DActor::FromPtr(mobj)->AttackSoundNum;
 }
 
 extern "C" int P_GetActorPainSound(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->PainSoundNum;
+	return DActor::FromPtr(mobj)->PainSoundNum;
 }
 
 extern "C" int P_GetActorDeathSound(mobj_t *mobj)
 {
-	return Actor::FromPtr(mobj)->DeathSoundNum;
+	return DActor::FromPtr(mobj)->DeathSoundNum;
 }
 
 extern "C" int P_GetActorStateNum(mobj_t *mobj,char *label)
 {
-	Actor^ actor = Actor::FromPtr(mobj);
+	DActor^ actor = DActor::FromPtr(mobj);
 	String^ label2 = gcnew String(label);
 	if (actor->HasState(label2))
 	{
@@ -197,18 +197,18 @@ extern "C" int P_GetActorStateNum(mobj_t *mobj,char *label)
 
 extern "C" bool P_CheckMobjStateLabel(mobj_t *mobj,char *label)
 {
-	return Actor::FromPtr(mobj)->HasState(gcnew String(label));
+	return DActor::FromPtr(mobj)->HasState(gcnew String(label));
 }
 
 extern "C" bool P_CheckMobjStateLabelIs(mobj_t *mobj,char *label)
 {
-	Actor^ actor = Actor::FromPtr(mobj);
+	DActor^ actor = DActor::FromPtr(mobj);
 	return actor->StateNum == actor->GetStateNum(gcnew String(label));
 }
 
 extern "C" void P_SetMobjStateLabel(mobj_t *mobj,char *label)
 {
-	int statenum = Actor::FromPtr(mobj)->GetStateNum(gcnew String(label));
+	int statenum = DActor::FromPtr(mobj)->GetStateNum(gcnew String(label));
 	P_SetMobjState(mobj,(statenum_t)statenum);
 }
 
@@ -216,7 +216,7 @@ mobj_t *dummyactor;
 
 extern "C" void P_SetDummyActor(mobjtype_t type)
 {
-	Actor^ actor;
+	DActor^ actor;
 	if (!dummyactors->TryGetValue(type,actor))
 	{
 		actor = P_CreateActor(type);

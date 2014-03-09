@@ -2,7 +2,7 @@
 
 [ActorType(MT_CYBORG)]
 [DoomedNum(16)]
-ref class Cyberdemon : Actor
+ref class Cyberdemon : DActor
 {
 public:
 	Cyberdemon()

@@ -2,7 +2,7 @@
 
 [ActorType(MT_MISC25)]
 [DoomedNum(2006)]
-ref class BFG9000 : Actor
+ref class BFG9000 : DActor
 {
 public:
 	BFG9000()
@@ -14,7 +14,7 @@ public:
 
 [ActorType(MT_CHAINGUN)]
 [DoomedNum(2002)]
-ref class Chaingun : Actor
+ref class Chaingun : DActor
 {
 public:
 	Chaingun()
@@ -26,7 +26,7 @@ public:
 
 [ActorType(MT_MISC26)]
 [DoomedNum(2005)]
-ref class Chainsaw : Actor
+ref class Chainsaw : DActor
 {
 public:
 	Chainsaw()
@@ -38,7 +38,7 @@ public:
 
 [ActorType(MT_MISC27)]
 [DoomedNum(2003)]
-ref class RocketLauncher : Actor
+ref class RocketLauncher : DActor
 {
 public:
 	RocketLauncher()
@@ -50,7 +50,7 @@ public:
 
 [ActorType(MT_MISC28)]
 [DoomedNum(2004)]
-ref class PlasmaRifle : Actor
+ref class PlasmaRifle : DActor
 {
 public:
 	PlasmaRifle()
@@ -62,7 +62,7 @@ public:
 
 [ActorType(MT_SHOTGUN)]
 [DoomedNum(2001)]
-ref class Shotgun : Actor
+ref class Shotgun : DActor
 {
 public:
 	Shotgun()
@@ -74,7 +74,7 @@ public:
 
 [ActorType(MT_SUPERSHOTGUN)]
 [DoomedNum(82)]
-ref class SuperShotgun : Actor
+ref class SuperShotgun : DActor
 {
 public:
 	SuperShotgun()
