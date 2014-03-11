@@ -14,7 +14,7 @@ namespace DoomSharp
 
         public MainWindow(bool fullscreen) : base(fullscreen ? DisplayDevice.Default.Width : 800,fullscreen ? DisplayDevice.Default.Height : 600,GraphicsMode.Default,"DoomSharp",fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
-            this.display = new byte [512 * 256];
+            this.display = new byte [320 * 200];
             this.palette = new byte [256 * 3];
             CursorVisible = false;
         }
@@ -29,7 +29,7 @@ namespace DoomSharp
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Enable(EnableCap.Texture2D);
-            byte[] rgbdisplay = new byte [display.Length * 3];
+            byte[] rgbdisplay = new byte [512 * 256 * 3];
             for (int y = 0;y < 200;y++)
             {
                 for (int x = 0;x < 320;x++)
