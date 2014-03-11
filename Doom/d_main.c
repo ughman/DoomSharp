@@ -520,7 +520,6 @@ void IdentifyVersion (void)
     char*	doomuwad;
     char*	doom2wad;
 
-    char*	doom2fwad;
     char*	plutoniawad;
     char*	tntwad;
 
@@ -553,10 +552,6 @@ void IdentifyVersion (void)
     tntwad = malloc(strlen(doomwaddir)+1+9+1);
     sprintf(tntwad, "%s/tnt.wad", doomwaddir);
 
-
-    // French stuff.
-    doom2fwad = malloc(strlen(doomwaddir)+1+10+1);
-    sprintf(doom2fwad, "%s/doom2f.wad", doomwaddir);
 
     sprintf(basedefault, ".doomrc");
 
@@ -598,17 +593,6 @@ void IdentifyVersion (void)
 	D_AddFile (DEVMAPS"cdata/texture1.lmp");
 	D_AddFile (DEVMAPS"cdata/pnames.lmp");
 	strcpy (basedefault,DEVDATA"default.cfg");
-	return;
-    }
-
-    if ( !access (doom2fwad,R_OK) )
-    {
-	gamemode = commercial;
-	// C'est ridicule!
-	// Let's handle languages in config files, okay?
-	language = french;
-	printf("French version\n");
-	D_AddFile (doom2fwad);
 	return;
     }
 

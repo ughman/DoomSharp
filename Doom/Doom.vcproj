@@ -498,10 +498,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\d_french.h"
-					>
-				</File>
-				<File
 					RelativePath=".\d_items.h"
 					>
 				</File>
