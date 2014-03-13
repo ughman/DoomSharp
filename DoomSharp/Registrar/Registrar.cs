@@ -8,11 +8,16 @@ namespace DoomSharp
     {
         private static List<Type> types;
         private static List<MethodInfo> methods;
+        private static List<RegistrarTypeHandler> typehandlers;
+        private static List<RegistrarMethodHandler> methodhandlers;
 
         static Registrar()
         {
             types = new List<Type>();
             methods = new List<MethodInfo>();
+            typehandlers = new List<RegistrarTypeHandler>();
+            methodhandlers = new List<RegistrarMethodHandler>();
+            methodhandlers.Add(RegisterHandler);
         }
 
         public static void RegisterAssembly(Assembly assembly)
@@ -48,9 +53,9 @@ namespace DoomSharp
                 RegisterMethod(method);
             }
             types.Add(type);
-            foreach (MethodInfo method in methods)
+            foreach (RegistrarTypeHandler handler in typehandlers)
             {
-                method.Invoke(null,new object[] {type});
+                handler(type);
             }
         }
 
@@ -58,12 +63,31 @@ namespace DoomSharp
         {
             if (method == null)
                 throw new ArgumentNullException("method");
+            methods.Add(method);
+            foreach (RegistrarMethodHandler handler in methodhandlers)
+            {
+                handler(method);
+            }
+        }
+
+        private static void RegisterHandler(MethodInfo method)
+        {
             if (method.IsDefined(typeof(RegistrarTypeHandlerAttribute),false))
             {
-                methods.Add(method);
+                RegistrarTypeHandler handler = (RegistrarTypeHandler)Delegate.CreateDelegate(typeof(RegistrarTypeHandler),method);
+                typehandlers.Add(handler);
                 foreach (Type type in types)
                 {
-                    method.Invoke(null,new object[] {type});
+                    handler(type);
+                }
+            }
+            if (method.IsDefined(typeof(RegistrarMethodHandlerAttribute),false))
+            {
+                RegistrarMethodHandler handler = (RegistrarMethodHandler)Delegate.CreateDelegate(typeof(RegistrarMethodHandler),method);
+                methodhandlers.Add(handler);
+                foreach (MethodInfo method2 in methods)
+                {
+                    handler(method2);
                 }
             }
         }

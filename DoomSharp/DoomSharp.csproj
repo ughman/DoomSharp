@@ -70,6 +70,9 @@
     <Compile Include="Net Code\INetSocket.cs" />
     <Compile Include="Net Code\PacketEventArgs.cs" />
     <Compile Include="Net Code\PacketType.cs" />
+    <Compile Include="Registrar\RegistrarMethodHandlerAttribute.cs" />
+    <Compile Include="Registrar\RegistrarMethodHandler.cs" />
+    <Compile Include="Registrar\RegistrarTypeHandler.cs" />
     <Compile Include="Registrar\RegistrarTypeHandlerAttribute.cs" />
     <Compile Include="Registrar\Registrar.cs" />
     <Compile Include="Utility\BitConv.cs" />
