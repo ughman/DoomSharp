@@ -54,7 +54,7 @@ namespace DoomSharp
                 }
                 Type sourcetype = source.Evaluate(c);
                 c.Convert(sourcetype,field.FieldType);
-                c.IL.Emit(OpCodes.Ldfld,field);
+                c.IL.Emit(OpCodes.Stfld,field);
             }
             else if (member.MemberType == MemberTypes.Property)
             {
