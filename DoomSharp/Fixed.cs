@@ -28,5 +28,50 @@ namespace DoomSharp
         {
             get { return value >> 16; }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Fixed && this == (Fixed)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return value;
+        }
+
+        public static bool operator ==(Fixed left,Fixed right)
+        {
+            return left.value == right.value;
+        }
+
+        public static bool operator !=(Fixed left,Fixed right)
+        {
+            return left.value != right.value;
+        }
+
+        public static bool operator <(Fixed left,Fixed right)
+        {
+            return left.value < right.value;
+        }
+
+        public static bool operator >(Fixed left,Fixed right)
+        {
+            return left.value > right.value;
+        }
+
+        public static Fixed operator -(Fixed f)
+        {
+            return new Fixed(-f.value);
+        }
+
+        public static Fixed operator +(Fixed left,Fixed right)
+        {
+            return new Fixed(left.value + right.value);
+        }
+
+        public static Fixed operator -(Fixed left,Fixed right)
+        {
+            return new Fixed(left.value - right.value);
+        }
     }
 }
