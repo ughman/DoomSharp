@@ -73,6 +73,8 @@
     <Compile Include="Registrar\RegistrarMethodHandlerAttribute.cs" />
     <Compile Include="Registrar\RegistrarMethodHandler.cs" />
     <Compile Include="Registrar\RegistrarTypeHandler.cs" />
+    <Compile Include="Scripting Code\Expressions\Comparison\IsNotExpression.cs" />
+    <Compile Include="Scripting Code\Expressions\Comparison\IsExpression.cs" />
     <Compile Include="Scripting Code\Expressions\Other\CallExpression.cs" />
     <Compile Include="Scripting Code\CodeContext.cs" />
     <Compile Include="Scripting Code\CodeParser.cs" />

@@ -276,6 +276,16 @@ namespace DoomSharp
                     Expression right = ParseComparisonExpression();
                     left = new NotEqualExpression(left,right);
                 }
+                else if (scanner.TryGetIdentifier("is"))
+                {
+                    Expression right = ParseComparisonExpression();
+                    left = new IsExpression(left,right);
+                }
+                else if (scanner.TryGetIdentifier("isnot"))
+                {
+                    Expression right = ParseComparisonExpression();
+                    left = new IsNotExpression(left,right);
+                }
                 else
                 {
                     return left;
