@@ -17,7 +17,6 @@ namespace DoomSharp
             methods = new List<MethodInfo>();
             typehandlers = new List<RegistrarTypeHandler>();
             methodhandlers = new List<RegistrarMethodHandler>();
-            methodhandlers.Add(RegisterHandler);
         }
 
         public static void RegisterAssembly(Assembly assembly)
@@ -68,10 +67,6 @@ namespace DoomSharp
             {
                 handler(method);
             }
-        }
-
-        private static void RegisterHandler(MethodInfo method)
-        {
             if (method.IsDefined(typeof(RegistrarTypeHandlerAttribute),false))
             {
                 RegistrarTypeHandler handler = (RegistrarTypeHandler)Delegate.CreateDelegate(typeof(RegistrarTypeHandler),method);
