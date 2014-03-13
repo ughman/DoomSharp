@@ -54,6 +54,15 @@ namespace DoomSharp
                 }
                 return new WhileStatement(condition,loopstatement,elsestatement);
             }
+            else if (scanner.TryGetIdentifier("var"))
+            {
+                string variablename;
+                scanner.GetIdentifier(out variablename);
+                scanner.GetDelimiter("=");
+                Expression expression = ParseExpression();
+                scanner.GetDelimiter(";");
+                return new VarStatement(variablename,expression);
+            }
             else if (scanner.TryGetDelimiter("{"))
             {
                 CodeParser subparser = new CodeParser(scanner.ScanAcross("{","}"));

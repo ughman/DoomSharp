@@ -117,6 +117,7 @@
     <Compile Include="Registrar\RegistrarTypeHandlerAttribute.cs" />
     <Compile Include="Registrar\Registrar.cs" />
     <Compile Include="Scripting Code\Statements\BlockStatement.cs" />
+    <Compile Include="Scripting Code\Statements\VarStatement.cs" />
     <Compile Include="Scripting Code\Statements\ExpressionStatement.cs" />
     <Compile Include="Scripting Code\Statements\WhileStatement.cs" />
     <Compile Include="Scripting Code\Statements\IfStatement.cs" />
