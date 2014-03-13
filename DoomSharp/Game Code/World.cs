@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace DoomSharp
 {
+    [Scriptable]
     public sealed class World
     {
         private List<Thinker> thinkers;

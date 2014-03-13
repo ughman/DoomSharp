@@ -76,6 +76,7 @@
     <Compile Include="Scripting Code\Expressions\Comparison\IsNotExpression.cs" />
     <Compile Include="Scripting Code\Expressions\Comparison\IsExpression.cs" />
     <Compile Include="Scripting Code\Expressions\Other\CallExpression.cs" />
+    <Compile Include="Scripting Code\ScriptableAttribute.cs" />
     <Compile Include="Scripting Code\CodeContext.cs" />
     <Compile Include="Scripting Code\CodeParser.cs" />
     <Compile Include="Scripting Code\DefinitionParser.cs" />

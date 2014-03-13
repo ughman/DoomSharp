@@ -2,6 +2,7 @@ using System;
 
 namespace DoomSharp
 {
+    [Scriptable]
     public abstract class Linedef
     {
         // TODO :: start

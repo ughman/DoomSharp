@@ -1,5 +1,6 @@
 namespace DoomSharp
 {
+    [Scriptable]
     public abstract class Thing
     {
         // TODO :: x

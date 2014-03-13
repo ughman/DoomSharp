@@ -19,7 +19,24 @@ namespace DoomSharp
             globaltypes.Add("fixed",typeof(Fixed));
             globaltypes.Add("string",typeof(string));
             globaltypes.Add("object",typeof(object));
-            globaltypes.Add("Actor",typeof(Actor));
+        }
+
+        [RegistrarTypeHandler]
+        private static void RegisterType(Type type)
+        {
+            if (type.IsDefined(typeof(ScriptableAttribute),true))
+            {
+                globaltypes[type.Name] = type;
+            }
+        }
+
+        [RegistrarMethodHandler]
+        private static void RegisterMethod(MethodInfo method)
+        {
+            if (method.IsDefined(typeof(ScriptableAttribute),false))
+            {
+                globalmethods[method.Name] = method;
+            }
         }
 
         private ModuleBuilder module;
