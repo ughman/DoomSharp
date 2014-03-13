@@ -18,6 +18,7 @@ namespace DoomSharp
             globaltypes.Add("int",typeof(int));
             globaltypes.Add("fixed",typeof(Fixed));
             globaltypes.Add("string",typeof(string));
+            globaltypes.Add("object",typeof(object));
             globaltypes.Add("Actor",typeof(Actor));
         }
 
