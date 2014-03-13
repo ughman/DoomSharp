@@ -53,10 +53,7 @@ namespace DoomSharp
                     throw new ApplicationException();
                 }
                 Type sourcetype = source.Evaluate(c);
-                if (!field.FieldType.IsAssignableFrom(sourcetype))
-                {
-                    throw new ApplicationException();
-                }
+                c.Convert(sourcetype,field.FieldType);
                 c.IL.Emit(OpCodes.Ldfld,field);
             }
             else if (member.MemberType == MemberTypes.Property)
@@ -67,10 +64,7 @@ namespace DoomSharp
                     throw new ApplicationException();
                 }
                 Type sourcetype = source.Evaluate(c);
-                if (!property.PropertyType.IsAssignableFrom(sourcetype))
-                {
-                    throw new ApplicationException();
-                }
+                c.Convert(sourcetype,property.PropertyType);
                 c.IL.Emit(OpCodes.Callvirt,property.GetSetMethod());
             }
             else
@@ -94,14 +88,7 @@ namespace DoomSharp
                 for (int i = 0;i < arguments.Length;i++)
                 {
                     Type argumenttype = arguments[i].Evaluate(c);
-                    if (!parameters[i].ParameterType.IsAssignableFrom(argumenttype))
-                    {
-                        throw new ApplicationException();
-                    }
-                    if (argumenttype.IsValueType && !parameters[i].ParameterType.IsValueType)
-                    {
-                        c.IL.Emit(OpCodes.Box,argumenttype);
-                    }
+                    c.Convert(argumenttype,parameters[i].ParameterType);
                 }
                 c.IL.Emit(OpCodes.Callvirt,method);
                 return method.ReturnType;

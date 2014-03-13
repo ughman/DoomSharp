@@ -49,19 +49,13 @@ namespace DoomSharp
             if (c.Locals.TryGetValue(variablename,out local))
             {
                 Type type = source.Evaluate(c);
-                if (!local.LocalType.IsAssignableFrom(type))
-                {
-                    throw new ApplicationException();
-                }
+                c.Convert(type,local.LocalType);
                 c.IL.Emit(OpCodes.Stloc,local);
             }
             else if (c.Parameters.TryGetValue(variablename,out parameter))
             {
                 Type type = source.Evaluate(c);
-                if (!c.ParameterTypes[parameter].IsAssignableFrom(type))
-                {
-                    throw new ApplicationException();
-                }
+                c.Convert(type,c.ParameterTypes[parameter]);
                 if (c.Method.IsStatic)
                 {
                     c.IL.Emit(OpCodes.Starg,parameter);

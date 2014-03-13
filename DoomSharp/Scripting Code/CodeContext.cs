@@ -59,5 +59,34 @@ namespace DoomSharp
         {
             get { return parametertypes; }
         }
+
+        public void Convert(Type source,Type destination)
+        {
+            if (destination == null)
+                throw new ArgumentNullException("destination");
+            // Source may be null if from NullExpression
+            if (source == null && !destination.IsValueType)
+            {
+                // null -> reference type is compatible
+                return;
+            }
+            else if (destination.IsAssignableFrom(source))
+            {
+                if (source.IsValueType && !destination.IsValueType)
+                {
+                    // Value type must be boxed
+                    il.Emit(OpCodes.Box,source);
+                }
+            }
+            else if (source == typeof(int) && destination == typeof(Fixed))
+            {
+                // int -> Fixed conversion
+                il.Emit(OpCodes.Call,typeof(Fixed).GetMethod("FromInt"));
+            }
+            else
+            {
+                throw new ApplicationException();
+            }
+        }
     }
 }
