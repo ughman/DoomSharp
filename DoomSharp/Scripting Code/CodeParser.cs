@@ -411,7 +411,17 @@ namespace DoomSharp
                 }
                 else if (scanner.TryGetDelimiter("("))
                 {
-                    throw new NotImplementedException();
+                    List<Expression> arguments = new List<Expression>();
+                    if (!scanner.TryGetDelimiter(")"))
+                    {
+                        do
+                        {
+                            arguments.Add(ParseExpression());
+                        }
+                        while (scanner.TryGetDelimiter(","));
+                        scanner.GetDelimiter(")");
+                    }
+                    inner = new CallExpression(inner,arguments.ToArray());
                 }
                 else if (scanner.TryGetDelimiter("["))
                 {
