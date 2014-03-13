@@ -54,6 +54,24 @@ namespace DoomSharp
                 }
                 return new WhileStatement(condition,loopstatement,elsestatement);
             }
+            else if (scanner.TryGetIdentifier("foreach"))
+            {
+                scanner.GetDelimiter("(");
+                string variabletype;
+                string variablename;
+                scanner.GetIdentifier(out variabletype);
+                scanner.GetIdentifier(out variablename);
+                scanner.GetIdentifier("in");
+                Expression collection = ParseExpression();
+                scanner.GetDelimiter(")");
+                Statement loopstatement = ParseStatement();
+                Statement elsestatement = new NullStatement();
+                if (scanner.TryGetIdentifier("else"))
+                {
+                    elsestatement = ParseStatement();
+                }
+                return new ForEachStatement(variabletype,variablename,collection,loopstatement,elsestatement);
+            }
             else if (scanner.TryGetIdentifier("var"))
             {
                 string variablename;
