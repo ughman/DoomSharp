@@ -98,6 +98,10 @@ namespace DoomSharp
                     {
                         throw new ApplicationException();
                     }
+                    if (argumenttype.IsValueType && !parameters[i].ParameterType.IsValueType)
+                    {
+                        c.IL.Emit(OpCodes.Box,argumenttype);
+                    }
                 }
                 c.IL.Emit(OpCodes.Callvirt,method);
                 return method.ReturnType;
