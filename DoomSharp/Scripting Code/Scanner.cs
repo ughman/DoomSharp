@@ -127,7 +127,7 @@ namespace DoomSharp
                         {
                             throw new ApplicationException();
                         }
-                        input.Remove(0,1);
+                        input = input.Remove(0,1);
                     }
                     if (input.Length > 0 && input[0] == '.')
                     {
