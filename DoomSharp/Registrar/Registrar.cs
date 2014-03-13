@@ -58,7 +58,7 @@ namespace DoomSharp
         {
             if (method == null)
                 throw new ArgumentNullException("method");
-            if (method.GetCustomAttributes(typeof(RegistrarTypeHandlerAttribute),false).Length > 0)
+            if (method.IsDefined(typeof(RegistrarTypeHandlerAttribute),false))
             {
                 methods.Add(method);
                 foreach (Type type in types)
