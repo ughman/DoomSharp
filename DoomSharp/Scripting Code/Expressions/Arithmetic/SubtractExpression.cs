@@ -13,7 +13,7 @@ namespace DoomSharp
         public override Type Evaluate(CodeContext c)
         {
             Type lefttype = Left.Evaluate(c);
-            Type righttype = Left.Evaluate(c);
+            Type righttype = Right.Evaluate(c);
             if (lefttype != typeof(int) || righttype != typeof(int))
             {
                 throw new ApplicationException();
