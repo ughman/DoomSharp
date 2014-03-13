@@ -34,7 +34,7 @@ namespace DoomSharp
                 Expression condition = ParseExpression();
                 scanner.GetDelimiter(")");
                 Statement thenstatement = ParseStatement();
-                Statement elsestatement = null;
+                Statement elsestatement = new NullStatement();
                 if (scanner.TryGetIdentifier("else"))
                 {
                     elsestatement = ParseStatement();
