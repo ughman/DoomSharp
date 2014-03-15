@@ -15,7 +15,7 @@ extern "C" void P_LoadVertexes(int lumpid)
 	{
 		short x = BitConv::FromInt16(data,i * 4 + 0);
 		short y = BitConv::FromInt16(data,i * 4 + 2);
-		world->Vertices->Add(gcnew DVertex(Fixed::FromInt(x),Fixed::FromInt(y)));
+		world->Vertices->Add(gcnew DVertex(world,Fixed::FromInt(x),Fixed::FromInt(y)));
 	}
 }
 
@@ -38,7 +38,7 @@ extern "C" void P_LoadSectors(int lumpid)
 	for (int i = 0;i < count;i++)
 	{
 		char flatname[8];
-		DSector^ sector = gcnew DSector();
+		DSector^ sector = gcnew DSector(world);
 		sector->FloorZ = Fixed::FromInt(BitConv::FromInt16(data,i * 26 + 0));
 		sector->CeilingZ = Fixed::FromInt(BitConv::FromInt16(data,i * 26 + 2));
 		Marshal::Copy(data,i * 26 + 4,(IntPtr)flatname,8);
@@ -82,7 +82,7 @@ extern "C" void P_LoadSideDefs(int lumpid)
 			Core::Console->LogError("Sidedef {0} references a non-existent sector.",i);
 			I_Error("Bad sidedef->sector reference");
 		}
-		DSidedef^ sidedef = gcnew DSidedef((DSector^)world->Sectors[sectornum]);
+		DSidedef^ sidedef = gcnew DSidedef(world,(DSector^)world->Sectors[sectornum]);
 		sidedef->XOffset = Fixed::FromInt(BitConv::FromInt16(data,i * 30 + 0));
 		sidedef->YOffset = Fixed::FromInt(BitConv::FromInt16(data,i * 30 + 2));
 		Marshal::Copy(data,i * 30 + 4,(IntPtr)texturename,8);
@@ -157,7 +157,7 @@ extern "C" void P_LoadLineDefs(int lumpid)
 		{
 			back = (DSidedef^)world->Sidedefs[backnum];
 		}
-		DLinedef^ linedef = gcnew DLinedef(start,end,front,back);
+		DLinedef^ linedef = gcnew DLinedef(world,start,end,front,back);
 		linedef->ptr->flags = BitConv::FromInt16(data,i * 14 + 4);
 		linedef->Special = BitConv::FromInt16(data,i * 14 + 6);
 		linedef->Tag = BitConv::FromInt16(data,i * 14 + 8);
@@ -188,7 +188,7 @@ extern "C" void P_LoadThings(int lumpid)
 		Core::Console->LogWarning("This map's THINGS lump has an irregular length.");
 	for (int i = 0;i < count;i++)
 	{
-		DThing^ thing = gcnew DThing();
+		DThing^ thing = gcnew DThing(world);
 		thing->X = Fixed::FromInt(BitConv::FromInt16(data,i * 10 + 0));
 		thing->Y = Fixed::FromInt(BitConv::FromInt16(data,i * 10 + 2));
 		thing->Angle = BitConv::FromInt16(data,i * 10 + 4);

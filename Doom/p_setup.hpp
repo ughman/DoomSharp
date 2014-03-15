@@ -26,7 +26,7 @@ public:
 
 	vertex_t *ptr;
 
-	DVertex(Fixed x,Fixed y) : Vertex(x,y)
+	DVertex(::World^ world,Fixed x,Fixed y) : Vertex(world,x,y)
 	{
 		ptr = new vertex_t;
 		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
@@ -66,7 +66,7 @@ public:
 
 	sector_t *ptr;
 
-	DSector()
+	DSector(::World^ world) : Sector(world)
 	{
 		ptr = new sector_t;
 		memset(ptr,0,sizeof(sector_t));
@@ -126,7 +126,7 @@ public:
 
 	side_t *ptr;
 
-	DSidedef(DSector^ sector) : Sidedef(sector)
+	DSidedef(::World^ world,DSector^ sector) : Sidedef(world,sector)
 	{
 		ptr = new side_t;
 		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
@@ -177,7 +177,7 @@ public:
 
 	line_t *ptr;
 
-	DLinedef(DVertex^ start,DVertex^ end,DSidedef^ front,DSidedef^ back) : Linedef(start,end,front,back)
+	DLinedef(::World^ world,DVertex^ start,DVertex^ end,DSidedef^ front,DSidedef^ back) : Linedef(world,start,end,front,back)
 	{
 		ptr = new line_t;
 		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
@@ -260,7 +260,7 @@ public:
 
 	mapthing_t *ptr;
 
-	DThing()
+	DThing(::World^ world) : Thing(world)
 	{
 		ptr = new mapthing_t;
 		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
