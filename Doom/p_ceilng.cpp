@@ -25,7 +25,7 @@ public:
 	fixed_t topheight;
 	fixed_t bottomheight;
 
-	Ceiling(sector_t *sector,CeilingType type)
+	Ceiling(sector_t *sector,CeilingType type) : Thinker(::world)
 	{
 		this->sector = sector;
 		this->type = type;

@@ -57,6 +57,8 @@ namespace DoomSharp
         {
             if (thinker == null)
                 throw new ArgumentNullException("thinker");
+            if (thinker.World != this)
+                throw new ArgumentException("Thinker is from another world.");
             thinkers.Add(thinker);
         }
 

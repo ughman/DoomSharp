@@ -63,7 +63,7 @@ namespace DoomSharp
         private object species;
         private Dictionary<string,int> states;
 
-        public Actor()
+        public Actor(World world) : base(world)
         {
             // TODO :: x
             // TODO :: y

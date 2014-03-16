@@ -23,7 +23,7 @@ public:
 
 	mobj_t *mobj;
 
-	DActor()
+	DActor() : Actor(::world)
 	{
 		mobj = new mobj_t;
 		memset(mobj,0,sizeof(mobj_t));

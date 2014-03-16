@@ -26,7 +26,7 @@ public:
 
 	thinker_t *ptr;
 
-	LegacyThinker(size_t size)
+	LegacyThinker(size_t size) : Thinker(::world)
 	{
 		ptr = (thinker_t *)malloc(size + 256);
 		if (!ptr)
