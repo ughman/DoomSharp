@@ -9,6 +9,7 @@ namespace DoomSharp
         private string name;
         private int length;
         private int offset;
+        private WeakReference weakreference;
 
         public StreamLump(Stream stream,string name)
         {
@@ -20,6 +21,7 @@ namespace DoomSharp
             this.name = name;
             this.length = (int)stream.Length;
             this.offset = 0;
+            this.weakreference = new WeakReference(null);
         }
 
         public StreamLump(Stream stream,string name,int length,int offset)
@@ -38,6 +40,7 @@ namespace DoomSharp
             this.name = name;
             this.length = length;
             this.offset = offset;
+            this.weakreference = new WeakReference(null);
         }
 
         public string Name
@@ -52,9 +55,14 @@ namespace DoomSharp
 
         public byte[] Read()
         {
-            byte[] result = new byte [length];
-            stream.Position = offset;
-            stream.Read(result,0,length);
+            byte[] result = (byte[])weakreference.Target;
+            if (result == null)
+            {
+                result = new byte [length];
+                stream.Position = offset;
+                stream.Read(result,0,length);
+                weakreference.Target = result;
+            }
             return result;
         }
     }
