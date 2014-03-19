@@ -1079,9 +1079,9 @@ void AM_drawGrid(int color)
 
     // Figure out start of vertical gridlines
     start = m_x;
-    if ((start-bmaporgx)%(MAPBLOCKUNITS<<FRACBITS))
+    if ((start-P_GetBlockmapXOffset())%(MAPBLOCKUNITS<<FRACBITS))
 	start += (MAPBLOCKUNITS<<FRACBITS)
-	    - ((start-bmaporgx)%(MAPBLOCKUNITS<<FRACBITS));
+	    - ((start-P_GetBlockmapXOffset())%(MAPBLOCKUNITS<<FRACBITS));
     end = m_x + m_w;
 
     // draw vertical gridlines
@@ -1096,9 +1096,9 @@ void AM_drawGrid(int color)
 
     // Figure out start of horizontal gridlines
     start = m_y;
-    if ((start-bmaporgy)%(MAPBLOCKUNITS<<FRACBITS))
+    if ((start-P_GetBlockmapYOffset())%(MAPBLOCKUNITS<<FRACBITS))
 	start += (MAPBLOCKUNITS<<FRACBITS)
-	    - ((start-bmaporgy)%(MAPBLOCKUNITS<<FRACBITS));
+	    - ((start-P_GetBlockmapYOffset())%(MAPBLOCKUNITS<<FRACBITS));
     end = m_y + m_h;
 
     // draw horizontal gridlines

@@ -975,6 +975,30 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\p_maputl.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+							CompileAsManaged="1"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\p_mobj.cpp"
 					>
 					<FileConfiguration

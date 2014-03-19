@@ -64,26 +64,6 @@ int		numnodes;
 node_t*		nodes;
 
 
-// BLOCKMAP
-// Created from axis aligned bounding box
-// of the map, a rectangular array of
-// blocks of size ...
-// Used to speed up collision detection
-// by spatial subdivision in 2D.
-//
-// Blockmap size.
-int		bmapwidth;
-int		bmapheight;	// size in mapblocks
-short*		blockmap;	// int for larger maps
-// offsets in blockmap are from here
-short*		blockmaplump;		
-// origin of block map
-fixed_t		bmaporgx;
-fixed_t		bmaporgy;
-// for thing chains
-mobj_t**	blocklinks;		
-
-
 // REJECT
 // For fast sight rejection.
 // Speeds up enemy AI by skipping detailed
@@ -217,33 +197,6 @@ void P_LoadNodes (int lump)
 }
 
 
-//
-// P_LoadBlockMap
-//
-void P_LoadBlockMap (int lump)
-{
-    int		i;
-    int		count;
-	
-    blockmaplump = W_CacheLumpNum (lump,PU_LEVEL);
-    blockmap = blockmaplump+4;
-    count = W_LumpLength (lump)/2;
-
-    for (i=0 ; i<count ; i++)
-	blockmaplump[i] = SHORT(blockmaplump[i]);
-		
-    bmaporgx = blockmaplump[0]<<FRACBITS;
-    bmaporgy = blockmaplump[1]<<FRACBITS;
-    bmapwidth = blockmaplump[2];
-    bmapheight = blockmaplump[3];
-	
-    // clear out mobj chains
-    count = sizeof(*blocklinks)* bmapwidth*bmapheight;
-    blocklinks = Z_Malloc (count,PU_LEVEL, 0);
-    memset (blocklinks, 0, count);
-}
-
-
 
 //
 // P_GroupLines
@@ -311,19 +264,19 @@ void P_GroupLines (void)
 	sector->soundorg.y = (bbox[BOXTOP]+bbox[BOXBOTTOM])/2;
 		
 	// adjust bounding box to map blocks
-	block = (bbox[BOXTOP]-bmaporgy+MAXRADIUS)>>MAPBLOCKSHIFT;
-	block = block >= bmapheight ? bmapheight-1 : block;
+	block = (bbox[BOXTOP]-P_GetBlockmapYOffset()+MAXRADIUS)>>MAPBLOCKSHIFT;
+	block = block >= P_GetBlockmapHeight() ? P_GetBlockmapHeight()-1 : block;
 	sector->blockbox[BOXTOP]=block;
 
-	block = (bbox[BOXBOTTOM]-bmaporgy-MAXRADIUS)>>MAPBLOCKSHIFT;
+	block = (bbox[BOXBOTTOM]-P_GetBlockmapYOffset()-MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block < 0 ? 0 : block;
 	sector->blockbox[BOXBOTTOM]=block;
 
-	block = (bbox[BOXRIGHT]-bmaporgx+MAXRADIUS)>>MAPBLOCKSHIFT;
-	block = block >= bmapwidth ? bmapwidth-1 : block;
+	block = (bbox[BOXRIGHT]-P_GetBlockmapXOffset()+MAXRADIUS)>>MAPBLOCKSHIFT;
+	block = block >= P_GetBlockmapWidth() ? P_GetBlockmapWidth()-1 : block;
 	sector->blockbox[BOXRIGHT]=block;
 
-	block = (bbox[BOXLEFT]-bmaporgx-MAXRADIUS)>>MAPBLOCKSHIFT;
+	block = (bbox[BOXLEFT]-P_GetBlockmapXOffset()-MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block < 0 ? 0 : block;
 	sector->blockbox[BOXLEFT]=block;
     }
@@ -409,7 +362,6 @@ P_SetupLevel
     leveltime = 0;
 	
     // note: most of this ordering is important	
-    P_LoadBlockMap (lumpnum+ML_BLOCKMAP);
     P_LoadVertexes (lumpnum+ML_VERTEXES);
     P_LoadSectors (lumpnum+ML_SECTORS);
     P_LoadSideDefs (lumpnum+ML_SIDEDEFS);
@@ -418,6 +370,7 @@ P_SetupLevel
     P_LoadSubsectors (lumpnum+ML_SSECTORS);
     P_LoadNodes (lumpnum+ML_NODES);
     P_LoadSegs (lumpnum+ML_SEGS);
+	P_LoadBlockMap (lumpnum+ML_BLOCKMAP);
 	
 	rejectsize = W_LumpLength(lumpnum + ML_REJECT);
     rejectmatrix = W_CacheLumpNum (lumpnum+ML_REJECT,PU_LEVEL);

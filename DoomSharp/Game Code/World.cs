@@ -12,6 +12,7 @@ namespace DoomSharp
         private List<Sidedef> sidedefs;
         private List<Linedef> linedefs;
         private List<Thing> things;
+        private Blockmap blockmap;
 
         public World()
         {
@@ -21,6 +22,7 @@ namespace DoomSharp
             this.sidedefs = new List<Sidedef>();
             this.linedefs = new List<Linedef>();
             this.things = new List<Thing>();
+            this.blockmap = null;
         }
 
         public IEnumerable<Thinker> Thinkers
@@ -51,6 +53,24 @@ namespace DoomSharp
         public IList<Thing> Things
         {
             get { return things; }
+        }
+
+        public Blockmap Blockmap
+        {
+            get
+            {
+                if (blockmap == null)
+                    throw new InvalidOperationException();
+                return blockmap;
+            }
+            set
+            {
+                if (blockmap != null)
+                    throw new InvalidOperationException();
+                if (value.World != this)
+                    throw new ArgumentException("Blockmap is from another world.");
+                blockmap = value;
+            }
         }
 
         public void AddThinker(Thinker thinker)

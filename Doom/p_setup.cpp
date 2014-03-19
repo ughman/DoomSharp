@@ -1,4 +1,5 @@
 #include "p_setup.hpp"
+#include "p_mobj.hpp"
 
 extern "C"
 {
@@ -205,4 +206,76 @@ extern "C" void P_SpawnThings()
 	{
 		P_SpawnMapThing(thing->ptr);
 	}
+}
+
+extern "C" void P_LoadBlockMap(int lumpid)
+{
+	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
+	int count = data->Length / 2;
+	if (data->Length % 2)
+		Core::Console->LogWarning("This map's BLOCKMAP lump has an irregular length.");
+	if (data->Length < 8)
+		I_Error("Blockmap invalid");
+	Fixed xoffset = Fixed::FromInt(BitConv::FromInt16(data,0));
+	Fixed yoffset = Fixed::FromInt(BitConv::FromInt16(data,2));
+	int width = (unsigned short)BitConv::FromInt16(data,4);
+	int height = (unsigned short)BitConv::FromInt16(data,6);
+	if (count < 4 + width * height)
+		I_Error("Blockmap too short");
+	Blockmap^ blockmap = gcnew Blockmap(world,xoffset,yoffset,width,height);
+	for (int x = 0;x < width;x++)
+	{
+		for (int y = 0;y < height;y++)
+		{
+			Block^ block = blockmap[x,y];
+			int offset = x + y * width + 4;
+			if (offset >= count)
+				I_Error("Blockmap block offset out-of-bounds");
+			for (int i = (unsigned short)BitConv::FromInt16(data,offset * 2);;i++)
+			{
+				if (i >= count)
+					I_Error("Blockmap block lines out-of-bounds");
+				int lineid = (unsigned short)BitConv::FromInt16(data,i * 2);
+				if (lineid == 0xFFFF)
+					break;
+				if (lineid >= world->Linedefs->Count)
+				{
+					Core::Console->LogError("The linedef list for block ({0},{1}) references a non-existent linedef.",x,y);
+					continue;
+				}
+				block->AddLinedef(world->Linedefs[lineid]);
+			}
+		}
+	}
+	world->Blockmap = blockmap;
+}
+
+extern "C" fixed_t P_GetBlockmapXOffset()
+{
+	return world->Blockmap->XOffset.Value;
+}
+
+extern "C" fixed_t P_GetBlockmapYOffset()
+{
+	return world->Blockmap->YOffset.Value;
+}
+
+extern "C" int P_GetBlockmapWidth()
+{
+	return world->Blockmap->Width;
+}
+
+extern "C" int P_GetBlockmapHeight()
+{
+	return world->Blockmap->Height;
+}
+
+extern "C" void P_BlockActorAdd(int x,int y,mobj_t *mobj)
+{
+	world->Blockmap[x,y]->AddActor(DActor::FromPtr(mobj));
+}
+
+extern "C" void P_BlockActorRemove(int x,int y,mobj_t *mobj)
+{
+	world->Blockmap[x,y]->RemoveActor(DActor::FromPtr(mobj));
 }

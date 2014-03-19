@@ -153,10 +153,10 @@ P_TeleportMove
     numspechit = 0;
     
     // stomp on any things contacted
-    xl = (tmbbox[BOXLEFT] - bmaporgx - MAXRADIUS)>>MAPBLOCKSHIFT;
-    xh = (tmbbox[BOXRIGHT] - bmaporgx + MAXRADIUS)>>MAPBLOCKSHIFT;
-    yl = (tmbbox[BOXBOTTOM] - bmaporgy - MAXRADIUS)>>MAPBLOCKSHIFT;
-    yh = (tmbbox[BOXTOP] - bmaporgy + MAXRADIUS)>>MAPBLOCKSHIFT;
+    xl = (tmbbox[BOXLEFT] - P_GetBlockmapXOffset() - MAXRADIUS)>>MAPBLOCKSHIFT;
+    xh = (tmbbox[BOXRIGHT] - P_GetBlockmapXOffset() + MAXRADIUS)>>MAPBLOCKSHIFT;
+    yl = (tmbbox[BOXBOTTOM] - P_GetBlockmapYOffset() - MAXRADIUS)>>MAPBLOCKSHIFT;
+    yh = (tmbbox[BOXTOP] - P_GetBlockmapYOffset() + MAXRADIUS)>>MAPBLOCKSHIFT;
 
     for (bx=xl ; bx<=xh ; bx++)
 	for (by=yl ; by<=yh ; by++)
@@ -410,10 +410,10 @@ P_CheckPosition
     // because mobj_ts are grouped into mapblocks
     // based on their origin point, and can overlap
     // into adjacent blocks by up to MAXRADIUS units.
-    xl = (tmbbox[BOXLEFT] - bmaporgx - MAXRADIUS)>>MAPBLOCKSHIFT;
-    xh = (tmbbox[BOXRIGHT] - bmaporgx + MAXRADIUS)>>MAPBLOCKSHIFT;
-    yl = (tmbbox[BOXBOTTOM] - bmaporgy - MAXRADIUS)>>MAPBLOCKSHIFT;
-    yh = (tmbbox[BOXTOP] - bmaporgy + MAXRADIUS)>>MAPBLOCKSHIFT;
+    xl = (tmbbox[BOXLEFT] - P_GetBlockmapXOffset() - MAXRADIUS)>>MAPBLOCKSHIFT;
+    xh = (tmbbox[BOXRIGHT] - P_GetBlockmapXOffset() + MAXRADIUS)>>MAPBLOCKSHIFT;
+    yl = (tmbbox[BOXBOTTOM] - P_GetBlockmapYOffset() - MAXRADIUS)>>MAPBLOCKSHIFT;
+    yh = (tmbbox[BOXTOP] - P_GetBlockmapYOffset() + MAXRADIUS)>>MAPBLOCKSHIFT;
 
     for (bx=xl ; bx<=xh ; bx++)
 	for (by=yl ; by<=yh ; by++)
@@ -421,10 +421,10 @@ P_CheckPosition
 		return false;
     
     // check lines
-    xl = (tmbbox[BOXLEFT] - bmaporgx)>>MAPBLOCKSHIFT;
-    xh = (tmbbox[BOXRIGHT] - bmaporgx)>>MAPBLOCKSHIFT;
-    yl = (tmbbox[BOXBOTTOM] - bmaporgy)>>MAPBLOCKSHIFT;
-    yh = (tmbbox[BOXTOP] - bmaporgy)>>MAPBLOCKSHIFT;
+    xl = (tmbbox[BOXLEFT] - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
+    xh = (tmbbox[BOXRIGHT] - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
+    yl = (tmbbox[BOXBOTTOM] - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
+    yh = (tmbbox[BOXTOP] - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
 
     for (bx=xl ; bx<=xh ; bx++)
 	for (by=yl ; by<=yh ; by++)
@@ -1212,10 +1212,10 @@ P_RadiusAttack
     fixed_t	dist;
 	
     dist = (damage+MAXRADIUS)<<FRACBITS;
-    yh = (spot->y + dist - bmaporgy)>>MAPBLOCKSHIFT;
-    yl = (spot->y - dist - bmaporgy)>>MAPBLOCKSHIFT;
-    xh = (spot->x + dist - bmaporgx)>>MAPBLOCKSHIFT;
-    xl = (spot->x - dist - bmaporgx)>>MAPBLOCKSHIFT;
+    yh = (spot->y + dist - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
+    yl = (spot->y - dist - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
+    xh = (spot->x + dist - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
+    xl = (spot->x - dist - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
     bombspot = spot;
     bombsource = source;
     bombdamage = damage;

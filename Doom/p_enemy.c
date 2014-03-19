@@ -1190,10 +1190,10 @@ void A_VileChase (mobj_t* actor)
 	viletryy =
 	    actor->y + P_GetActorSpeed(actor)*yspeed[actor->movedir];
 
-	xl = (viletryx - bmaporgx - MAXRADIUS*2)>>MAPBLOCKSHIFT;
-	xh = (viletryx - bmaporgx + MAXRADIUS*2)>>MAPBLOCKSHIFT;
-	yl = (viletryy - bmaporgy - MAXRADIUS*2)>>MAPBLOCKSHIFT;
-	yh = (viletryy - bmaporgy + MAXRADIUS*2)>>MAPBLOCKSHIFT;
+	xl = (viletryx - P_GetBlockmapXOffset() - MAXRADIUS*2)>>MAPBLOCKSHIFT;
+	xh = (viletryx - P_GetBlockmapXOffset() + MAXRADIUS*2)>>MAPBLOCKSHIFT;
+	yl = (viletryy - P_GetBlockmapYOffset() - MAXRADIUS*2)>>MAPBLOCKSHIFT;
+	yh = (viletryy - P_GetBlockmapYOffset() + MAXRADIUS*2)>>MAPBLOCKSHIFT;
 	
 	vileobj = actor;
 	for (bx=xl ; bx<=xh ; bx++)

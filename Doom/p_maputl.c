@@ -367,20 +367,14 @@ void P_UnsetThingPosition (mobj_t* thing)
     {
 	// inert things don't need to be in blockmap
 	// unlink from block map
-	if (thing->bnext)
-	    thing->bnext->bprev = thing->bprev;
-	
-	if (thing->bprev)
-	    thing->bprev->bnext = thing->bnext;
-	else
 	{
-	    blockx = (thing->x - bmaporgx)>>MAPBLOCKSHIFT;
-	    blocky = (thing->y - bmaporgy)>>MAPBLOCKSHIFT;
+	    blockx = (thing->x - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
+	    blocky = (thing->y - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
 
-	    if (blockx>=0 && blockx < bmapwidth
-		&& blocky>=0 && blocky <bmapheight)
+	    if (blockx>=0 && blockx < P_GetBlockmapWidth()
+		&& blocky>=0 && blocky <P_GetBlockmapHeight())
 	    {
-		blocklinks[blocky*bmapwidth+blockx] = thing->bnext;
+			P_BlockActorRemove(blockx,blocky,thing);
 	    }
 	}
     }
@@ -426,115 +420,17 @@ P_SetThingPosition (mobj_t* thing)
     if ( ! (thing->flags & MF_NOBLOCKMAP) )
     {
 	// inert things don't need to be in blockmap		
-	blockx = (thing->x - bmaporgx)>>MAPBLOCKSHIFT;
-	blocky = (thing->y - bmaporgy)>>MAPBLOCKSHIFT;
+	blockx = (thing->x - P_GetBlockmapXOffset())>>MAPBLOCKSHIFT;
+	blocky = (thing->y - P_GetBlockmapYOffset())>>MAPBLOCKSHIFT;
 
 	if (blockx>=0
-	    && blockx < bmapwidth
+	    && blockx < P_GetBlockmapWidth()
 	    && blocky>=0
-	    && blocky < bmapheight)
+	    && blocky < P_GetBlockmapHeight())
 	{
-	    link = &blocklinks[blocky*bmapwidth+blockx];
-	    thing->bprev = NULL;
-	    thing->bnext = *link;
-	    if (*link)
-		(*link)->bprev = thing;
-
-	    *link = thing;
-	}
-	else
-	{
-	    // thing is off the map
-	    thing->bnext = thing->bprev = NULL;
+		P_BlockActorAdd(blockx,blocky,thing);
 	}
     }
-}
-
-
-
-//
-// BLOCK MAP ITERATORS
-// For each line/thing in the given mapblock,
-// call the passed PIT_* function.
-// If the function returns false,
-// exit with false without checking anything else.
-//
-
-
-//
-// P_BlockLinesIterator
-// The validcount flags are used to avoid checking lines
-// that are marked in multiple mapblocks,
-// so increment validcount before the first call
-// to P_BlockLinesIterator, then make one or more calls
-// to it.
-//
-boolean
-P_BlockLinesIterator
-( int			x,
-  int			y,
-  boolean(*func)(line_t*) )
-{
-    int			offset;
-    short*		list;
-    line_t*		ld;
-	
-    if (x<0
-	|| y<0
-	|| x>=bmapwidth
-	|| y>=bmapheight)
-    {
-	return true;
-    }
-    
-    offset = y*bmapwidth+x;
-	
-    offset = *(blockmap+offset);
-
-    for ( list = blockmaplump+offset ; *list != -1 ; list++)
-    {
-	ld = P_GetLineDef(*list);
-
-	if (ld->validcount == validcount)
-	    continue; 	// line has already been checked
-
-	ld->validcount = validcount;
-		
-	if ( !func(ld) )
-	    return false;
-    }
-    return true;	// everything was checked
-}
-
-
-//
-// P_BlockThingsIterator
-//
-boolean
-P_BlockThingsIterator
-( int			x,
-  int			y,
-  boolean(*func)(mobj_t*) )
-{
-    mobj_t*		mobj;
-	
-    if ( x<0
-	 || y<0
-	 || x>=bmapwidth
-	 || y>=bmapheight)
-    {
-	return true;
-    }
-    
-
-    for (mobj = blocklinks[y*bmapwidth+x] ;
-	 mobj ;
-	 mobj = mobj->bnext)
-    {
-	if (!func( mobj ) )
-	    return false;
-    }
-    return true;
 }
 
 
@@ -784,10 +680,10 @@ P_PathTraverse
     validcount++;
     intercept_p = intercepts;
 	
-    if ( ((x1-bmaporgx)&(MAPBLOCKSIZE-1)) == 0)
+    if ( ((x1-P_GetBlockmapXOffset())&(MAPBLOCKSIZE-1)) == 0)
 	x1 += FRACUNIT;	// don't side exactly on a line
     
-    if ( ((y1-bmaporgy)&(MAPBLOCKSIZE-1)) == 0)
+    if ( ((y1-P_GetBlockmapYOffset())&(MAPBLOCKSIZE-1)) == 0)
 	y1 += FRACUNIT;	// don't side exactly on a line
 
     trace.x = x1;
@@ -795,13 +691,13 @@ P_PathTraverse
     trace.dx = x2 - x1;
     trace.dy = y2 - y1;
 
-    x1 -= bmaporgx;
-    y1 -= bmaporgy;
+    x1 -= P_GetBlockmapXOffset();
+    y1 -= P_GetBlockmapYOffset();
     xt1 = x1>>MAPBLOCKSHIFT;
     yt1 = y1>>MAPBLOCKSHIFT;
 
-    x2 -= bmaporgx;
-    y2 -= bmaporgy;
+    x2 -= P_GetBlockmapXOffset();
+    y2 -= P_GetBlockmapYOffset();
     xt2 = x2>>MAPBLOCKSHIFT;
     yt2 = y2>>MAPBLOCKSHIFT;
 

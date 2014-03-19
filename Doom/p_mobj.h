@@ -223,11 +223,6 @@ typedef struct mobj_s
     angle_t		angle;	// orientation
     spritenum_t		sprite;	// used to find patch_t and flip value
     int			frame;	// might be ORed with FF_FULLBRIGHT
-
-    // Interaction info, by BLOCKMAP.
-    // Links in blocks (if needed).
-    struct mobj_s*	bnext;
-    struct mobj_s*	bprev;
     
     struct subsector_s*	subsector;
 
