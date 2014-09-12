@@ -6,12 +6,12 @@ namespace DoomSharp
     public abstract class Linedef
     {
         private World world;
-        // TODO :: start
-        // TODO :: end
-        // TODO :: front
-        // TODO :: back
-        // TODO :: special
-        // TODO :: tag
+        protected abstract Vertex start { get; set; }
+        protected abstract Vertex end { get; set; }
+        protected abstract Sidedef front { get; set; }
+        protected abstract Sidedef back { get; set; }
+        protected abstract int special { get; set; }
+        protected abstract int tag { get; set; }
 
         public Linedef(World world,Vertex start,Vertex end,Sidedef front,Sidedef back)
         {
@@ -44,36 +44,36 @@ namespace DoomSharp
             get { return world; }
         }
 
-        public abstract Vertex Start
+        public Vertex Start
         {
-            get;
+            get { return start; }
         }
 
-        public abstract Vertex End
+        public Vertex End
         {
-            get;
+            get { return end; }
         }
 
-        public abstract Sidedef Front
+        public Sidedef Front
         {
-            get;
+            get { return front; }
         }
 
-        public abstract Sidedef Back
+        public Sidedef Back
         {
-            get;
+            get { return back; }
         }
 
-        public abstract int Special
+        public int Special
         {
-            get;
-            set;
+            get { return special; }
+            set { special = value; }
         }
 
-        public abstract int Tag
+        public int Tag
         {
-            get;
-            set;
+            get { return tag; }
+            set { tag = value; }
         }
     }
 }

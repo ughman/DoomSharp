@@ -6,10 +6,10 @@ namespace DoomSharp
     public abstract class Thing
     {
         private World world;
-        // TODO :: x
-        // TODO :: y
-        // TODO :: angle
-        // TODO :: doomednum
+        protected abstract Fixed x { get; set; }
+        protected abstract Fixed y { get; set; }
+        protected abstract int angle { get; set; }
+        protected abstract int doomednum { get; set; }
 
         public Thing(World world)
         {
@@ -27,28 +27,28 @@ namespace DoomSharp
             get { return world; }
         }
 
-        public abstract Fixed X
+        public Fixed X
         {
-            get;
-            set;
+            get { return x; }
+            set { x = value; }
         }
 
-        public abstract Fixed Y
+        public Fixed Y
         {
-            get;
-            set;
+            get { return y; }
+            set { y = value; }
         }
 
-        public abstract int Angle
+        public int Angle
         {
-            get;
-            set;
+            get { return angle; }
+            set { angle = value; }
         }
 
-        public abstract int DoomedNum
+        public int DoomedNum
         {
-            get;
-            set;
+            get { return doomednum; }
+            set { doomednum = value; }
         }
     }
 }

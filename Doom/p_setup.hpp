@@ -34,14 +34,16 @@ public:
 		ptr->y = y.Value;
 	}
 
-	virtual property Fixed X
+	virtual property Fixed x
 	{
 		Fixed get() override { return Fixed(ptr->x); }
+		void set(Fixed value) override { ptr->x = value.Value; }
 	}
 
-	virtual property Fixed Y
+	virtual property Fixed y
 	{
 		Fixed get() override { return Fixed(ptr->y); }
+		void set(Fixed value) override { ptr->y = value.Value; }
 	}
 
 	~DVertex()
@@ -74,31 +76,31 @@ public:
 		ptr->lightlevel = 160;
 	}
 
-	virtual property Fixed FloorZ
+	virtual property Fixed floorz
 	{
 		Fixed get() override { return Fixed(ptr->floorheight); }
 		void set(Fixed value) override { ptr->floorheight = value.Value; }
 	}
 
-	virtual property Fixed CeilingZ
+	virtual property Fixed ceilingz
 	{
 		Fixed get() override { return Fixed(ptr->ceilingheight); }
 		void set(Fixed value) override { ptr->ceilingheight = value.Value; }
 	}
 
-	virtual property int LightLevel
+	virtual property int lightlevel
 	{
 		int get() override { return ptr->lightlevel; }
 		void set(int value) override { ptr->lightlevel = value; }
 	}
 
-	virtual property int Special
+	virtual property int special
 	{
 		int get() override { return ptr->special; }
 		void set(int value) override { ptr->special = value; }
 	}
 
-	virtual property int Tag
+	virtual property int tag
 	{
 		int get() override { return ptr->tag; }
 		void set(int value) override { ptr->tag = value; }
@@ -138,18 +140,19 @@ public:
 		ptr->midtexture = 0;
 	}
 
-	virtual property DoomSharp::Sector^ Sector
+	virtual property DoomSharp::Sector^ sector
 	{
 		DoomSharp::Sector^ get() override { return DSector::FromPtr(ptr->sector); }
+		void set(DoomSharp::Sector^ value) override { ptr->sector = ((DSector^)value)->ptr; }
 	}
 
-	virtual property Fixed XOffset
+	virtual property Fixed xoffset
 	{
 		Fixed get() override { return Fixed(ptr->textureoffset); }
 		void set(Fixed value) override { ptr->textureoffset = value.Value; }
 	}
 
-	virtual property Fixed YOffset
+	virtual property Fixed yoffset
 	{
 		Fixed get() override { return Fixed(ptr->rowoffset); }
 		void set(Fixed value) override { ptr->rowoffset = value.Value; }
@@ -206,33 +209,37 @@ public:
 		ptr->backsector = ptr->side[1] ? ptr->side[1]->sector : NULL;
 	}
 
-	virtual property Vertex^ Start
+	virtual property Vertex^ start
 	{
 		Vertex^ get() override { return DVertex::FromPtr(ptr->v1); }
+		void set(Vertex^ value) override { ptr->v1 = ((DVertex^)value)->ptr; }
 	}
 
-	virtual property Vertex^ End
+	virtual property Vertex^ end
 	{
 		Vertex^ get() override { return DVertex::FromPtr(ptr->v2); }
+		void set(Vertex^ value) override { ptr->v2 = ((DVertex^)value)->ptr; }
 	}
 
-	virtual property Sidedef^ Front
+	virtual property Sidedef^ front
 	{
 		Sidedef^ get() override { return DSidedef::FromPtr(ptr->side[0]); }
+		void set(Sidedef^ value) override { ptr->side[0] = ((DSidedef^)value)->ptr; }
 	}
 
-	virtual property Sidedef^ Back
+	virtual property Sidedef^ back
 	{
 		Sidedef^ get() override { return DSidedef::FromPtr(ptr->side[1]); }
+		void set(Sidedef^ value) override { ptr->side[1] = ((DSidedef^)value)->ptr; }
 	}
 
-	virtual property int Special
+	virtual property int special
 	{
 		int get() override { return ptr->special; }
 		void set(int value) override { ptr->special = value; }
 	}
 
-	virtual property int Tag
+	virtual property int tag
 	{
 		int get() override { return ptr->tag; }
 		void set(int value) override { ptr->tag = value; }
@@ -271,25 +278,25 @@ public:
 		ptr->options = 0;
 	}
 
-	virtual property Fixed X
+	virtual property Fixed x
 	{
 		Fixed get() override { return Fixed::FromInt(ptr->x); }
 		void set(Fixed value) override { ptr->x = value.IntValue; }
 	}
 
-	virtual property Fixed Y
+	virtual property Fixed y
 	{
 		Fixed get() override { return Fixed(ptr->y); }
 		void set(Fixed value) override { ptr->y = value.IntValue; }
 	}
 
-	virtual property int Angle
+	virtual property int angle
 	{
 		int get() override { return ptr->angle; }
 		void set(int value) override { ptr->angle = value; }
 	}
 
-	virtual property int DoomedNum
+	virtual property int doomednum
 	{
 		int get() override { return ptr->type; }
 		void set(int value) override { ptr->type = value; }

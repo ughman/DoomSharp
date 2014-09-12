@@ -6,9 +6,9 @@ namespace DoomSharp
     public abstract class Sidedef
     {
         private World world;
-        // TODO :: sector
-        // TODO :: xoffset
-        // TODO :: yoffset
+        protected abstract Sector sector { get; set; }
+        protected abstract Fixed xoffset { get; set; }
+        protected abstract Fixed yoffset { get; set; }
 
         public Sidedef(World world,Sector sector)
         {
@@ -29,21 +29,21 @@ namespace DoomSharp
             get { return world; }
         }
 
-        public abstract Sector Sector
+        public Sector Sector
         {
-            get;
+            get { return sector; }
         }
 
-        public abstract Fixed XOffset
+        public Fixed XOffset
         {
-            get;
-            set;
+            get { return xoffset; }
+            set { xoffset = value; }
         }
 
-        public abstract Fixed YOffset
+        public Fixed YOffset
         {
-            get;
-            set;
+            get { return yoffset; }
+            set { yoffset = value; }
         }
     }
 }

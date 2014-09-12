@@ -6,11 +6,11 @@ namespace DoomSharp
     public abstract class Sector
     {
         private World world;
-        // TODO :: floorz
-        // TODO :: ceilingz
-        // TODO :: lightlevel
-        // TODO :: special
-        // TODO :: tag
+        protected abstract Fixed floorz { get; set; }
+        protected abstract Fixed ceilingz { get; set; }
+        protected abstract int lightlevel { get; set; }
+        protected abstract int special { get; set; }
+        protected abstract int tag { get; set; }
 
         public Sector(World world)
         {
@@ -29,34 +29,34 @@ namespace DoomSharp
             get { return world; }
         }
 
-        public abstract Fixed FloorZ
+        public Fixed FloorZ
         {
-            get;
-            set;
+            get { return floorz; }
+            set { floorz = value; }
         }
 
-        public abstract Fixed CeilingZ
+        public Fixed CeilingZ
         {
-            get;
-            set;
+            get { return ceilingz; }
+            set { ceilingz = value; }
         }
 
-        public abstract int LightLevel
+        public int LightLevel
         {
-            get;
-            set;
+            get { return lightlevel; }
+            set { lightlevel = value; }
         }
 
-        public abstract int Special
+        public int Special
         {
-            get;
-            set;
+            get { return special; }
+            set { special = value; }
         }
 
-        public abstract int Tag
+        public int Tag
         {
-            get;
-            set;
+            get { return tag; }
+            set { tag = value; }
         }
     }
 }

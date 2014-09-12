@@ -6,8 +6,8 @@ namespace DoomSharp
     public abstract class Vertex
     {
         private World world;
-        // TODO :: x
-        // TODO :: y
+        protected abstract Fixed x { get; set; }
+        protected abstract Fixed y { get; set; }
 
         public Vertex(World world,Fixed x,Fixed y)
         {
@@ -23,14 +23,14 @@ namespace DoomSharp
             get { return world; }
         }
 
-        public abstract Fixed X
+        public Fixed X
         {
-            get;
+            get { return x; }
         }
 
-        public abstract Fixed Y
+        public Fixed Y
         {
-            get;
+            get { return y; }
         }
     }
 }
