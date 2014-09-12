@@ -12,7 +12,7 @@ public:
 		Solid = true;
 		Shootable = true;
 		NoGravity = true;
-		Float = true;
+		Floats = true;
 		CountKill = true;
 		Health = 400;
 		Speed = Fixed(8);

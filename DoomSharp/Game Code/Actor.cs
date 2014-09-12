@@ -5,52 +5,52 @@ namespace DoomSharp
 {
     public abstract class Actor : Thinker
     {
-        // TODO :: x
-        // TODO :: y
-        // TODO :: z
-        // TODO :: angle
-        // TODO :: spritenum
-        // TODO :: spriteframe
-        // TODO :: radius
-        // TODO :: height
-        // TODO :: xmomentum
-        // TODO :: ymomentum
-        // TODO :: zmomentum
-        // TODO :: ticks
-        // TODO :: statenum
-        // TODO :: special
-        // TODO :: solid
-        // TODO :: shootable
-        // TODO :: nosector
-        // TODO :: noblockmap
-        // TODO :: ambush
-        // TODO :: justhit
-        // TODO :: justattacked
-        // TODO :: spawnceiling
-        // TODO :: nogravity
-        // TODO :: dropoff
-        // TODO :: pickup
-        // TODO :: noclip
-        // TODO :: slide
-        // TODO :: float
-        // TODO :: teleport
-        // TODO :: missile
-        // TODO :: dropped
-        // TODO :: shadow
-        // TODO :: noblood
-        // TODO :: corpse
-        // TODO :: infloat
-        // TODO :: countkill
-        // TODO :: countitem
-        // TODO :: skullfly
-        // TODO :: notdmatch
-        // TODO :: health
-        // TODO :: movementdirection
-        // TODO :: movementcount
-        // TODO :: target
-        // TODO :: reactiontime
-        // TODO :: lastlook
-        // TODO :: tracer
+        protected abstract Fixed x { get; set; }
+        protected abstract Fixed y { get; set; }
+        protected abstract Fixed z { get; set; }
+        protected abstract uint angle { get; set; }
+        protected abstract int spritenum { get; set; }
+        protected abstract int spriteframe { get; set; }
+        protected abstract Fixed radius { get; set; }
+        protected abstract Fixed height { get; set; }
+        protected abstract Fixed xmomentum { get; set; }
+        protected abstract Fixed ymomentum { get; set; }
+        protected abstract Fixed zmomentum { get; set; }
+        protected abstract int ticks { get; set; }
+        protected abstract int statenum { get; set; }
+        protected abstract bool special { get; set; }
+        protected abstract bool solid { get; set; }
+        protected abstract bool shootable { get; set; }
+        protected abstract bool nosector { get; set; }
+        protected abstract bool noblockmap { get; set; }
+        protected abstract bool ambush { get; set; }
+        protected abstract bool justhit { get; set; }
+        protected abstract bool justattacked { get; set; }
+        protected abstract bool spawnceiling { get; set; }
+        protected abstract bool nogravity { get; set; }
+        protected abstract bool dropoff { get; set; }
+        protected abstract bool pickup { get; set; }
+        protected abstract bool noclip { get; set; }
+        protected abstract bool slide { get; set; }
+        protected abstract bool floats { get; set; }
+        protected abstract bool teleport { get; set; }
+        protected abstract bool missile { get; set; }
+        protected abstract bool dropped { get; set; }
+        protected abstract bool shadow { get; set; }
+        protected abstract bool noblood { get; set; }
+        protected abstract bool corpse { get; set; }
+        protected abstract bool infloat { get; set; }
+        protected abstract bool countkill { get; set; }
+        protected abstract bool countitem { get; set; }
+        protected abstract bool skullfly { get; set; }
+        protected abstract bool notdmatch { get; set; }
+        protected abstract int health { get; set; }
+        protected abstract int movementdirection { get; set; }
+        protected abstract int movementcount { get; set; }
+        protected abstract Actor target { get; set; }
+        protected abstract int reactiontime { get; set; }
+        protected abstract int lastlook { get; set; }
+        protected abstract Actor tracer { get; set; }
         private Fixed speed;
         private int mass;
         private int damage;
@@ -125,280 +125,280 @@ namespace DoomSharp
             DefineState("Spawn",0);
         }
 
-        public abstract Fixed X
+        public Fixed X
         {
-            get;
-            set;
+            get { return x; }
+            set { x = value; }
         }
 
-        public abstract Fixed Y
+        public Fixed Y
         {
-            get;
-            set;
+            get { return y; }
+            set { y = value; }
         }
 
-        public abstract Fixed Z
+        public Fixed Z
         {
-            get;
-            set;
+            get { return z; }
+            set { z = value; }
         }
 
-        public abstract uint Angle
+        public uint Angle
         {
-            get;
-            set;
+            get { return angle; }
+            set { angle = value; }
         }
 
-        public abstract int SpriteNum
+        public int SpriteNum
         {
-            get;
-            set;
+            get { return spritenum; }
+            set { spritenum = value; }
         }
 
-        public abstract int SpriteFrame
+        public int SpriteFrame
         {
-            get;
-            set;
+            get { return spriteframe; }
+            set { spriteframe = value; }
         }
 
-        public abstract Fixed Radius
+        public Fixed Radius
         {
-            get;
-            set;
+            get { return radius; }
+            set { radius = value; }
         }
 
-        public abstract Fixed Height
+        public Fixed Height
         {
-            get;
-            set;
+            get { return height; }
+            set { height = value; }
         }
 
-        public abstract Fixed XMomentum
+        public Fixed XMomentum
         {
-            get;
-            set;
+            get { return xmomentum; }
+            set { xmomentum = value; }
         }
 
-        public abstract Fixed YMomentum
+        public Fixed YMomentum
         {
-            get;
-            set;
+            get { return ymomentum; }
+            set { ymomentum = value; }
         }
 
-        public abstract Fixed ZMomentum
+        public Fixed ZMomentum
         {
-            get;
-            set;
+            get { return zmomentum; }
+            set { zmomentum = value; }
         }
 
-        public abstract int Ticks
+        public int Ticks
         {
-            get;
-            set;
+            get { return ticks; }
+            set { ticks = value; }
         }
 
-        public abstract int StateNum
+        public int StateNum
         {
-            get;
-            set;
+            get { return statenum; }
+            set { statenum = value; }
         }
 
-        public abstract bool Special
+        public bool Special
         {
-            get;
-            set;
+            get { return special; }
+            set { special = value; }
         }
 
-        public abstract bool Solid
+        public bool Solid
         {
-            get;
-            set;
+            get { return solid; }
+            set { solid = value; }
         }
 
-        public abstract bool Shootable
+        public bool Shootable
         {
-            get;
-            set;
+            get { return shootable; }
+            set { shootable = value; }
         }
 
-        public abstract bool NoSector
+        public bool NoSector
         {
-            get;
-            set;
+            get { return nosector; }
+            set { nosector = value; }
         }
 
-        public abstract bool NoBlockmap
+        public bool NoBlockmap
         {
-            get;
-            set;
+            get { return noblockmap; }
+            set { noblockmap = value; }
         }
 
-        public abstract bool Ambush
+        public bool Ambush
         {
-            get;
-            set;
+            get { return ambush; }
+            set { ambush = value; }
         }
 
-        public abstract bool JustHit
+        public bool JustHit
         {
-            get;
-            set;
+            get { return justhit; }
+            set { justhit = value; }
         }
 
-        public abstract bool JustAttacked
+        public bool JustAttacked
         {
-            get;
-            set;
+            get { return justattacked; }
+            set { justattacked = value; }
         }
 
-        public abstract bool SpawnCeiling
+        public bool SpawnCeiling
         {
-            get;
-            set;
+            get { return spawnceiling; }
+            set { spawnceiling = value; }
         }
 
-        public abstract bool NoGravity
+        public bool NoGravity
         {
-            get;
-            set;
+            get { return nogravity; }
+            set { nogravity = value; }
         }
 
-        public abstract bool DropOff
+        public bool DropOff
         {
-            get;
-            set;
+            get { return dropoff; }
+            set { dropoff = value; }
         }
 
-        public abstract bool Pickup
+        public bool Pickup
         {
-            get;
-            set;
+            get { return pickup; }
+            set { pickup = value; }
         }
 
-        public abstract bool NoClip
+        public bool NoClip
         {
-            get;
-            set;
+            get { return noclip; }
+            set { noclip = value; }
         }
 
-        public abstract bool Slide
+        public bool Slide
         {
-            get;
-            set;
+            get { return slide; }
+            set { slide = value; }
         }
 
-        public abstract bool Float
+        public bool Floats
         {
-            get;
-            set;
+            get { return floats; }
+            set { floats = value; }
         }
 
-        public abstract bool Teleport
+        public bool Teleport
         {
-            get;
-            set;
+            get { return teleport; }
+            set { teleport = value; }
         }
 
-        public abstract bool Missile
+        public bool Missile
         {
-            get;
-            set;
+            get { return missile; }
+            set { missile = value; }
         }
 
-        public abstract bool Dropped
+        public bool Dropped
         {
-            get;
-            set;
+            get { return dropped; }
+            set { dropped = value; }
         }
 
-        public abstract bool Shadow
+        public bool Shadow
         {
-            get;
-            set;
+            get { return shadow; }
+            set { shadow = value; }
         }
 
-        public abstract bool NoBlood
+        public bool NoBlood
         {
-            get;
-            set;
+            get { return noblood; }
+            set { noblood = value; }
         }
 
-        public abstract bool Corpse
+        public bool Corpse
         {
-            get;
-            set;
+            get { return corpse; }
+            set { corpse = value; }
         }
 
-        public abstract bool InFloat
+        public bool InFloat
         {
-            get;
-            set;
+            get { return infloat; }
+            set { infloat = value; }
         }
 
-        public abstract bool CountKill
+        public bool CountKill
         {
-            get;
-            set;
+            get { return countkill; }
+            set { countkill = value; }
         }
 
-        public abstract bool CountItem
+        public bool CountItem
         {
-            get;
-            set;
+            get { return countitem; }
+            set { countitem = value; }
         }
 
-        public abstract bool SkullFly
+        public bool SkullFly
         {
-            get;
-            set;
+            get { return skullfly; }
+            set { skullfly = value; }
         }
 
-        public abstract bool NotDMatch
+        public bool NotDMatch
         {
-            get;
-            set;
+            get { return notdmatch; }
+            set { notdmatch = value; }
         }
 
-        public abstract int Health
+        public int Health
         {
-            get;
-            set;
+            get { return health; }
+            set { health = value; }
         }
 
-        public abstract int MovementDirection
+        public int MovementDirection
         {
-            get;
-            set;
+            get { return movementdirection; }
+            set { movementdirection = value; }
         }
 
-        public abstract int MovementCount
+        public int MovementCount
         {
-            get;
-            set;
+            get { return movementcount; }
+            set { movementcount = value; }
         }
 
-        public abstract Actor Target
+        public Actor Target
         {
-            get;
-            set;
+            get { return target; }
+            set { target = value; }
         }
 
-        public abstract int ReactionTime
+        public int ReactionTime
         {
-            get;
-            set;
+            get { return reactiontime; }
+            set { reactiontime = value; }
         }
 
-        public abstract int LastLook
+        public int LastLook
         {
-            get;
-            set;
+            get { return lastlook; }
+            set { lastlook = value; }
         }
 
-        public abstract Actor Tracer
+        public Actor Tracer
         {
-            get;
-            set;
+            get { return tracer; }
+            set { tracer = value; }
         }
 
         public Fixed Speed
