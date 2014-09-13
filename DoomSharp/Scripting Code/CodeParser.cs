@@ -5,52 +5,43 @@ using System.Collections.Generic;
 
 namespace DoomSharp
 {
-    public sealed class CodeParser
+    public static class CodeParser
     {
-        private Scanner scanner;
-
-        public CodeParser(Scanner scanner)
-        {
-            if (scanner == null)
-                throw new ArgumentNullException("scanner");
-            this.scanner = scanner;
-        }
-
-        public Statement ParseBlock()
+        public static Statement ParseBlock(Scanner scanner)
         {
             BlockStatement block = new BlockStatement();
             while (!scanner.TryGetEnd())
             {
-                block.Statements.Add(ParseStatement());
+                block.Statements.Add(ParseStatement(scanner));
             }
             return block;
         }
 
-        private Statement ParseStatement()
+        private static Statement ParseStatement(Scanner scanner)
         {
             if (scanner.TryGetIdentifier("if"))
             {
                 scanner.GetDelimiter("(");
-                Expression condition = ParseExpression();
+                Expression condition = ParseExpression(scanner);
                 scanner.GetDelimiter(")");
-                Statement thenstatement = ParseStatement();
+                Statement thenstatement = ParseStatement(scanner);
                 Statement elsestatement = new NullStatement();
                 if (scanner.TryGetIdentifier("else"))
                 {
-                    elsestatement = ParseStatement();
+                    elsestatement = ParseStatement(scanner);
                 }
                 return new IfStatement(condition,thenstatement,elsestatement);
             }
             else if (scanner.TryGetIdentifier("while"))
             {
                 scanner.GetDelimiter("(");
-                Expression condition = ParseExpression();
+                Expression condition = ParseExpression(scanner);
                 scanner.GetDelimiter(")");
-                Statement loopstatement = ParseStatement();
+                Statement loopstatement = ParseStatement(scanner);
                 Statement elsestatement = new NullStatement();
                 if (scanner.TryGetIdentifier("else"))
                 {
-                    elsestatement = ParseStatement();
+                    elsestatement = ParseStatement(scanner);
                 }
                 return new WhileStatement(condition,loopstatement,elsestatement);
             }
@@ -62,13 +53,13 @@ namespace DoomSharp
                 scanner.GetIdentifier(out variabletype);
                 scanner.GetIdentifier(out variablename);
                 scanner.GetIdentifier("in");
-                Expression collection = ParseExpression();
+                Expression collection = ParseExpression(scanner);
                 scanner.GetDelimiter(")");
-                Statement loopstatement = ParseStatement();
+                Statement loopstatement = ParseStatement(scanner);
                 Statement elsestatement = new NullStatement();
                 if (scanner.TryGetIdentifier("else"))
                 {
-                    elsestatement = ParseStatement();
+                    elsestatement = ParseStatement(scanner);
                 }
                 return new ForEachStatement(variabletype,variablename,collection,loopstatement,elsestatement);
             }
@@ -77,14 +68,13 @@ namespace DoomSharp
                 string variablename;
                 scanner.GetIdentifier(out variablename);
                 scanner.GetDelimiter("=");
-                Expression expression = ParseExpression();
+                Expression expression = ParseExpression(scanner);
                 scanner.GetDelimiter(";");
                 return new VarStatement(variablename,expression);
             }
             else if (scanner.TryGetDelimiter("{"))
             {
-                CodeParser subparser = new CodeParser(scanner.ScanAcross("{","}"));
-                return subparser.ParseBlock();
+                return CodeParser.ParseBlock(scanner.ScanAcross("{","}"));
             }
             else if (scanner.TryGetDelimiter(";"))
             {
@@ -92,100 +82,100 @@ namespace DoomSharp
             }
             else
             {
-                Expression expression = ParseExpression();
+                Expression expression = ParseExpression(scanner);
                 scanner.GetDelimiter(";");
                 return new ExpressionStatement(expression);
             }
         }
 
-        private Expression ParseExpression()
+        private static Expression ParseExpression(Scanner scanner)
         {
-            return ParseAssigmentExpression();
+            return ParseAssigmentExpression(scanner);
         }
 
-        private Expression ParseAssigmentExpression()
+        private static Expression ParseAssigmentExpression(Scanner scanner)
         {
-            Expression left = ParseLogicalOrExpression();
+            Expression left = ParseLogicalOrExpression(scanner);
             if (scanner.TryGetDelimiter("="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("+="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new AddExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("-="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new SubtractExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("*="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new MultiplyExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("/="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new DivideExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("%="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new ModuloExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("<<="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new LeftShiftExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter(">>="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new RightShiftExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("&="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new BitwiseAndExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("^="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new BitwiseXorExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("|="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new BitwiseOrExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("&&="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new LogicalAndExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("^^="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new LogicalXorExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
             else if (scanner.TryGetDelimiter("||="))
             {
-                Expression right = ParseAssigmentExpression();
+                Expression right = ParseAssigmentExpression(scanner);
                 right = new LogicalOrExpression(left,right);
                 return new AssignmentExpression(left,right);
             }
@@ -195,95 +185,95 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseLogicalOrExpression()
+        private static Expression ParseLogicalOrExpression(Scanner scanner)
         {
-            Expression left = ParseLogicalXorExpression();
+            Expression left = ParseLogicalXorExpression(scanner);
             while (scanner.TryGetDelimiter("||"))
             {
-                Expression right = ParseLogicalXorExpression();
+                Expression right = ParseLogicalXorExpression(scanner);
                 left = new LogicalOrExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseLogicalXorExpression()
+        private static Expression ParseLogicalXorExpression(Scanner scanner)
         {
-            Expression left = ParseLogicalAndExpression();
+            Expression left = ParseLogicalAndExpression(scanner);
             while (scanner.TryGetDelimiter("^^"))
             {
-                Expression right = ParseLogicalAndExpression();
+                Expression right = ParseLogicalAndExpression(scanner);
                 left = new LogicalXorExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseLogicalAndExpression()
+        private static Expression ParseLogicalAndExpression(Scanner scanner)
         {
-            Expression left = ParseBitwiseOrExpression();
+            Expression left = ParseBitwiseOrExpression(scanner);
             while (scanner.TryGetDelimiter("&&"))
             {
-                Expression right = ParseBitwiseOrExpression();
+                Expression right = ParseBitwiseOrExpression(scanner);
                 left = new LogicalAndExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseBitwiseOrExpression()
+        private static Expression ParseBitwiseOrExpression(Scanner scanner)
         {
-            Expression left = ParseBitwiseXorExpression();
+            Expression left = ParseBitwiseXorExpression(scanner);
             while (scanner.TryGetDelimiter("|"))
             {
-                Expression right = ParseBitwiseXorExpression();
+                Expression right = ParseBitwiseXorExpression(scanner);
                 left = new BitwiseOrExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseBitwiseXorExpression()
+        private static Expression ParseBitwiseXorExpression(Scanner scanner)
         {
-            Expression left = ParseBitwiseAndExpression();
+            Expression left = ParseBitwiseAndExpression(scanner);
             while (scanner.TryGetDelimiter("^"))
             {
-                Expression right = ParseBitwiseAndExpression();
+                Expression right = ParseBitwiseAndExpression(scanner);
                 left = new BitwiseXorExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseBitwiseAndExpression()
+        private static Expression ParseBitwiseAndExpression(Scanner scanner)
         {
-            Expression left = ParseEqualityExpression();
+            Expression left = ParseEqualityExpression(scanner);
             while (scanner.TryGetDelimiter("&"))
             {
-                Expression right = ParseEqualityExpression();
+                Expression right = ParseEqualityExpression(scanner);
                 left = new BitwiseAndExpression(left,right);
             }
             return left;
         }
 
-        private Expression ParseEqualityExpression()
+        private static Expression ParseEqualityExpression(Scanner scanner)
         {
-            Expression left = ParseComparisonExpression();
+            Expression left = ParseComparisonExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("=="))
                 {
-                    Expression right = ParseComparisonExpression();
+                    Expression right = ParseComparisonExpression(scanner);
                     left = new EqualExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter("!="))
                 {
-                    Expression right = ParseComparisonExpression();
+                    Expression right = ParseComparisonExpression(scanner);
                     left = new NotEqualExpression(left,right);
                 }
                 else if (scanner.TryGetIdentifier("is"))
                 {
-                    Expression right = ParseComparisonExpression();
+                    Expression right = ParseComparisonExpression(scanner);
                     left = new IsExpression(left,right);
                 }
                 else if (scanner.TryGetIdentifier("isnot"))
                 {
-                    Expression right = ParseComparisonExpression();
+                    Expression right = ParseComparisonExpression(scanner);
                     left = new IsNotExpression(left,right);
                 }
                 else
@@ -293,29 +283,29 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseComparisonExpression()
+        private static Expression ParseComparisonExpression(Scanner scanner)
         {
-            Expression left = ParseBitshiftExpression();
+            Expression left = ParseBitshiftExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("<"))
                 {
-                    Expression right = ParseBitshiftExpression();
+                    Expression right = ParseBitshiftExpression(scanner);
                     left = new LessExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter("<="))
                 {
-                    Expression right = ParseBitshiftExpression();
+                    Expression right = ParseBitshiftExpression(scanner);
                     left = new LessOrEqualExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter(">"))
                 {
-                    Expression right = ParseBitshiftExpression();
+                    Expression right = ParseBitshiftExpression(scanner);
                     left = new GreaterExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter(">="))
                 {
-                    Expression right = ParseBitshiftExpression();
+                    Expression right = ParseBitshiftExpression(scanner);
                     left = new GreaterOrEqualExpression(left,right);
                 }
                 else
@@ -325,19 +315,19 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseBitshiftExpression()
+        private static Expression ParseBitshiftExpression(Scanner scanner)
         {
-            Expression left = ParseAddExpression();
+            Expression left = ParseAddExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("<<"))
                 {
-                    Expression right = ParseAddExpression();
+                    Expression right = ParseAddExpression(scanner);
                     left = new LeftShiftExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter(">>"))
                 {
-                    Expression right = ParseAddExpression();
+                    Expression right = ParseAddExpression(scanner);
                     left = new RightShiftExpression(left,right);
                 }
                 else
@@ -347,19 +337,19 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseAddExpression()
+        private static Expression ParseAddExpression(Scanner scanner)
         {
-            Expression left = ParseMultiplyExpression();
+            Expression left = ParseMultiplyExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("+"))
                 {
-                    Expression right = ParseMultiplyExpression();
+                    Expression right = ParseMultiplyExpression(scanner);
                     left = new AddExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter("-"))
                 {
-                    Expression right = ParseMultiplyExpression();
+                    Expression right = ParseMultiplyExpression(scanner);
                     left = new SubtractExpression(left,right);
                 }
                 else
@@ -369,24 +359,24 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseMultiplyExpression()
+        private static Expression ParseMultiplyExpression(Scanner scanner)
         {
-            Expression left = ParsePrefixExpression();
+            Expression left = ParsePrefixExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("*"))
                 {
-                    Expression right = ParsePrefixExpression();
+                    Expression right = ParsePrefixExpression(scanner);
                     left = new MultiplyExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter("/"))
                 {
-                    Expression right = ParsePrefixExpression();
+                    Expression right = ParsePrefixExpression(scanner);
                     left = new DivideExpression(left,right);
                 }
                 else if (scanner.TryGetDelimiter("%"))
                 {
-                    Expression right = ParsePrefixExpression();
+                    Expression right = ParsePrefixExpression(scanner);
                     left = new ModuloExpression(left,right);
                 }
                 else
@@ -396,44 +386,44 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParsePrefixExpression()
+        private static Expression ParsePrefixExpression(Scanner scanner)
         {
             if (scanner.TryGetDelimiter("++"))
             {
-                Expression inner = ParsePrefixExpression();
+                Expression inner = ParsePrefixExpression(scanner);
                 //return new PrefixIncrementExpression(inner);
                 throw new NotImplementedException();
             }
             else if (scanner.TryGetDelimiter("--"))
             {
-                Expression inner = ParsePrefixExpression();
+                Expression inner = ParsePrefixExpression(scanner);
                 //return new PrefixDecrementExpression(inner);
                 throw new NotImplementedException();
             }
             else if (scanner.TryGetDelimiter("-"))
             {
-                Expression inner = ParsePrefixExpression();
+                Expression inner = ParsePrefixExpression(scanner);
                 return new NegateExpression(inner);
             }
             else if (scanner.TryGetDelimiter("!"))
             {
-                Expression inner = ParsePrefixExpression();
+                Expression inner = ParsePrefixExpression(scanner);
                 return new LogicalNotExpression(inner);
             }
             else if (scanner.TryGetDelimiter("~"))
             {
-                Expression inner = ParsePrefixExpression();
+                Expression inner = ParsePrefixExpression(scanner);
                 return new BitwiseNotExpression(inner);
             }
             else
             {
-                return ParsePostfixExpression();
+                return ParsePostfixExpression(scanner);
             }
         }
 
-        private Expression ParsePostfixExpression()
+        private static Expression ParsePostfixExpression(Scanner scanner)
         {
-            Expression inner = ParseBaseExpression();
+            Expression inner = ParseBaseExpression(scanner);
             while (true)
             {
                 if (scanner.TryGetDelimiter("++"))
@@ -453,7 +443,7 @@ namespace DoomSharp
                     {
                         do
                         {
-                            arguments.Add(ParseExpression());
+                            arguments.Add(ParseExpression(scanner));
                         }
                         while (scanner.TryGetDelimiter(","));
                         scanner.GetDelimiter(")");
@@ -477,7 +467,7 @@ namespace DoomSharp
             }
         }
 
-        private Expression ParseBaseExpression()
+        private static Expression ParseBaseExpression(Scanner scanner)
         {
             int intvalue;
             string strvalue;
@@ -513,7 +503,7 @@ namespace DoomSharp
             }
             else if (scanner.TryGetDelimiter("("))
             {
-                Expression expression = ParseExpression();
+                Expression expression = ParseExpression(scanner);
                 scanner.GetDelimiter(")");
                 return expression;
             }

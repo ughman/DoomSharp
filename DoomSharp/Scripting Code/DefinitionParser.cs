@@ -33,7 +33,7 @@ namespace DoomSharp
                     scanner.GetDelimiter(")");
                 }
                 scanner.GetDelimiter("{");
-                Statement statement = new CodeParser(scanner.ScanAcross("{","}")).ParseBlock();
+                Statement statement = CodeParser.ParseBlock(scanner.ScanAcross("{","}"));
                 return new FunctionDefinition(name,returntype,parametertypes.ToArray(),parameternames.ToArray(),statement);
             }
             else
