@@ -5,18 +5,9 @@ using System.Collections.Generic;
 
 namespace DoomSharp
 {
-    public sealed class DefinitionParser
+    public static class DefinitionParser
     {
-        private Scanner scanner;
-
-        public DefinitionParser(Scanner scanner)
-        {
-            if (scanner == null)
-                throw new ArgumentNullException("scanner");
-            this.scanner = scanner;
-        }
-
-        public Definition ParseDefinition()
+        public static Definition ParseDefinition(Scanner scanner)
         {
             if (scanner.TryGetIdentifier("function"))
             {
