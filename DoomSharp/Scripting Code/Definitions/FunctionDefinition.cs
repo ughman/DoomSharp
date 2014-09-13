@@ -47,10 +47,11 @@ namespace DoomSharp
             {
                 throw new ApplicationException();
             }
-            realparametertypes = new Type [parametertypes.Length];
+            realparametertypes = new Type [parametertypes.Length + 1];
+            realparametertypes[0] = typeof(ScriptEnvironment);
             for (int i = 0;i < parametertypes.Length;i++)
             {
-                if (!c.Types.TryGetValue(parametertypes[i],out realparametertypes[i]))
+                if (!c.Types.TryGetValue(parametertypes[i],out realparametertypes[i + 1]))
                 {
                     throw new ApplicationException();
                 }
@@ -70,10 +71,11 @@ namespace DoomSharp
             CodeContext c2 = new CodeContext(c,method);
             // Fixed local is used for some expressions
             c2.IL.DeclareLocal(typeof(Fixed));
+            c2.ParameterTypes.Add(typeof(ScriptEnvironment));
             for (int i = 0;i < parametertypes.Length;i++)
             {
-                c2.ParameterTypes.Add(realparametertypes[i]);
-                c2.Parameters.Add(parameternames[i],i);
+                c2.ParameterTypes.Add(realparametertypes[i + 1]);
+                c2.Parameters.Add(parameternames[i],i + 1);
             }
             statement.Compile(c2);
             if (realreturntype == typeof(void))

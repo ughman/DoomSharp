@@ -491,7 +491,14 @@ namespace DoomSharp
             }
             else if (scanner.TryGetIdentifier(out strvalue))
             {
-                return new VariableExpression(strvalue);
+                if (strvalue.StartsWith("$"))
+                {
+                    return new EnvironmentExpression(strvalue);
+                }
+                else
+                {
+                    return new VariableExpression(strvalue);
+                }
             }
             else if (scanner.TryGetInteger(out intvalue))
             {

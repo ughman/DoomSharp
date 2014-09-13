@@ -102,7 +102,7 @@ namespace DoomSharp
                     input = input.Remove(0,2);
                     spaced = true;
                 }
-                else if (spaced && char.IsLetter(input[0]))
+                else if (spaced && (char.IsLetter(input[0]) || input[0] == '$'))
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.Append(input[0]);
