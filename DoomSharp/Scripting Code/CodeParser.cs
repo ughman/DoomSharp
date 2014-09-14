@@ -72,6 +72,19 @@ namespace DoomSharp
                 scanner.GetDelimiter(";");
                 return new VarStatement(variablename,expression);
             }
+            else if (scanner.TryGetIdentifier("return"))
+            {
+                if (scanner.TryGetDelimiter(";"))
+                {
+                    return new ReturnStatement(null);
+                }
+                else
+                {
+                    Expression expression = ParseExpression(scanner);
+                    scanner.GetDelimiter(";");
+                    return new ReturnStatement(expression);
+                }
+            }
             else if (scanner.TryGetDelimiter("{"))
             {
                 return CodeParser.ParseBlock(scanner.ScanAcross("{","}"));

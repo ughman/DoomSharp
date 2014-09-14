@@ -60,6 +60,11 @@ namespace DoomSharp
             get { return parametertypes; }
         }
 
+        public Type ReturnType
+        {
+            get { return method.ReturnType; }
+        }
+
         public void Convert(Type source,Type destination)
         {
             if (destination == null)
