@@ -280,22 +280,8 @@ P_UseSpecialLine
   int		side )
 {               
 
-    // Err...
-    // Use the back sides of VERY SPECIAL lines...
     if (side)
-    {
-	switch(line->special)
-	{
-	  case 124:
-	    // Sliding door open&close
-	    // UNUSED?
-	    break;
-
-	  default:
-	    return false;
-	    break;
-	}
-    }
+		return false;
 
     
     // Switches that other things can activate.
@@ -338,11 +324,6 @@ P_UseSpecialLine
       case 118:		// Blazing door open
 	EV_VerticalDoor (line, thing);
 	break;
-	
-	//UNUSED - Door Slide Open&Close
-	// case 124:
-	// EV_SlidingDoor (line, thing);
-	// break;
 
 	// SWITCHES
       case 7:
