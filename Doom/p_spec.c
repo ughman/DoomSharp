@@ -499,6 +499,9 @@ P_CrossSpecialLine
     int		ok;
 
     line = P_GetLineDef(linenum);
+
+	if (P_CrossSpecialLine2(thing,line,side))
+		return;
     
     //	Triggers that other things can activate
     if (!thing->player)
@@ -963,6 +966,9 @@ P_ShootSpecialLine
 {
     int		ok;
     
+	if (P_ShootSpecialLine2(thing,line,false))
+		return;
+
     //	Impacts that other things can activate.
     if (!thing->player)
     {
@@ -1336,6 +1342,8 @@ void P_SpawnSpecials (void)
     for (i = 0;i < P_CountLineDefs(); i++)
     {
 		line_t *line = P_GetLineDef(i);
+		if (P_InitSpecialLine2(line))
+			continue;
 	switch(line->special)
 	{
 	  case 48:

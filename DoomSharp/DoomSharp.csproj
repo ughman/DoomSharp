@@ -49,6 +49,9 @@
     <Compile Include="Game Code\CeilingDirection.cs" />
     <Compile Include="Game Code\CeilingType.cs" />
     <Compile Include="Game Code\CompatFlags.cs" />
+    <Compile Include="Game Code\LinedefActivationType.cs" />
+    <Compile Include="Game Code\LinedefSpecialAttribute.cs" />
+    <Compile Include="Game Code\LinedefSpecial.cs" />
     <Compile Include="Game Code\Thing.cs" />
     <Compile Include="Game Code\Linedef.cs" />
     <Compile Include="Game Code\Sidedef.cs" />
@@ -76,6 +79,9 @@
     <Compile Include="Registrar\RegistrarMethodHandlerAttribute.cs" />
     <Compile Include="Registrar\RegistrarMethodHandler.cs" />
     <Compile Include="Registrar\RegistrarTypeHandler.cs" />
+    <Compile Include="Scripting Code\Definitions\LinedefSpecialDefinition.cs" />
+    <Compile Include="Scripting Code\Environments\ScriptSpecialEnvironment.cs" />
+    <Compile Include="Scripting Code\Environments\ScriptLinedefSpecialEnvironment.cs" />
     <Compile Include="Scripting Code\Environments\ScriptEnvironment.cs" />
     <Compile Include="Scripting Code\Expressions\Comparison\IsNotExpression.cs" />
     <Compile Include="Scripting Code\Expressions\Comparison\IsExpression.cs" />

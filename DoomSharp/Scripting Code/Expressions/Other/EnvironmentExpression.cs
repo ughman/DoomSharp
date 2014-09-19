@@ -29,6 +29,27 @@ namespace DoomSharp
                 c.IL.Emit(OpCodes.Callvirt,typeof(ScriptEnvironment).GetProperty("World").GetGetMethod());
                 return typeof(World);
             }
+            else if (variablename == "$activator")
+            {
+                if (!typeof(ScriptSpecialEnvironment).IsAssignableFrom(c.ParameterTypes[0]))
+                    throw new ApplicationException();
+                c.IL.Emit(OpCodes.Callvirt,typeof(ScriptSpecialEnvironment).GetProperty("Activator").GetGetMethod());
+                return typeof(Actor);
+            }
+            else if (variablename == "$linedef")
+            {
+                if (!typeof(ScriptLinedefSpecialEnvironment).IsAssignableFrom(c.ParameterTypes[0]))
+                    throw new ApplicationException();
+                c.IL.Emit(OpCodes.Callvirt,typeof(ScriptLinedefSpecialEnvironment).GetProperty("Linedef").GetGetMethod());
+                return typeof(Linedef);
+            }
+            else if (variablename == "$isbackside")
+            {
+                if (!typeof(ScriptLinedefSpecialEnvironment).IsAssignableFrom(c.ParameterTypes[0]))
+                    throw new ApplicationException();
+                c.IL.Emit(OpCodes.Callvirt,typeof(ScriptLinedefSpecialEnvironment).GetProperty("IsBackSide").GetGetMethod());
+                return typeof(bool);
+            }
             else
             {
                 throw new ApplicationException();

@@ -282,6 +282,8 @@ P_UseSpecialLine
 
     if (side)
 		return false;
+	if (P_UseSpecialLine2(thing,line,side))
+		return true;
 
     
     // Switches that other things can activate.
