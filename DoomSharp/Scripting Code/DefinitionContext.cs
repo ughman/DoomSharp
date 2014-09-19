@@ -7,11 +7,14 @@ namespace DoomSharp
 {
     public class DefinitionContext
     {
+        private static AssemblyBuilder assembly;
         private static Dictionary<string,Type> globaltypes;
         private static Dictionary<string,MethodInfo> globalmethods;
 
         static DefinitionContext()
         {
+            AssemblyName assemblyname = new AssemblyName("DoomSharp.Dynamic");
+            assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyname,AssemblyBuilderAccess.Run);
             globaltypes = new Dictionary<string,Type>();
             globalmethods = new Dictionary<string,MethodInfo>();
             globaltypes.Add("void",typeof(void));
@@ -43,11 +46,11 @@ namespace DoomSharp
         private Dictionary<string,Type> types;
         private Dictionary<string,MethodInfo> methods;
 
-        public DefinitionContext(ModuleBuilder module)
+        public DefinitionContext(string name)
         {
-            if (module == null)
-                throw new ArgumentNullException("module");
-            this.module = module;
+            if (name == null)
+                throw new ArgumentNullException("name");
+            this.module = assembly.DefineDynamicModule(name);
             this.types = new Dictionary<string,Type>(globaltypes);
             this.methods = new Dictionary<string,MethodInfo>(globalmethods);
         }
@@ -63,11 +66,19 @@ namespace DoomSharp
 
         public ModuleBuilder Module
         {
-            get { return module; }
+            get
+            {
+                if (module == null)
+                    throw new InvalidOperationException();
+                return module;
+            }
+        }
         }
 
         public void DefineType(string name,Type type)
         {
+            if (module == null)
+                throw new InvalidOperationException();
             if (name == null)
                 throw new ArgumentNullException("name");
             if (type == null)
@@ -77,6 +88,8 @@ namespace DoomSharp
 
         public void DefineMethod(string name,MethodInfo method)
         {
+            if (module == null)
+                throw new InvalidOperationException();
             if (name == null)
                 throw new ArgumentNullException("name");
             if (method == null)
@@ -86,12 +99,38 @@ namespace DoomSharp
 
         public IDictionary<string,Type> Types
         {
-            get { return types; }
+            get
+            {
+                if (module == null)
+                    throw new InvalidOperationException();
+                return types;
+            }
         }
 
         public IDictionary<string,MethodInfo> Methods
         {
-            get { return methods; }
+            get
+            {
+                if (module == null)
+                    throw new InvalidOperationException();
+                return methods;
+            }
+        }
+
+        public void Complete()
+        {
+            if (module == null)
+                throw new InvalidOperationException();
+            foreach (Type type in types.Values)
+            {
+                if (type is TypeBuilder)
+                {
+                    ((TypeBuilder)type).CreateType();
+                }
+            }
+            module.CreateGlobalFunctions();
+            Registrar.RegisterModule(module);
+            module = null;
         }
     }
 }
