@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_PLAYER)]
 ref class Marine : DActor
 {

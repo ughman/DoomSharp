@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_TROOP)]
 [DoomedNum(3001)]
 ref class Imp : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_TROOPSHOT)]
 ref class ImpShot : DActor
 {

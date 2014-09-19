@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_FATSO)]
 [DoomedNum(67)]
 ref class Mancubus : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_FATSHOT)]
 ref class MancubusShot : DActor
 {

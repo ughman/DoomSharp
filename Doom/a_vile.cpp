@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_VILE)]
 [DoomedNum(64)]
 ref class Archvile : DActor
@@ -27,6 +28,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_FIRE)]
 ref class Fire : DActor
 {

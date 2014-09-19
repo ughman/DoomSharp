@@ -27,7 +27,7 @@ namespace DoomSharp
         [RegistrarTypeHandler]
         private static void RegisterType(Type type)
         {
-            if (type.IsDefined(typeof(ScriptableAttribute),true))
+            if (type.IsDefined(typeof(ScriptableAttribute),false))
             {
                 globaltypes[type.Name] = type;
             }

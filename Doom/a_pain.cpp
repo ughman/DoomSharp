@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_PAIN)]
 [DoomedNum(71)]
 ref class PainElemental : DActor

@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_HEAD)]
 [DoomedNum(3005)]
 ref class Cacodemon : DActor
@@ -31,6 +32,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_HEADSHOT)]
 ref class CacodemonShot : DActor
 {

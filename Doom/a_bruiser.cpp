@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_BRUISER)]
 [DoomedNum(3003)]
 ref class BaronOfHell : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_BRUISERSHOT)]
 ref class BaronShot : DActor
 {
@@ -50,6 +52,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_KNIGHT)]
 [DoomedNum(69)]
 ref class HellKnight : DActor

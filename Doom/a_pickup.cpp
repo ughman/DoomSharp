@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_MISC0)]
 [DoomedNum(2018)]
 ref class Armor : DActor
@@ -12,6 +13,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC1)]
 [DoomedNum(2019)]
 ref class MegaArmor : DActor
@@ -24,6 +26,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC2)]
 [DoomedNum(2014)]
 ref class HealthBonus : DActor
@@ -37,6 +40,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC3)]
 [DoomedNum(2015)]
 ref class ArmorBonus : DActor
@@ -50,6 +54,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC10)]
 [DoomedNum(2011)]
 ref class Stimpack : DActor
@@ -62,6 +67,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC11)]
 [DoomedNum(2012)]
 ref class Medikit : DActor
@@ -74,6 +80,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC12)]
 [DoomedNum(2013)]
 ref class Soulsphere : DActor
@@ -87,6 +94,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_INV)]
 [DoomedNum(2022)]
 ref class Invulnerability : DActor
@@ -100,6 +108,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC13)]
 [DoomedNum(2023)]
 ref class Berserk : DActor
@@ -113,6 +122,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_INS)]
 [DoomedNum(2024)]
 ref class Invisibility : DActor
@@ -126,6 +136,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC14)]
 [DoomedNum(2025)]
 ref class RadiationSuit : DActor
@@ -138,6 +149,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC15)]
 [DoomedNum(2026)]
 ref class ComputerMap : DActor
@@ -151,6 +163,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC16)]
 [DoomedNum(2045)]
 ref class LightVisor : DActor
@@ -164,6 +177,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MEGA)]
 [DoomedNum(83)]
 ref class Megasphere : DActor

@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_UNDEAD)]
 [DoomedNum(66)]
 ref class Revenant : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_TRACER)]
 ref class RevenantShot : DActor
 {
@@ -50,6 +52,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SMOKE)]
 ref class Smoke : DActor
 {

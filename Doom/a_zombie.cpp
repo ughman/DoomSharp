@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_POSSESSED)]
 [DoomedNum(3004)]
 ref class Zombieman : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SHOTGUY)]
 [DoomedNum(9)]
 ref class Shotgunner : DActor
@@ -57,6 +59,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_CHAINGUY)]
 [DoomedNum(65)]
 ref class Chaingunner : DActor

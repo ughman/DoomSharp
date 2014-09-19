@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_BOSSBRAIN)]
 [DoomedNum(88)]
 ref class BossBrain : DActor
@@ -21,6 +22,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_BOSSSPIT)]
 [DoomedNum(89)]
 ref class BossEye : DActor
@@ -36,6 +38,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_BOSSTARGET)]
 [DoomedNum(87)]
 ref class BossTarget : DActor
@@ -49,6 +52,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SPAWNSHOT)]
 ref class BossShot : DActor
 {
@@ -70,6 +74,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SPAWNFIRE)]
 ref class SpawnFire : DActor
 {

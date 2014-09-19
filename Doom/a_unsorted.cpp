@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_BARREL)]
 [DoomedNum(2035)]
 ref class Barrel : DActor
@@ -19,6 +20,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_ROCKET)]
 ref class Rocket : DActor
 {
@@ -40,6 +42,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_PLASMA)]
 ref class PlasmaBall : DActor
 {
@@ -61,6 +64,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_BFG)]
 ref class BFGBall : DActor
 {
@@ -81,6 +85,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_PUFF)]
 ref class Puff : DActor
 {
@@ -93,6 +98,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_BLOOD)]
 ref class Blood : DActor
 {
@@ -104,6 +110,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_TFOG)]
 ref class TeleportFog : DActor
 {
@@ -116,6 +123,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_IFOG)]
 ref class ItemFog : DActor
 {
@@ -128,6 +136,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_TELEPORTMAN)]
 [DoomedNum(14)]
 ref class TeleportDestination : DActor
@@ -140,6 +149,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_EXTRABFG)]
 ref class BFGExtra : DActor
 {

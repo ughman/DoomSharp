@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_SPIDER)]
 [DoomedNum(7)]
 ref class SpiderMastermind : DActor

@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_SERGEANT)]
 [DoomedNum(3002)]
 ref class Demon : DActor
@@ -30,6 +31,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SHADOWS)]
 [DoomedNum(58)]
 ref class Spectre : DActor

@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_MISC4)]
 [DoomedNum(5)]
 ref class BlueCard : DActor
@@ -13,6 +14,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC5)]
 [DoomedNum(13)]
 ref class RedCard : DActor
@@ -26,6 +28,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC6)]
 [DoomedNum(6)]
 ref class YellowCard : DActor
@@ -39,6 +42,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC7)]
 [DoomedNum(39)]
 ref class YellowSkull : DActor
@@ -52,6 +56,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC8)]
 [DoomedNum(38)]
 ref class RedSkull : DActor
@@ -65,6 +70,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC9)]
 [DoomedNum(40)]
 ref class BlueSkull : DActor

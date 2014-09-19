@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_BABY)]
 [DoomedNum(68)]
 ref class Arachnotron : DActor
@@ -29,6 +30,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_ARACHPLAZ)]
 ref class ArachnotronShot : DActor
 {

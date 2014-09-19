@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_WOLFSS)]
 [DoomedNum(84)]
 ref class Nazi : DActor

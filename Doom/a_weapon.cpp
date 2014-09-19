@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_MISC25)]
 [DoomedNum(2006)]
 ref class BFG9000 : DActor
@@ -12,6 +13,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_CHAINGUN)]
 [DoomedNum(2002)]
 ref class Chaingun : DActor
@@ -24,6 +26,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC26)]
 [DoomedNum(2005)]
 ref class Chainsaw : DActor
@@ -36,6 +39,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC27)]
 [DoomedNum(2003)]
 ref class RocketLauncher : DActor
@@ -48,6 +52,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC28)]
 [DoomedNum(2004)]
 ref class PlasmaRifle : DActor
@@ -60,6 +65,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SHOTGUN)]
 [DoomedNum(2001)]
 ref class Shotgun : DActor
@@ -72,6 +78,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_SUPERSHOTGUN)]
 [DoomedNum(82)]
 ref class SuperShotgun : DActor

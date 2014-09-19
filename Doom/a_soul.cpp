@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_SKULL)]
 [DoomedNum(3006)]
 ref class LostSoul : DActor

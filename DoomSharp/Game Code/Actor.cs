@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace DoomSharp
 {
+    [Scriptable]
     public abstract class Actor : Thinker
     {
         protected abstract Fixed x { get; set; }

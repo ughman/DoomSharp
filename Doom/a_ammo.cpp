@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_CLIP)]
 [DoomedNum(2007)]
 ref class Clip : DActor
@@ -12,6 +13,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC17)]
 [DoomedNum(2048)]
 ref class AmmoBox : DActor
@@ -24,6 +26,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC18)]
 [DoomedNum(2010)]
 ref class RocketAmmo : DActor
@@ -36,6 +39,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC19)]
 [DoomedNum(2046)]
 ref class RocketBox : DActor
@@ -48,6 +52,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC20)]
 [DoomedNum(2047)]
 ref class Cell : DActor
@@ -60,6 +65,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC21)]
 [DoomedNum(17)]
 ref class CellPack : DActor
@@ -72,6 +78,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC22)]
 [DoomedNum(2008)]
 ref class Shells : DActor
@@ -84,6 +91,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC23)]
 [DoomedNum(2049)]
 ref class ShellBox : DActor
@@ -96,6 +104,7 @@ public:
 	}
 };
 
+[Scriptable]
 [ActorType(MT_MISC24)]
 [DoomedNum(8)]
 ref class Backpack : DActor

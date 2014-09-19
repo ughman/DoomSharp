@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_CYBORG)]
 [DoomedNum(16)]
 ref class Cyberdemon : DActor

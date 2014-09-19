@@ -1,5 +1,6 @@
 #include "p_mobj.hpp"
 
+[Scriptable]
 [ActorType(MT_KEEN)]
 [DoomedNum(72)]
 ref class CommanderKeen : DActor
