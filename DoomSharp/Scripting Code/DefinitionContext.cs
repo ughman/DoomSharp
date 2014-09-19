@@ -43,6 +43,7 @@ namespace DoomSharp
         }
 
         private ModuleBuilder module;
+        private TypeBuilder globaltype;
         private Dictionary<string,Type> types;
         private Dictionary<string,MethodInfo> methods;
 
@@ -51,6 +52,7 @@ namespace DoomSharp
             if (name == null)
                 throw new ArgumentNullException("name");
             this.module = assembly.DefineDynamicModule(name);
+            this.globaltype = module.DefineType("Global",TypeAttributes.Public);
             this.types = new Dictionary<string,Type>(globaltypes);
             this.methods = new Dictionary<string,MethodInfo>(globalmethods);
         }
@@ -73,6 +75,15 @@ namespace DoomSharp
                 return module;
             }
         }
+
+        public TypeBuilder GlobalType
+        {
+            get
+            {
+                if (module == null)
+                    throw new InvalidOperationException();
+                return globaltype;
+            }
         }
 
         public void DefineType(string name,Type type)
@@ -121,6 +132,7 @@ namespace DoomSharp
         {
             if (module == null)
                 throw new InvalidOperationException();
+            globaltype.CreateType();
             foreach (Type type in types.Values)
             {
                 if (type is TypeBuilder)
