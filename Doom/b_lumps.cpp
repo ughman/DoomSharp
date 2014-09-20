@@ -20,6 +20,7 @@ void B_InitLumps2()
 	String^ name_f_end = gcnew String("F_END");
 	String^ name_ff_start = gcnew String("FF_START");
 	String^ name_ff_end = gcnew String("FF_END");
+	String^ name_doomsharp_defs = gcnew String("D#DEFS");
 	bool inspritezone = false;
 	bool inflatzone = false;
 	for (int i = 0;i < Core::Archives->LumpCount;i++)
@@ -48,6 +49,24 @@ void B_InitLumps2()
 		else if (inflatzone)
 		{
 			flatlumps->Add(i);
+		}
+		if (lump->Name == name_doomsharp_defs)
+		{
+			String^ string = Text::Encoding::UTF8->GetString(lump->Read());
+			Scanner scanner(string);
+			List<Definition^> definitions;
+			while (!scanner.TryGetEnd())
+			{
+				definitions.Add(DefinitionParser::ParseDefinition(%scanner));
+			}
+			DefinitionContext context(String::Format("LumpNumber_{0}",i));
+			for each (Definition^ definition in definitions)
+				definition->DefineTypes(%context);
+			for each (Definition^ definition in definitions)
+				definition->DefineMembers(%context);
+			for each (Definition^ definition in definitions)
+				definition->Compile(%context);
+			context.Complete();
 		}
 	}
 }
