@@ -27,18 +27,18 @@ namespace DoomSharp
         [RegistrarTypeHandler]
         private static void RegisterType(Type type)
         {
-            if (type.IsDefined(typeof(ScriptableAttribute),false))
+            foreach (ScriptableAttribute attribute in type.GetCustomAttributes(typeof(ScriptableAttribute),false))
             {
-                globaltypes[type.Name] = type;
+                globaltypes[attribute.Name ?? type.Name] = type;
             }
         }
 
         [RegistrarMethodHandler]
         private static void RegisterMethod(MethodInfo method)
         {
-            if (method.IsDefined(typeof(ScriptableAttribute),false))
+            foreach (ScriptableAttribute attribute in method.GetCustomAttributes(typeof(ScriptableAttribute),false))
             {
-                globalmethods[method.Name] = method;
+                globalmethods[attribute.Name ?? method.Name] = method;
             }
         }
 
