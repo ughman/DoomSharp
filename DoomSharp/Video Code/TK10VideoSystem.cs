@@ -2,35 +2,40 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace DoomSharp
 {
-    public class MainWindow : GameWindow
+    [CoreSystem("video","tk10","OpenTK GL 1.0")]
+    public class TK10VideoSystem : TKBaseVideoSystem
     {
         private byte[] display;
         private byte[] palette;
         private byte[] rgbdisplay;
 
-        public MainWindow(bool fullscreen) : base(fullscreen ? DisplayDevice.Default.Width : 800,fullscreen ? DisplayDevice.Default.Height : 600,GraphicsMode.Default,"DoomSharp",fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
+        public TK10VideoSystem(bool fullscreen) : base(fullscreen)
         {
             this.display = new byte [320 * 200];
             this.palette = new byte [256 * 3];
             this.rgbdisplay = new byte [512 * 256 * 3];
-            CursorVisible = false;
         }
 
-        protected override void OnRenderFrame(FrameEventArgs e)
+        protected override void OnRenderFrame_Init()
         {
-            base.OnRenderFrame(e);
-            MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0,320,200,0,-1,1);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Enable(EnableCap.Texture2D);
+            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
+        }
+
+        protected override void OnRenderFrame_Frame()
+        {
             for (int y = 0;y < 200;y++)
             {
                 for (int x = 0;x < 320;x++)
@@ -42,8 +47,6 @@ namespace DoomSharp
                 }
             }
             GL.TexImage2D<byte>(TextureTarget.Texture2D,0,PixelInternalFormat.Rgb,512,256,0,PixelFormat.Rgb,PixelType.UnsignedByte,rgbdisplay);
-            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Nearest);
-            GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
             double x2 = 320.0 / 512.0;
             double y2 = 200.0 / 256.0;
             GL.Begin(PrimitiveType.Quads);
@@ -56,36 +59,16 @@ namespace DoomSharp
             GL.TexCoord2(x2,0);
             GL.Vertex2(320,0);
             GL.End();
-            GL.Disable(EnableCap.Texture2D);
-            SwapBuffers();
         }
 
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            base.OnUpdateFrame(e);
-            Core.Update();
-        }
-
-        protected override void OnResize(System.EventArgs e)
-        {
-            base.OnResize(e);
-            MakeCurrent();
-            GL.Viewport(ClientRectangle);
-        }
-
-        public void SubmitFrame(IntPtr frame)
+        public override void SubmitFrame(IntPtr frame)
         {
             Marshal.Copy(frame,display,0,display.Length);
         }
 
-        public void SubmitPalette(IntPtr palette)
+        public override void SubmitPalette(IntPtr palette)
         {
             Marshal.Copy(palette,this.palette,0,this.palette.Length);
-        }
-
-        public void ForceRender()
-        {
-            OnRenderFrame(null);
         }
     }
 }

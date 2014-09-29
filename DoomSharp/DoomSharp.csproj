@@ -41,6 +41,7 @@
     <Compile Include="Core Code\Core.cs" />
     <Compile Include="Core Code\DoomConsole.cs" />
     <Compile Include="Core Code\GameState.cs" />
+    <Compile Include="Core Code\CoreSystemAttribute.cs" />
     <Compile Include="Fixed.cs" />
     <Compile Include="Game Code\Actor.cs" />
     <Compile Include="Game Code\ActorTypeAttribute.cs" />
@@ -140,7 +141,10 @@
     <Compile Include="Scripting Code\Statements\NullStatement.cs" />
     <Compile Include="Scripting Code\Statements\Statement.cs" />
     <Compile Include="Utility\BitConv.cs" />
-    <Compile Include="Video Code\MainWindow.cs" />
+    <Compile Include="Video Code\NullVideoSystem.cs" />
+    <Compile Include="Video Code\TKBaseVideoSystem.cs" />
+    <Compile Include="Video Code\TK10VideoSystem.cs" />
+    <Compile Include="Video Code\IVideoSystem.cs" />
     <Compile Include="Wad Code\LumpArchive.cs" />
     <Compile Include="Wad Code\IArchive.cs" />
     <Compile Include="Wad Code\ILump.cs" />

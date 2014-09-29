@@ -16,8 +16,6 @@ extern "C"
 
 #include <vcclr.h>
 
-gcroot<MainWindow^> window;
-
 extern "C" void I_ShutdownGraphics()
 {
 	// TODO
@@ -30,8 +28,6 @@ extern "C" void I_StartFrame()
 
 void I_StartTic2()
 {
-	if (!window)
-		return;
 	MouseState mouse = Mouse::GetState();
 	static bool firstmouse = true;
 	static int mousex;
@@ -42,7 +38,7 @@ void I_StartTic2()
 		mousey = mouse.Y;
 		firstmouse = false;
 	}
-	if (window->Focused)
+	if (GameWindow::typeid->IsAssignableFrom(Core::Video->GetType()) && ((GameWindow^)Core::Video)->Focused)
 	{
 		event_t ev2;
 		ev2.type = ev_mouse;
@@ -67,18 +63,12 @@ extern "C" void I_UpdateNoBlit()
 
 extern "C" void I_FinishUpdate()
 {
-	if (window)
-	{
-		window->SubmitFrame((IntPtr)screens[0]);
-	}
+	Core::Video->SubmitFrame((IntPtr)screens[0]);
 }
 
 extern "C" void I_ForceRender()
 {
-	if (window)
-	{
-		window->ForceRender();
-	}
+	Core::Video->ForceRender();
 }
 
 extern "C" void I_ReadScreen(byte *scr)
@@ -88,10 +78,7 @@ extern "C" void I_ReadScreen(byte *scr)
 
 extern "C" void I_SetPalette(byte *palette)
 {
-	if (window)
-	{
-		window->SubmitPalette((IntPtr)palette);
-	}
+	Core::Video->SubmitPalette((IntPtr)palette);
 }
 
 int TranslateKey(Key key)
@@ -171,19 +158,13 @@ int TranslateKey(Key key)
 	return 0;
 }
 
-void HandleKeyUp(Object^ sender,KeyboardKeyEventArgs^ e)
-{
-	Core::KeyUp(e->Key);
-}
-
-void HandleKeyDown(Object^ sender,KeyboardKeyEventArgs^ e)
-{
-	Core::KeyDown(e->Key);
-}
-
 extern "C" void I_InitGraphics()
 {
-	window = gcnew MainWindow(M_CheckParm("-fullscreen"));
-	window->Keyboard->KeyUp += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyUp);
-	window->Keyboard->KeyDown += gcnew EventHandler<KeyboardKeyEventArgs^>(HandleKeyDown);
+	if (M_CheckParm("-novideo"))
+		return;
+	const char *video = "tk10";
+	int p = M_CheckParm("-video");
+	if (p && p + 1 < myargc)
+		video = myargv[p + 1];
+	Core::ChangeVideoSystem(gcnew String(video),M_CheckParm("-fullscreen"));
 }

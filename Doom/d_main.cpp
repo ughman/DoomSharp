@@ -28,8 +28,6 @@ extern "C" void G_BuildTiccmd(ticcmd_t *cmd);
 void D_DoomTick();
 int TranslateKey(Key key);
 
-extern gcroot<MainWindow^> window;
-
 ref class LegacyGameState : GameState
 {
 public:
@@ -74,7 +72,7 @@ extern "C" void D_DoomLoop()
 	{
 		Core::PushState(gcnew LegacyGameState);
 		I_InitGraphics();
-		window->Run();
+		Core::Video->Run();
 	}
 }
 
