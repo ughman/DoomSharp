@@ -103,10 +103,13 @@ namespace DoomSharp
         {
             foreach (MemberInfo member in type.GetMembers(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (member.Name != membername)
-                    continue;
-                // TODO :: ScriptableAttribute check
-                return member;
+                foreach (ScriptableAttribute attribute in member.GetCustomAttributes(typeof(ScriptableAttribute),false))
+                {
+                    if ((attribute.Name ?? member.Name) == membername)
+                    {
+                        return member;
+                    }
+                }
             }
             throw new ApplicationException();
         }
