@@ -26,6 +26,17 @@ namespace DoomSharp
             Console.ResetColor();
         }
 
+        public void LogInfo(string message,params object[] args)
+        {
+            if (message == null)
+                throw new ArgumentNullException("message");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("INFO: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(message,args);
+            Console.ResetColor();
+        }
+
         public void LogGameMessage(string message)
         {
             if (message == null)
