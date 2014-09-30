@@ -1027,6 +1027,12 @@ void D_DoomMain (void)
 	autostart = true;
     }
 	
+	p = M_CheckParm("-fastforward");
+	if (p && p < myargc-1)
+	{
+		fastforward = atoi(myargv[p+1]);
+	}
+
     p = M_CheckParm ("-playdemo");
     if (p && p < myargc-1)
     {

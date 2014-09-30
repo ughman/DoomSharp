@@ -101,6 +101,7 @@ skill_t         gameskill;
 boolean		respawnmonsters;
 int             gameepisode; 
 int             gamemap; 
+int fastforward;
  
 boolean         paused; 
 boolean         sendpause;             	// send a pause event next tic 

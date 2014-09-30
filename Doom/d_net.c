@@ -378,6 +378,9 @@ void NetUpdate (void)
     nowtime = I_GetTime ()/ticdup;
     newtics = nowtime - gametime;
     gametime = nowtime;
+
+	if (fastforward > gamemap)
+		newtics = 35;
 	
     if (newtics <= 0) 	// nothing new to update
 	goto listen; 
@@ -765,5 +768,6 @@ void TryRunTics (void)
 	}
 	NetUpdate ();	// check for new console commands
     }
+	if (fastforward <= gamemap)
 	I_Delay(ticdup);
 }

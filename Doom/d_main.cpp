@@ -98,7 +98,7 @@ void D_DoomTick()
 		TryRunTics();
 	}
 	S_UpdateSounds(players[consoleplayer].mo);
-	if (!M_CheckParm("-novideo"))
+	if (!M_CheckParm("-novideo") && fastforward <= gamemap)
 		D_Display();
 	I_SubmitSound();
 }

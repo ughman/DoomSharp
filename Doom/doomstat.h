@@ -81,6 +81,8 @@ extern  skill_t         gameskill;
 extern  int		gameepisode;
 extern  int		gamemap;
 
+extern int fastforward;
+
 // Nightmare mode flag, single player.
 extern  boolean         respawnmonsters;
 
