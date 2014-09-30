@@ -80,7 +80,7 @@ extern "C" void P_LoadSideDefs(int lumpid)
 		int sectornum = (unsigned short)BitConv::FromInt16(data,i * 30 + 28);
 		if (sectornum >= world->Sectors->Count)
 		{
-			Core::Console->LogError("Sidedef {0} references a non-existent sector.",i);
+			Core::Console->LogError("Sidedef {0} references non-existent sector {1}.",i,sectornum);
 			I_Error("Bad sidedef->sector reference");
 		}
 		DSidedef^ sidedef = gcnew DSidedef(world,(DSector^)world->Sectors[sectornum]);
@@ -120,13 +120,13 @@ extern "C" void P_LoadLineDefs(int lumpid)
 		int backnum = (unsigned short)BitConv::FromInt16(data,i * 14 + 12);
 		if (startnum >= world->Vertices->Count)
 		{
-			Core::Console->LogError("Linedef {0} references a non-existent vertex.",i);
+			Core::Console->LogError("Linedef {0} references non-existent vertex {1}.",i,startnum);
 			I_Error("Bad linedef->vertex reference");
 		}
 		DVertex^ start = (DVertex^)world->Vertices[startnum];
 		if (endnum >= world->Vertices->Count)
 		{
-			Core::Console->LogError("Linedef {0} references a non-existent vertex.",i);
+			Core::Console->LogError("Linedef {0} references non-existent vertex {1}.",i,endnum);
 			I_Error("Bad linedef->vertex reference");
 		}
 		DVertex^ end = (DVertex^)world->Vertices[endnum];
@@ -137,7 +137,7 @@ extern "C" void P_LoadLineDefs(int lumpid)
 		}
 		else if (frontnum >= world->Sidedefs->Count)
 		{
-			Core::Console->LogError("Linedef {0} references a non-existent sidedef.",i);
+			Core::Console->LogError("Linedef {0} references non-existent sidedef {1}.",i,frontnum);
 			front = nullptr;
 		}
 		else
@@ -151,7 +151,7 @@ extern "C" void P_LoadLineDefs(int lumpid)
 		}
 		else if (backnum >= world->Sidedefs->Count)
 		{
-			Core::Console->LogError("Linedef {0} references a non-existent sidedef.",i);
+			Core::Console->LogError("Linedef {0} references non-existent sidedef {1}.",i,backnum);
 			back = nullptr;
 		}
 		else
@@ -240,7 +240,7 @@ extern "C" void P_LoadBlockMap(int lumpid)
 					break;
 				if (lineid >= world->Linedefs->Count)
 				{
-					Core::Console->LogError("The linedef list for block ({0},{1}) references a non-existent linedef.",x,y);
+					Core::Console->LogError("The linedef list for block ({0},{1}) references non-existent linedef {2}.",x,y,lineid);
 					continue;
 				}
 				block->AddLinedef(world->Linedefs[lineid]);
