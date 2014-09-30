@@ -54,9 +54,6 @@ void	P_SpawnMapThing (mapthing_t*	mthing);
 // MAP related Lookup tables.
 // Store VERTEXES, LINEDEFS, SIDEDEFS, etc.
 //
-int		numsegs;
-seg_t*		segs;
-
 int		numsubsectors;
 subsector_t*	subsectors;
 
@@ -87,49 +84,6 @@ mapthing_t	playerstarts[MAXPLAYERS];
 
 
 
-
-
-//
-// P_LoadSegs
-//
-void P_LoadSegs (int lump)
-{
-    byte*		data;
-    int			i;
-    mapseg_t*		ml;
-    seg_t*		li;
-    line_t*		ldef;
-    int			linedef;
-    int			side;
-	
-    numsegs = W_LumpLength (lump) / sizeof(mapseg_t);
-    segs = Z_Malloc (numsegs*sizeof(seg_t),PU_LEVEL,0);	
-    memset (segs, 0, numsegs*sizeof(seg_t));
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    ml = (mapseg_t *)data;
-    li = segs;
-    for (i=0 ; i<numsegs ; i++, li++, ml++)
-    {
-	li->v1 = P_GetVertex(SHORT(ml->v1));
-	li->v2 = P_GetVertex(SHORT(ml->v2));
-					
-	li->angle = (SHORT(ml->angle))<<16;
-	li->offset = (SHORT(ml->offset))<<16;
-	linedef = SHORT(ml->linedef);
-	ldef = P_GetLineDef(linedef);
-	li->linedef = ldef;
-	side = SHORT(ml->side);
-	li->sidedef = ldef->side[side];
-	li->frontsector = ldef->side[side]->sector;
-	if (ldef-> flags & ML_TWOSIDED)
-	    li->backsector = ldef->side[side^1]->sector;
-	else
-	    li->backsector = 0;
-    }
-	
-    Z_Free (data);
-}
 
 
 //
@@ -220,7 +174,7 @@ void P_GroupLines (void)
     ss = subsectors;
     for (i=0 ; i<numsubsectors ; i++, ss++)
     {
-	seg = &segs[ss->firstline];
+	seg = P_GetSeg(ss->firstline);
 	ss->sector = seg->sidedef->sector;
     }
 

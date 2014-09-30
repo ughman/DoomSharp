@@ -244,6 +244,8 @@ typedef struct subsector_s
 //
 typedef struct
 {
+	void *handle;
+
     vertex_t*	v1;
     vertex_t*	v2;
     

@@ -6,6 +6,10 @@ extern "C"
 #include "i_system.h"
 }
 
+#include <vcclr.h>
+
+gcroot<List<Seg^>^> segs;
+
 extern "C" void P_LoadVertexes(int lumpid)
 {
 	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
@@ -206,6 +210,59 @@ extern "C" void P_SpawnThings()
 	{
 		P_SpawnMapThing(thing->ptr);
 	}
+}
+
+void P_LoadSegs2(int lumpid)
+{
+	segs = gcnew List<Seg^>();
+	segs->Clear();
+	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
+	int count = data->Length / 12;
+	if (data->Length % 12)
+		Core::Console->LogWarning("This map's SEGS lump has an irregular length.");
+	for (int i = 0;i < count;i++)
+	{
+		int startnum = (unsigned short)BitConv::FromInt16(data,i * 12 + 0);
+		int endnum = (unsigned short)BitConv::FromInt16(data,i * 12 + 2);
+		unsigned int angle = BitConv::FromInt16(data,i * 12 + 4) << 16;
+		int linenum = (unsigned short)BitConv::FromInt16(data,i * 12 + 6);
+		int isbackside = (unsigned short)BitConv::FromInt16(data,i * 12 + 8);
+		Fixed offset = Fixed::FromInt(BitConv::FromInt16(data,i * 12 + 10));
+		if (startnum >= world->Vertices->Count)
+		{
+			Core::Console->LogError("Seg {0} references non-existent vertex {1}.",i,startnum);
+			I_Error("Bad seg->vertex reference");
+		}
+		DVertex^ start = (DVertex^)world->Vertices[startnum];
+		if (endnum >= world->Vertices->Count)
+		{
+			Core::Console->LogError("Seg {0} references non-existent vertex {1}.",i,endnum);
+			I_Error("Bad seg->vertex reference");
+		}
+		DVertex^ end = (DVertex^)world->Vertices[endnum];
+		if (linenum >= world->Sidedefs->Count)
+		{
+			Core::Console->LogError("Seg {0} references non-existent linedef {1}.",i,linenum);
+			I_Error("Bad seg->linedef reference");
+		}
+		DLinedef^ linedef = (DLinedef^)world->Linedefs[linenum];
+		if (isbackside != 0 && isbackside != 1)
+		{
+			Core::Console->LogWarning("Seg {0} has non-boolean side number {1}.",i,isbackside);
+		}
+		DSeg^ seg = gcnew DSeg(world,start,end,linedef,isbackside,angle,offset);
+		segs->Add(seg);
+	}
+}
+
+extern "C" void P_LoadSegs(int lumpid)
+{
+	P_LoadSegs2(lumpid);
+}
+
+extern "C" seg_t *P_GetSeg(int i)
+{
+	return ((DSeg^)segs->default[i])->ptr;
 }
 
 extern "C" void P_LoadBlockMap(int lumpid)

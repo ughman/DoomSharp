@@ -50,6 +50,7 @@
     <Compile Include="Game Code\CeilingDirection.cs" />
     <Compile Include="Game Code\CeilingType.cs" />
     <Compile Include="Game Code\CompatFlags.cs" />
+    <Compile Include="Game Code\Seg.cs" />
     <Compile Include="Game Code\LinedefActivationType.cs" />
     <Compile Include="Game Code\LinedefSpecialAttribute.cs" />
     <Compile Include="Game Code\LinedefSpecial.cs" />

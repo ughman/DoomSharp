@@ -61,9 +61,6 @@ extern int*		texturetranslation;
 extern int		numsprites;
 extern spritedef_t*	sprites;
 
-extern int		numsegs;
-extern seg_t*		segs;
-
 extern int		numsubsectors;
 extern subsector_t*	subsectors;
 

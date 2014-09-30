@@ -498,8 +498,10 @@ boolean R_CheckBBox (fixed_t*	bspcoord)
 void R_Subsector (int num)
 {
     int			count;
-    seg_t*		line;
+	int firstline;
+	int i;
     subsector_t*	sub;
+	seg_t *seg;
 	
 #ifdef RANGECHECK
     if (num>=numsubsectors)
@@ -512,7 +514,7 @@ void R_Subsector (int num)
     sub = &subsectors[num];
     frontsector = sub->sector;
     count = sub->numlines;
-    line = &segs[sub->firstline];
+	firstline = sub->firstline;
 
     if (frontsector->floorheight < viewz)
     {
@@ -535,10 +537,10 @@ void R_Subsector (int num)
 		
     R_AddSprites (frontsector);	
 
-    while (count--)
+	for (i = 0;i < count;i++)
     {
-	R_AddLine (line);
-	line++;
+		seg = P_GetSeg(firstline + i);
+	R_AddLine (seg);
     }
 }
 

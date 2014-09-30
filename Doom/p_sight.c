@@ -150,6 +150,8 @@ boolean P_CrossSubsector (int num)
     vertex_t*		v2;
     fixed_t		frac;
     fixed_t		slope;
+	int i;
+	int firstline;
 	
 #ifdef RANGECHECK
     if (num>=numsubsectors)
@@ -162,10 +164,11 @@ boolean P_CrossSubsector (int num)
     
     // check lines
     count = sub->numlines;
-    seg = &segs[sub->firstline];
+    firstline = sub->firstline;
 
-    for ( ; count ; seg++, count--)
-    {
+    for (i = 0;i < count;i++)
+	{
+		seg = P_GetSeg(firstline + i);
 	line = seg->linedef;
 
 	// allready checked other side?

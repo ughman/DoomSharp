@@ -314,4 +314,76 @@ public:
 	}
 };
 
+ref class DSeg : Seg
+{
+public:
+	static DSeg^ FromPtr(seg_t *ptr)
+	{
+		return ptr ? (DSeg^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
+	seg_t *ptr;
+
+	DSeg(::World^ world,DVertex^ start,DVertex^ end,DLinedef^ linedef,bool isbackside,unsigned int angle,Fixed offset) : Seg(world,start,end,linedef,isbackside,angle,offset)
+	{
+		ptr = new seg_t;
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
+		ptr->v1 = start->ptr;
+		ptr->v2 = end->ptr;
+		ptr->angle = angle;
+		ptr->offset = offset.Value;
+		ptr->sidedef = linedef->ptr->side[isbackside];
+		ptr->linedef = linedef->ptr;
+		if (linedef->ptr->side[isbackside])
+			ptr->frontsector = linedef->ptr->side[isbackside]->sector;
+		else
+			ptr->frontsector = NULL;
+		if (linedef->ptr->side[!isbackside] && (linedef->ptr->flags & ML_TWOSIDED))
+			ptr->backsector = linedef->ptr->side[!isbackside]->sector;
+		else
+			ptr->backsector = NULL;
+	}
+
+	virtual property Vertex^ start
+	{
+		Vertex^ get() override { return DVertex::FromPtr(ptr->v1); }
+		void set(Vertex^ value) override { ptr->v1 = ((DVertex^)value)->ptr; }
+	}
+
+	virtual property Vertex^ end
+	{
+		Vertex^ get() override { return DVertex::FromPtr(ptr->v2); }
+		void set(Vertex^ value) override { ptr->v2 = ((DVertex^)value)->ptr; }
+	}
+
+	virtual property DoomSharp::Linedef^ linedef
+	{
+		DoomSharp::Linedef^ get() override { return DLinedef::FromPtr(ptr->linedef); }
+		void set(DoomSharp::Linedef^ value) override { ptr->linedef = ((DLinedef^)value)->ptr; }
+	}
+
+	virtual property unsigned int angle
+	{
+		unsigned int get() override { return ptr->angle; }
+		void set(unsigned int value) override { ptr->angle = value; }
+	}
+
+	virtual property Fixed offset
+	{
+		Fixed get() override { return Fixed(ptr->offset); }
+		void set(Fixed value) override { ptr->offset = value.Value; }
+	}
+
+	~DSeg()
+	{
+		this->!DSeg();
+	}
+
+	!DSeg()
+	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
+		delete ptr;
+	}
+};
+
 #endif
