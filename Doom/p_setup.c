@@ -54,9 +54,6 @@ void	P_SpawnMapThing (mapthing_t*	mthing);
 // MAP related Lookup tables.
 // Store VERTEXES, LINEDEFS, SIDEDEFS, etc.
 //
-int		numsubsectors;
-subsector_t*	subsectors;
-
 int		numnodes;
 node_t*		nodes;
 
@@ -84,34 +81,6 @@ mapthing_t	playerstarts[MAXPLAYERS];
 
 
 
-
-
-//
-// P_LoadSubsectors
-//
-void P_LoadSubsectors (int lump)
-{
-    byte*		data;
-    int			i;
-    mapsubsector_t*	ms;
-    subsector_t*	ss;
-	
-    numsubsectors = W_LumpLength (lump) / sizeof(mapsubsector_t);
-    subsectors = Z_Malloc (numsubsectors*sizeof(subsector_t),PU_LEVEL,0);	
-    data = W_CacheLumpNum (lump,PU_STATIC);
-	
-    ms = (mapsubsector_t *)data;
-    memset (subsectors,0, numsubsectors*sizeof(subsector_t));
-    ss = subsectors;
-    
-    for (i=0 ; i<numsubsectors ; i++, ss++, ms++)
-    {
-	ss->numlines = SHORT(ms->numsegs);
-	ss->firstline = SHORT(ms->firstseg);
-    }
-	
-    Z_Free (data);
-}
 
 
 //
@@ -165,18 +134,9 @@ void P_GroupLines (void)
     int			total;
     line_t*		li;
     sector_t*		sector;
-    subsector_t*	ss;
     seg_t*		seg;
     fixed_t		bbox[4];
     int			block;
-	
-    // look up sector number for each subsector
-    ss = subsectors;
-    for (i=0 ; i<numsubsectors ; i++, ss++)
-    {
-	seg = P_GetSeg(ss->firstline);
-	ss->sector = seg->sidedef->sector;
-    }
 
     // count number of lines in each sector
     total = 0;
@@ -321,9 +281,9 @@ P_SetupLevel
     P_LoadSideDefs (lumpnum+ML_SIDEDEFS);
 
     P_LoadLineDefs (lumpnum+ML_LINEDEFS);
+	P_LoadSegs (lumpnum+ML_SEGS);
     P_LoadSubsectors (lumpnum+ML_SSECTORS);
     P_LoadNodes (lumpnum+ML_NODES);
-    P_LoadSegs (lumpnum+ML_SEGS);
 	P_LoadBlockMap (lumpnum+ML_BLOCKMAP);
 	
 	rejectsize = W_LumpLength(lumpnum + ML_REJECT);

@@ -231,6 +231,8 @@ typedef struct line_s
 //
 typedef struct subsector_s
 {
+	void *handle;
+
     sector_t*	sector;
     short	numlines;
     short	firstline;

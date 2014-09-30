@@ -152,15 +152,8 @@ boolean P_CrossSubsector (int num)
     fixed_t		slope;
 	int i;
 	int firstline;
-	
-#ifdef RANGECHECK
-    if (num>=numsubsectors)
-	I_Error ("P_CrossSubsector: ss %i with numss = %i",
-		 num,
-		 numsubsectors);
-#endif
 
-    sub = &subsectors[num];
+    sub = P_GetSubsector(num);
     
     // check lines
     count = sub->numlines;

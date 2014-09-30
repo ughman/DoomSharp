@@ -809,7 +809,7 @@ R_PointInSubsector
 
     // single subsector is a special case
     if (!numnodes)				
-	return subsectors;
+	return P_GetSubsector(0);
 		
     nodenum = numnodes-1;
 
@@ -820,7 +820,7 @@ R_PointInSubsector
 	nodenum = node->children[side];
     }
 	
-    return &subsectors[nodenum & ~NF_SUBSECTOR];
+    return P_GetSubsector(nodenum & ~NF_SUBSECTOR);
 }
 
 

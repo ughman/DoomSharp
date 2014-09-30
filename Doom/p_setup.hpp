@@ -386,4 +386,33 @@ public:
 	}
 };
 
+ref class DSubsector : Subsector
+{
+public:
+	static DSubsector^ FromPtr(subsector_t *ptr)
+	{
+		return ptr ? (DSubsector^)GCHandle::FromIntPtr((IntPtr)ptr->handle).Target : nullptr;
+	}
+
+	subsector_t *ptr;
+
+	DSubsector(::World^ world,::Sector^ sector) : Subsector(world,sector)
+	{
+		ptr = new subsector_t;
+		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
+		ptr->sector = ((DSector^)sector)->ptr;
+	}
+
+	~DSubsector()
+	{
+		this->!DSubsector();
+	}
+
+	!DSubsector()
+	{
+		GCHandle::FromIntPtr((IntPtr)ptr->handle).Free();
+		delete ptr;
+	}
+};
+
 #endif

@@ -9,6 +9,7 @@ extern "C"
 #include <vcclr.h>
 
 gcroot<List<Seg^>^> segs;
+gcroot<List<Subsector^>^> subsectors;
 
 extern "C" void P_LoadVertexes(int lumpid)
 {
@@ -263,6 +264,53 @@ extern "C" void P_LoadSegs(int lumpid)
 extern "C" seg_t *P_GetSeg(int i)
 {
 	return ((DSeg^)segs->default[i])->ptr;
+}
+
+void P_LoadSubsectors2(int lumpid)
+{
+	subsectors = gcnew List<Subsector^>();
+	array<unsigned char>^ data = Core::Archives[lumpid]->Read();
+	int count = data->Length / 4;
+	if (data->Length % 4)
+		Core::Console->LogWarning("This map's SSECTORS lump has an irregular length.");
+	for (int i = 0;i < count;i++)
+	{
+		int segcount = (unsigned short)BitConv::FromInt16(data,i * 4 + 0);
+		int firstseg = (unsigned short)BitConv::FromInt16(data,i * 4 + 2);
+		if (firstseg + segcount > segs->Count)
+		{
+			Core::Console->LogError("Subsector {0} references bad seg range {1} ... {2}. Seg count is only {3}.",i,firstseg,firstseg + segcount,segs->Count);
+			I_Error("Bad subsector->seg reference");
+		}
+		if (segcount <= 0)
+		{
+			Core::Console->LogError("Subsector {0} is empty.",i);
+			I_Error("Bad subsector, segcount is zero");
+		}
+		if (segs->default[firstseg]->Front == nullptr)
+		{
+			Core::Console->LogError("Subsector {0} has a null sector.",i);
+			I_Error("Bad subsector, null sector on first seg");
+		}
+		Subsector^ subsector = gcnew DSubsector(world,segs->default[firstseg]->Front->Sector);
+		for (int i = 0;i < segcount;i++)
+		{
+			subsector->AddSeg(segs->default[i + firstseg]);
+		}
+		((DSubsector^)subsector)->ptr->numlines = segcount;
+		((DSubsector^)subsector)->ptr->firstline = firstseg;
+		subsectors->Add(subsector);
+	}
+}
+
+extern "C" void P_LoadSubsectors(int lumpid)
+{
+	P_LoadSubsectors2(lumpid);
+}
+
+extern "C" subsector_t *P_GetSubsector(int i)
+{
+	return ((DSubsector^)subsectors->default[i])->ptr;
 }
 
 extern "C" void P_LoadBlockMap(int lumpid)
