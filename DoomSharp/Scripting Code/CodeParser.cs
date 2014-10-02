@@ -504,14 +504,7 @@ namespace DoomSharp
             }
             else if (scanner.TryGetIdentifier(out strvalue))
             {
-                if (strvalue.StartsWith("$"))
-                {
-                    return new EnvironmentExpression(strvalue);
-                }
-                else
-                {
-                    return new VariableExpression(strvalue);
-                }
+                return new VariableExpression(strvalue);
             }
             else if (scanner.TryGetInteger(out intvalue))
             {
@@ -520,6 +513,10 @@ namespace DoomSharp
             else if (scanner.TryGetString(out strvalue))
             {
                 return new StringLiteralExpression(strvalue);
+            }
+            else if (scanner.TryGetSpecial(out strvalue))
+            {
+                return new EnvironmentExpression(strvalue);
             }
             else if (scanner.TryGetDelimiter("("))
             {

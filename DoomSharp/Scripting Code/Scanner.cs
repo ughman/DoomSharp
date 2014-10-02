@@ -102,7 +102,7 @@ namespace DoomSharp
                     input = input.Remove(0,2);
                     spaced = true;
                 }
-                else if (spaced && (char.IsLetter(input[0]) || input[0] == '$'))
+                else if (spaced && char.IsLetter(input[0]))
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.Append(input[0]);
@@ -185,6 +185,19 @@ namespace DoomSharp
                     }
                     input = input.Remove(0,1);
                     tokens.Add(new Token(TokenType.String,sb.ToString()));
+                    spaced = false;
+                }
+                else if (spaced && input[0] == '$')
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(input[0]);
+                    input = input.Remove(0,1);
+                    while (char.IsLetterOrDigit(input[0]))
+                    {
+                        sb.Append(input[0]);
+                        input = input.Remove(0,1);
+                    }
+                    tokens.Add(new Token(TokenType.Special,sb.ToString()));
                     spaced = false;
                 }
                 else
@@ -284,6 +297,21 @@ namespace DoomSharp
             }
         }
 
+        public bool TryGetSpecial(out string value)
+        {
+            if (tokens.Count > 0 && tokens[0].Type == TokenType.Special)
+            {
+                value = (string)tokens[0].Value;
+                tokens.RemoveAt(0);
+                return true;
+            }
+            else
+            {
+                value = null;
+                return false;
+            }
+        }
+
         public bool TryGetEnd()
         {
             if (tokens.Count == 0)
@@ -331,6 +359,14 @@ namespace DoomSharp
         public void GetString(out string value)
         {
             if (!TryGetString(out value))
+            {
+                throw new ApplicationException();
+            }
+        }
+
+        public void GetSpecial(out string value)
+        {
+            if (!TryGetSpecial(out value))
             {
                 throw new ApplicationException();
             }
@@ -405,7 +441,8 @@ namespace DoomSharp
             Identifier,
             Integer,
             Float,
-            String
+            String,
+            Special
         }
     }
 }
