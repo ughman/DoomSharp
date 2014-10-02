@@ -167,6 +167,9 @@ int             joybfire;
 int             joybstrafe; 
 int             joybuse; 
 int             joybspeed; 
+
+int alwaysrun;
+int nomousewalk;
  
  
  
@@ -257,7 +260,7 @@ void G_BuildTiccmd (ticcmd_t* cmd)
  
     strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] 
 	|| joybuttons[joybstrafe]; 
-    speed = gamekeydown[key_speed] || joybuttons[joybspeed];
+    speed = gamekeydown[key_speed] || joybuttons[joybspeed] || alwaysrun;
  
     forward = side = 0;
     
@@ -404,6 +407,7 @@ void G_BuildTiccmd (ticcmd_t* cmd)
 	} 
     } 
  
+	if (!nomousewalk)
     forward += mousey; 
     if (strafe) 
 	side += mousex*2; 

@@ -191,6 +191,9 @@ extern int	joybstrafe;
 extern int	joybuse;
 extern int	joybspeed;
 
+extern int alwaysrun;
+extern int nomousewalk;
+
 extern int	viewwidth;
 extern int	viewheight;
 
@@ -271,6 +274,8 @@ default_t	defaults[] =
     {"joyb_strafe",&joybstrafe,1},
     {"joyb_use",&joybuse,3},
     {"joyb_speed",&joybspeed,2},
+	{"alwaysrun",&alwaysrun,0},
+	{"nomousewalk",&nomousewalk,0},
 
     {"screenblocks",&screenblocks, 9},
     {"detaillevel",&detailLevel, 0},
