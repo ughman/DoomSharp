@@ -43,18 +43,11 @@ void I_InitSound();
 
 // ... update sound buffer and audio device at runtime...
 void I_UpdateSound(void);
-void I_SubmitSound(void);
-
-// ... shut down and relase at program termination.
-void I_ShutdownSound(void);
 
 
 //
 //  SFX I/O
 //
-
-// Initialize channels?
-void I_SetChannels();
 
 // Get raw data lump index for sound descriptor.
 int I_GetSfxLumpNum (sfxinfo_t* sfxinfo );
@@ -91,8 +84,6 @@ I_UpdateSoundParams
 //
 //  MUSIC I/O
 //
-void I_InitMusic(void);
-void I_ShutdownMusic(void);
 // Volume.
 void I_SetMusicVolume(int volume);
 // PAUSE game handling.

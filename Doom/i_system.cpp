@@ -16,10 +16,6 @@ extern "C"
 
 gcroot<Stopwatch^> stopwatch;
 
-extern "C" void I_Tactile(int on,int off,int total)
-{
-}
-
 extern "C" void I_Delay(int tics)
 {
 	Thread::Sleep(tics * 1000 / TICRATE);
@@ -52,10 +48,7 @@ extern "C" void I_Init()
 extern "C" void I_Quit()
 {
 	D_QuitNetGame();
-	I_ShutdownSound();
-	I_ShutdownMusic();
 	M_SaveDefaults();
-	I_ShutdownGraphics();
 	exit(0);
 }
 

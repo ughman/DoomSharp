@@ -88,10 +88,6 @@ S_ChangeMusic
 // Stops the music fer sure.
 void S_StopMusic(void);
 
-// Stop and resume music, during game PAUSE.
-void S_PauseSound(void);
-void S_ResumeSound(void);
-
 
 //
 // Updates music & sounds

@@ -60,7 +60,6 @@ extern "C" void D_DoomLoop()
 	{
 		G_BeginRecording();
 	}
-	I_InitMusic();
 	if (M_CheckParm("-novideo"))
 	{
 		while (true)
@@ -78,7 +77,6 @@ extern "C" void D_DoomLoop()
 
 void D_DoomTick()
 {
-	I_StartFrame();
 	if (singletics)
 	{
 		I_StartTic();
@@ -100,5 +98,4 @@ void D_DoomTick()
 	S_UpdateSounds(players[consoleplayer].mo);
 	if (!M_CheckParm("-novideo") && fastforward <= gamemap)
 		D_Display();
-	I_SubmitSound();
 }

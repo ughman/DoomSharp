@@ -18,11 +18,6 @@ extern "C"
 
 gcroot<AudioContext^> context;
 
-extern "C" void I_SetChannels()
-{
-	// TODO
-}
-
 extern "C" void I_SetMusicVolume(int volume)
 {
 	// TODO
@@ -76,25 +71,7 @@ extern "C" void I_UpdateSoundParams(int handle,int vol,int sep,int pitch)
 	AL::Source(handle,ALSourcef::Gain,vol / 15.0);
 }
 
-extern "C" void I_ShutdownSound()
-{
-	// TODO
-}
-
 extern "C" void I_InitSound()
 {
 	context = gcnew AudioContext();
-}
-
-extern "C" void I_InitMusic()
-{
-}
-
-extern "C" void I_ShutdownMusic()
-{
-	// TODO
-}
-
-extern "C" void I_SubmitSound()
-{
 }

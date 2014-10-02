@@ -13,10 +13,6 @@ extern "C"
 #include <map>
 #include <vcclr.h>
 
-extern "C" void W_Reload()
-{
-}
-
 extern "C" void W_InitMultipleFiles(char **filenames)
 {
 	for (;*filenames;filenames++)

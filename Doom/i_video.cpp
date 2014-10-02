@@ -16,16 +16,6 @@ extern "C"
 
 #include <vcclr.h>
 
-extern "C" void I_ShutdownGraphics()
-{
-	// TODO
-}
-
-extern "C" void I_StartFrame()
-{
-	// TODO
-}
-
 void I_StartTic2()
 {
 	MouseState mouse = Mouse::GetState();
@@ -54,11 +44,6 @@ void I_StartTic2()
 extern "C" void I_StartTic()
 {
 	I_StartTic2();
-}
-
-extern "C" void I_UpdateNoBlit()
-{
-	// TODO
 }
 
 extern "C" void I_FinishUpdate()
