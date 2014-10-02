@@ -324,13 +324,13 @@ public:
 
 	seg_t *ptr;
 
-	DSeg(::World^ world,DVertex^ start,DVertex^ end,DLinedef^ linedef,bool isbackside,unsigned int angle,Fixed offset) : Seg(world,start,end,linedef,isbackside,angle,offset)
+	DSeg(::World^ world,DVertex^ start,DVertex^ end,DLinedef^ linedef,bool isbackside,::Angle angle,Fixed offset) : Seg(world,start,end,linedef,isbackside,angle,offset)
 	{
 		ptr = new seg_t;
 		ptr->handle = (void *)GCHandle::ToIntPtr(GCHandle::Alloc(this,GCHandleType::Weak));
 		ptr->v1 = start->ptr;
 		ptr->v2 = end->ptr;
-		ptr->angle = angle;
+		ptr->angle = angle.Value;
 		ptr->offset = offset.Value;
 		ptr->sidedef = linedef->ptr->side[isbackside];
 		ptr->linedef = linedef->ptr;
@@ -362,10 +362,10 @@ public:
 		void set(DoomSharp::Linedef^ value) override { ptr->linedef = ((DLinedef^)value)->ptr; }
 	}
 
-	virtual property unsigned int angle
+	virtual property ::Angle angle
 	{
-		unsigned int get() override { return ptr->angle; }
-		void set(unsigned int value) override { ptr->angle = value; }
+		::Angle get() override { return ::Angle(ptr->angle); }
+		void set(::Angle value) override { ptr->angle = value.Value; }
 	}
 
 	virtual property Fixed offset

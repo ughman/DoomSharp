@@ -225,7 +225,7 @@ void P_LoadSegs2(int lumpid)
 	{
 		int startnum = (unsigned short)BitConv::FromInt16(data,i * 12 + 0);
 		int endnum = (unsigned short)BitConv::FromInt16(data,i * 12 + 2);
-		unsigned int angle = BitConv::FromInt16(data,i * 12 + 4) << 16;
+		Angle angle = Angle(BitConv::FromInt16(data,i * 12 + 4) << 16);
 		int linenum = (unsigned short)BitConv::FromInt16(data,i * 12 + 6);
 		int isbackside = (unsigned short)BitConv::FromInt16(data,i * 12 + 8);
 		Fixed offset = Fixed::FromInt(BitConv::FromInt16(data,i * 12 + 10));

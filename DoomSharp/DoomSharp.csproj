@@ -38,6 +38,7 @@
   -->
   <ItemGroup>
     <Compile Include="Chain.cs" />
+    <Compile Include="Angle.cs" />
     <Compile Include="Core Code\Core.cs" />
     <Compile Include="Core Code\DoomConsole.cs" />
     <Compile Include="Core Code\GameState.cs" />

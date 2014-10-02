@@ -9,7 +9,7 @@ namespace DoomSharp
         protected abstract Fixed x { get; set; }
         protected abstract Fixed y { get; set; }
         protected abstract Fixed z { get; set; }
-        protected abstract uint angle { get; set; }
+        protected abstract Angle angle { get; set; }
         protected abstract int spritenum { get; set; }
         protected abstract int spriteframe { get; set; }
         protected abstract Fixed radius { get; set; }
@@ -144,7 +144,7 @@ namespace DoomSharp
             set { z = value; }
         }
 
-        public uint Angle
+        public Angle Angle
         {
             get { return angle; }
             set { angle = value; }

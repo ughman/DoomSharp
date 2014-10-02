@@ -10,10 +10,10 @@ namespace DoomSharp
         protected abstract Linedef linedef { get; set; }
         private Sidedef front;
         private Sidedef back;
-        protected abstract uint angle { get; set; }
+        protected abstract Angle angle { get; set; }
         protected abstract Fixed offset { get; set; }
 
-        public Seg(World world,Vertex start,Vertex end,Linedef linedef,bool isbackside,uint angle,Fixed offset)
+        public Seg(World world,Vertex start,Vertex end,Linedef linedef,bool isbackside,Angle angle,Fixed offset)
         {
             if (world == null)
                 throw new ArgumentNullException("world");
@@ -77,7 +77,7 @@ namespace DoomSharp
             get { return back; }
         }
 
-        public uint Angle
+        public Angle Angle
         {
             get { return angle; }
         }

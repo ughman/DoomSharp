@@ -58,10 +58,10 @@ public:
 		void set(Fixed value) override { mobj->z = value.Value; }
 	}
 
-	virtual property unsigned int angle
+	virtual property ::Angle angle
 	{
-		unsigned int get() override { return mobj->angle; }
-		void set(unsigned int value) override { mobj->angle = value; }
+		::Angle get() override { return ::Angle(mobj->angle); }
+		void set(::Angle value) override { mobj->angle = value.Value; }
 	}
 
 	virtual property int spritenum
