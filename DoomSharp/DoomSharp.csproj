@@ -133,6 +133,7 @@
     <Compile Include="Scripting Code\Scanner.cs" />
     <Compile Include="Registrar\RegistrarTypeHandlerAttribute.cs" />
     <Compile Include="Registrar\Registrar.cs" />
+    <Compile Include="Scripting Code\ScriptAccessType.cs" />
     <Compile Include="Scripting Code\Statements\BlockStatement.cs" />
     <Compile Include="Scripting Code\Statements\ReturnStatement.cs" />
     <Compile Include="Scripting Code\Statements\ForEachStatement.cs" />

@@ -18,7 +18,7 @@ namespace DoomSharp
         public override Type Evaluate(CodeContext c)
         {
             Type type = Inner.Evaluate(c);
-            MemberInfo member = GetMember(type);
+            MemberInfo member = GetMember(type,ScriptAccessType.Get);
             if (member.MemberType == MemberTypes.Field)
             {
                 FieldInfo field = (FieldInfo)member;
@@ -44,7 +44,7 @@ namespace DoomSharp
         public override void Assign(CodeContext c,Expression source)
         {
             Type type = Inner.Evaluate(c);
-            MemberInfo member = GetMember(type);
+            MemberInfo member = GetMember(type,ScriptAccessType.Set);
             if (member.MemberType == MemberTypes.Field)
             {
                 FieldInfo field = (FieldInfo)member;
@@ -76,7 +76,7 @@ namespace DoomSharp
         public override Type Invoke(CodeContext c,Expression[] arguments)
         {
             Type type = Inner.Evaluate(c);
-            MemberInfo member = GetMember(type);
+            MemberInfo member = GetMember(type,ScriptAccessType.Invoke);
             if (member.MemberType == MemberTypes.Method)
             {
                 MethodInfo method = (MethodInfo)member;
@@ -99,16 +99,17 @@ namespace DoomSharp
             }
         }
 
-        private MemberInfo GetMember(Type type)
+        private MemberInfo GetMember(Type type,ScriptAccessType accesstype)
         {
             foreach (MemberInfo member in type.GetMembers(BindingFlags.Public | BindingFlags.Instance))
             {
                 foreach (ScriptableAttribute attribute in member.GetCustomAttributes(typeof(ScriptableAttribute),false))
                 {
-                    if ((attribute.Name ?? member.Name) == membername)
-                    {
-                        return member;
-                    }
+                    if ((attribute.Name ?? member.Name) != membername)
+                        continue;
+                    if ((attribute.AccessType & accesstype) != accesstype)
+                        continue;
+                    return member;
                 }
             }
             throw new ApplicationException();
