@@ -718,7 +718,7 @@ void G_Ticker (void)
 			strcpy (savedescription, "NET GAME"); 
 		    savegameslot =  
 			(players[i].cmd.buttons & BTS_SAVEMASK)>>BTS_SAVESHIFT; 
-		    gameaction = ga_savegame; 
+			B_LogInfo("Ignored demo or netgame save game command.");
 		    break; 
 		} 
 	    } 
