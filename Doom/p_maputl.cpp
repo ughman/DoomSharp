@@ -31,3 +31,13 @@ extern "C" int P_BlockThingsIterator(int x,int y,int (*func)(mobj_t *))
 	}
 	return true;
 }
+
+extern "C" void P_SetThingPosition(mobj_t *thing)
+{
+	DActor::FromPtr(thing)->Link();
+}
+
+extern "C" void P_UnsetThingPosition(mobj_t *thing)
+{
+	DActor::FromPtr(thing)->Unlink();
+}

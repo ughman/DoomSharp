@@ -6,6 +6,7 @@ namespace DoomSharp
     [Scriptable]
     public abstract class Actor : Thinker
     {
+        private bool linked;
         protected abstract Fixed x { get; set; }
         protected abstract Fixed y { get; set; }
         protected abstract Fixed z { get; set; }
@@ -66,6 +67,7 @@ namespace DoomSharp
 
         public Actor(World world) : base(world)
         {
+            this.linked = false;
             // TODO :: x
             // TODO :: y
             // TODO :: z
@@ -124,6 +126,11 @@ namespace DoomSharp
             this.species = GetType();
             this.states = new Dictionary<string,int>();
             DefineState("Spawn",0);
+        }
+
+        public bool Linked
+        {
+            get { return linked; }
         }
 
         [Scriptable(ScriptAccessType.Get)]
@@ -504,6 +511,47 @@ namespace DoomSharp
             get { return species; }
             set { species = value; }
         }
+
+        public void Link()
+        {
+            if (linked)
+                throw new InvalidOperationException();
+            linked = true;
+            LinkSubsector();
+            if (!nosector)
+                LinkSector();
+            if (!noblockmap)
+            {
+                int blockx = (x - World.Blockmap.XOffset).IntValue / 128;
+                int blocky = (y - World.Blockmap.YOffset).IntValue / 128;
+                if (blockx >= 0 && blockx < World.Blockmap.Width && blocky >= 0 && blocky < World.Blockmap.Height)
+                {
+                    World.Blockmap[blockx,blocky].AddActor(this);
+                }
+            }
+        }
+
+        public void Unlink()
+        {
+            if (!linked)
+                throw new InvalidOperationException();
+            linked = false;
+            if (!nosector)
+                UnlinkSector();
+            if (!noblockmap)
+            {
+                int blockx = (x - World.Blockmap.XOffset).IntValue / 128;
+                int blocky = (y - World.Blockmap.YOffset).IntValue / 128;
+                if (blockx >= 0 && blockx < World.Blockmap.Width && blocky >= 0 && blocky < World.Blockmap.Height)
+                {
+                    World.Blockmap[blockx,blocky].RemoveActor(this);
+                }
+            }
+        }
+
+        protected abstract void LinkSubsector();
+        protected abstract void LinkSector();
+        protected abstract void UnlinkSector();
 
         public void DefineState(string name,int statenum)
         {

@@ -374,13 +374,3 @@ extern "C" int P_GetBlockmapHeight()
 {
 	return world->Blockmap->Height;
 }
-
-extern "C" void P_BlockActorAdd(int x,int y,mobj_t *mobj)
-{
-	world->Blockmap[x,y]->AddActor(DActor::FromPtr(mobj));
-}
-
-extern "C" void P_BlockActorRemove(int x,int y,mobj_t *mobj)
-{
-	world->Blockmap[x,y]->RemoveActor(DActor::FromPtr(mobj));
-}

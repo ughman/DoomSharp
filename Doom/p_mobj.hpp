@@ -201,6 +201,30 @@ public:
 		void set(Actor^ value) override { mobj->tracer = value ? ((DActor^)value)->mobj : NULL; }
 	}
 
+	virtual void LinkSubsector() override
+	{
+		mobj->subsector = R_PointInSubsector(mobj->x,mobj->y);
+	}
+
+	virtual void LinkSector() override
+	{
+		mobj->sprev = NULL;
+		mobj->snext = mobj->subsector->sector->thinglist;
+		if (mobj->subsector->sector->thinglist)
+			mobj->subsector->sector->thinglist->sprev = mobj;
+		mobj->subsector->sector->thinglist = mobj;
+	}
+
+	virtual void UnlinkSector() override
+	{
+		if (mobj->snext)
+			mobj->snext->sprev = mobj->sprev;
+		if (mobj->sprev)
+			mobj->sprev->snext = mobj->snext;
+		else
+			mobj->subsector->sector->thinglist = mobj->snext;
+	}
+
 	virtual bool Tick() override
 	{
 		if (mobj->thinker.function.acp1 == (actionf_p1)-1)
