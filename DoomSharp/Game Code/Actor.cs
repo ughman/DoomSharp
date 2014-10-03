@@ -134,6 +134,7 @@ namespace DoomSharp
             DefineState("Spawn",0);
         }
 
+        [Scriptable]
         public bool Linked
         {
             get { return linked; }
@@ -161,7 +162,7 @@ namespace DoomSharp
             }
         }
 
-        [Scriptable(ScriptAccessType.Get)]
+        [Scriptable]
         public Fixed X
         {
             get { return x; }
@@ -173,7 +174,7 @@ namespace DoomSharp
             }
         }
 
-        [Scriptable(ScriptAccessType.Get)]
+        [Scriptable]
         public Fixed Y
         {
             get { return y; }
@@ -185,7 +186,7 @@ namespace DoomSharp
             }
         }
 
-        [Scriptable(ScriptAccessType.Get)]
+        [Scriptable]
         public Fixed Z
         {
             get { return z; }
@@ -284,7 +285,7 @@ namespace DoomSharp
             set { shootable = value; }
         }
 
-        [Scriptable(ScriptAccessType.Get)]
+        [Scriptable]
         public bool NoSector
         {
             get { return nosector; }
@@ -296,7 +297,7 @@ namespace DoomSharp
             }
         }
 
-        [Scriptable(ScriptAccessType.Get)]
+        [Scriptable]
         public bool NoBlockmap
         {
             get { return noblockmap; }
@@ -565,6 +566,7 @@ namespace DoomSharp
             set { species = value; }
         }
 
+        [Scriptable]
         public void Link()
         {
             if (linked)
@@ -589,6 +591,7 @@ namespace DoomSharp
             }
         }
 
+        [Scriptable]
         public void Unlink()
         {
             if (!linked)
