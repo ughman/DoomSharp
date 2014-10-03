@@ -27,12 +27,14 @@ namespace DoomSharp
             get { return world; }
         }
 
+        [Scriptable]
         public Fixed X
         {
             get { return x; }
             set { x = value; }
         }
 
+        [Scriptable]
         public Fixed Y
         {
             get { return y; }

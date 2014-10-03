@@ -29,17 +29,20 @@ namespace DoomSharp
             get { return world; }
         }
 
+        [Scriptable]
         public Sector Sector
         {
             get { return sector; }
         }
 
+        [Scriptable]
         public Fixed XOffset
         {
             get { return xoffset; }
             set { xoffset = value; }
         }
 
+        [Scriptable]
         public Fixed YOffset
         {
             get { return yoffset; }

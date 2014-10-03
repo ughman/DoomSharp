@@ -44,21 +44,25 @@ namespace DoomSharp
             get { return world; }
         }
 
+        [Scriptable]
         public Vertex Start
         {
             get { return start; }
         }
 
+        [Scriptable]
         public Vertex End
         {
             get { return end; }
         }
 
+        [Scriptable]
         public Sidedef Front
         {
             get { return front; }
         }
 
+        [Scriptable]
         public Sidedef Back
         {
             get { return back; }

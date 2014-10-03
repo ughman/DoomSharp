@@ -126,24 +126,28 @@ namespace DoomSharp
             DefineState("Spawn",0);
         }
 
+        [Scriptable(ScriptAccessType.Get)]
         public Fixed X
         {
             get { return x; }
             set { x = value; }
         }
 
+        [Scriptable(ScriptAccessType.Get)]
         public Fixed Y
         {
             get { return y; }
             set { y = value; }
         }
 
+        [Scriptable(ScriptAccessType.Get)]
         public Fixed Z
         {
             get { return z; }
             set { z = value; }
         }
 
+        [Scriptable]
         public Angle Angle
         {
             get { return angle; }
@@ -162,36 +166,42 @@ namespace DoomSharp
             set { spriteframe = value; }
         }
 
+        [Scriptable]
         public Fixed Radius
         {
             get { return radius; }
             set { radius = value; }
         }
 
+        [Scriptable]
         public Fixed Height
         {
             get { return height; }
             set { height = value; }
         }
 
+        [Scriptable]
         public Fixed XMomentum
         {
             get { return xmomentum; }
             set { xmomentum = value; }
         }
 
+        [Scriptable]
         public Fixed YMomentum
         {
             get { return ymomentum; }
             set { ymomentum = value; }
         }
 
+        [Scriptable]
         public Fixed ZMomentum
         {
             get { return zmomentum; }
             set { zmomentum = value; }
         }
 
+        [Scriptable]
         public int Ticks
         {
             get { return ticks; }
@@ -210,60 +220,70 @@ namespace DoomSharp
             set { special = value; }
         }
 
+        [Scriptable]
         public bool Solid
         {
             get { return solid; }
             set { solid = value; }
         }
 
+        [Scriptable]
         public bool Shootable
         {
             get { return shootable; }
             set { shootable = value; }
         }
 
+        [Scriptable(ScriptAccessType.Get)]
         public bool NoSector
         {
             get { return nosector; }
             set { nosector = value; }
         }
 
+        [Scriptable(ScriptAccessType.Get)]
         public bool NoBlockmap
         {
             get { return noblockmap; }
             set { noblockmap = value; }
         }
 
+        [Scriptable]
         public bool Ambush
         {
             get { return ambush; }
             set { ambush = value; }
         }
 
+        [Scriptable]
         public bool JustHit
         {
             get { return justhit; }
             set { justhit = value; }
         }
 
+        [Scriptable]
         public bool JustAttacked
         {
             get { return justattacked; }
             set { justattacked = value; }
         }
 
+        [Scriptable]
         public bool SpawnCeiling
         {
             get { return spawnceiling; }
             set { spawnceiling = value; }
         }
 
+        [Scriptable]
         public bool NoGravity
         {
             get { return nogravity; }
             set { nogravity = value; }
         }
 
+        [Scriptable]
         public bool DropOff
         {
             get { return dropoff; }
@@ -276,90 +296,105 @@ namespace DoomSharp
             set { pickup = value; }
         }
 
+        [Scriptable]
         public bool NoClip
         {
             get { return noclip; }
             set { noclip = value; }
         }
 
+        [Scriptable]
         public bool Slide
         {
             get { return slide; }
             set { slide = value; }
         }
 
+        [Scriptable]
         public bool Floats
         {
             get { return floats; }
             set { floats = value; }
         }
 
+        [Scriptable]
         public bool Teleport
         {
             get { return teleport; }
             set { teleport = value; }
         }
 
+        [Scriptable]
         public bool Missile
         {
             get { return missile; }
             set { missile = value; }
         }
 
+        [Scriptable]
         public bool Dropped
         {
             get { return dropped; }
             set { dropped = value; }
         }
 
+        [Scriptable]
         public bool Shadow
         {
             get { return shadow; }
             set { shadow = value; }
         }
 
+        [Scriptable]
         public bool NoBlood
         {
             get { return noblood; }
             set { noblood = value; }
         }
 
+        [Scriptable]
         public bool Corpse
         {
             get { return corpse; }
             set { corpse = value; }
         }
 
+        [Scriptable]
         public bool InFloat
         {
             get { return infloat; }
             set { infloat = value; }
         }
 
+        [Scriptable]
         public bool CountKill
         {
             get { return countkill; }
             set { countkill = value; }
         }
 
+        [Scriptable]
         public bool CountItem
         {
             get { return countitem; }
             set { countitem = value; }
         }
 
+        [Scriptable]
         public bool SkullFly
         {
             get { return skullfly; }
             set { skullfly = value; }
         }
 
+        [Scriptable]
         public bool NotDMatch
         {
             get { return notdmatch; }
             set { notdmatch = value; }
         }
 
+        [Scriptable]
         public int Health
         {
             get { return health; }
@@ -378,12 +413,14 @@ namespace DoomSharp
             set { movementcount = value; }
         }
 
+        [Scriptable]
         public Actor Target
         {
             get { return target; }
             set { target = value; }
         }
 
+        [Scriptable]
         public int ReactionTime
         {
             get { return reactiontime; }
@@ -396,30 +433,35 @@ namespace DoomSharp
             set { lastlook = value; }
         }
 
+        [Scriptable]
         public Actor Tracer
         {
             get { return tracer; }
             set { tracer = value; }
         }
 
+        [Scriptable]
         public Fixed Speed
         {
             get { return speed; }
             set { speed = value; }
         }
 
+        [Scriptable]
         public int Mass
         {
             get { return mass; }
             set { mass = value; }
         }
 
+        [Scriptable]
         public int Damage
         {
             get { return damage; }
             set { damage = value; }
         }
 
+        [Scriptable]
         public int PainChance
         {
             get { return painchance; }
@@ -456,6 +498,7 @@ namespace DoomSharp
             set { deathsoundnum = value; }
         }
 
+        [Scriptable]
         public object Species
         {
             get { return species; }

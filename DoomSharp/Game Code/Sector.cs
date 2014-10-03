@@ -29,18 +29,21 @@ namespace DoomSharp
             get { return world; }
         }
 
+        [Scriptable]
         public Fixed FloorZ
         {
             get { return floorz; }
             set { floorz = value; }
         }
 
+        [Scriptable]
         public Fixed CeilingZ
         {
             get { return ceilingz; }
             set { ceilingz = value; }
         }
 
+        [Scriptable]
         public int LightLevel
         {
             get { return lightlevel; }

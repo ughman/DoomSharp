@@ -24,31 +24,37 @@ namespace DoomSharp
             this.blockmap = null;
         }
 
+        [Scriptable]
         public IEnumerable<Thinker> Thinkers
         {
             get { return thinkers; }
         }
 
+        [Scriptable]
         public IList<Vertex> Vertices
         {
             get { return vertices; }
         }
 
+        [Scriptable]
         public IList<Sector> Sectors
         {
             get { return sectors; }
         }
 
+        [Scriptable]
         public IList<Sidedef> Sidedefs
         {
             get { return sidedefs; }
         }
 
+        [Scriptable]
         public IList<Linedef> Linedefs
         {
             get { return linedefs; }
         }
 
+        [Scriptable]
         public IList<Thing> Things
         {
             get { return things; }

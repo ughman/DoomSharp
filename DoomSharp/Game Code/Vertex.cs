@@ -23,11 +23,13 @@ namespace DoomSharp
             get { return world; }
         }
 
+        [Scriptable]
         public Fixed X
         {
             get { return x; }
         }
 
+        [Scriptable]
         public Fixed Y
         {
             get { return y; }
