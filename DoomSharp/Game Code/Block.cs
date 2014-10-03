@@ -6,7 +6,7 @@ namespace DoomSharp
     public sealed class Block
     {
         private Blockmap blockmap;
-        private Chain<Actor> actors;
+        private Actor firstactor;
         private List<Linedef> linedefs;
 
         public Block(Blockmap blockmap)
@@ -14,7 +14,7 @@ namespace DoomSharp
             if (blockmap == null)
                 throw new ArgumentNullException("blockmap");
             this.blockmap = blockmap;
-            this.actors = new Chain<Actor>();
+            this.firstactor = null;
             this.linedefs = new List<Linedef>();
         }
 
@@ -23,37 +23,26 @@ namespace DoomSharp
             get { return blockmap; }
         }
 
+        internal Actor FirstActor
+        {
+            get { return firstactor; }
+            set { firstactor = value; }
+        }
+
         public IEnumerable<Actor> Actors
         {
-            get { return actors; }
+            get
+            {
+                for (Actor actor = firstactor;actor != null;actor = actor.NextInBlock)
+                {
+                    yield return actor;
+                }
+            }
         }
 
         public IEnumerable<Linedef> Linedefs
         {
             get { return linedefs; }
-        }
-
-        public void AddActor(Actor actor)
-        {
-            if (actor == null)
-                throw new ArgumentNullException("actor");
-            if (actor.World != blockmap.World)
-                throw new ArgumentException("Actor is from another world.");
-            if (actors.Contains(actor))
-            {
-                Core.Console.LogWarning("An actor ({0}) has been added to a block it already exists in.",actor);
-            }
-            actors.AddFront(actor);
-        }
-
-        public void RemoveActor(Actor actor)
-        {
-            if (actor == null)
-                throw new ArgumentNullException("actor");
-            if (!actors.Remove(actor))
-            {
-                Core.Console.LogWarning("An actor ({0}) has been removed from a block it doesn't exist in.",actor);
-            }
         }
 
         public void AddLinedef(Linedef linedef)

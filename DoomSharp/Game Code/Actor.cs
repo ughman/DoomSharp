@@ -7,6 +7,9 @@ namespace DoomSharp
     public abstract class Actor : Thinker
     {
         private bool linked;
+        private Block block;
+        private Actor nextinblock;
+        private Actor previnblock;
         protected abstract Fixed x { get; set; }
         protected abstract Fixed y { get; set; }
         protected abstract Fixed z { get; set; }
@@ -68,6 +71,9 @@ namespace DoomSharp
         public Actor(World world) : base(world)
         {
             this.linked = false;
+            this.block = null;
+            this.nextinblock = null;
+            this.previnblock = null;
             // TODO :: x
             // TODO :: y
             // TODO :: z
@@ -131,6 +137,28 @@ namespace DoomSharp
         public bool Linked
         {
             get { return linked; }
+        }
+
+        public Block Block
+        {
+            get
+            {
+                if (!linked)
+                    throw new InvalidOperationException();
+                if (noblockmap)
+                    throw new InvalidOperationException();
+                return block;
+            }
+        }
+
+        public Actor NextInBlock
+        {
+            get
+            {
+                if (noblockmap)
+                    throw new InvalidOperationException();
+                return nextinblock;
+            }
         }
 
         [Scriptable(ScriptAccessType.Get)]
@@ -526,7 +554,12 @@ namespace DoomSharp
                 int blocky = (y - World.Blockmap.YOffset).IntValue / 128;
                 if (blockx >= 0 && blockx < World.Blockmap.Width && blocky >= 0 && blocky < World.Blockmap.Height)
                 {
-                    World.Blockmap[blockx,blocky].AddActor(this);
+                    block = World.Blockmap[blockx,blocky];
+                    nextinblock = block.FirstActor;
+                    previnblock = null;
+                    if (nextinblock != null)
+                        nextinblock.previnblock = this;
+                    block.FirstActor = this;
                 }
             }
         }
@@ -538,14 +571,15 @@ namespace DoomSharp
             linked = false;
             if (!nosector)
                 UnlinkSector();
-            if (!noblockmap)
+            if (block != null)
             {
-                int blockx = (x - World.Blockmap.XOffset).IntValue / 128;
-                int blocky = (y - World.Blockmap.YOffset).IntValue / 128;
-                if (blockx >= 0 && blockx < World.Blockmap.Width && blocky >= 0 && blocky < World.Blockmap.Height)
-                {
-                    World.Blockmap[blockx,blocky].RemoveActor(this);
-                }
+                if (nextinblock != null)
+                    nextinblock.previnblock = previnblock;
+                if (previnblock != null)
+                    previnblock.nextinblock = nextinblock;
+                else
+                    block.FirstActor = nextinblock;
+                block = null;
             }
         }
 
