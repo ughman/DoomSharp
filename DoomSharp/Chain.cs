@@ -236,6 +236,7 @@ namespace DoomSharp
                     {
                         return true;
                     }
+                    link = link.Next;
                 }
                 return false;
             }
