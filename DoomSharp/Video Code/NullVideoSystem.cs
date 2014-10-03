@@ -1,10 +1,4 @@
 using System;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using OpenTK;
-using OpenTK.Input;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 
 namespace DoomSharp
 {
