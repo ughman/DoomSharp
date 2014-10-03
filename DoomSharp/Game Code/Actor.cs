@@ -165,21 +165,36 @@ namespace DoomSharp
         public Fixed X
         {
             get { return x; }
-            set { x = value; }
+            set
+            {
+                if (linked)
+                    throw new InvalidOperationException();
+                x = value;
+            }
         }
 
         [Scriptable(ScriptAccessType.Get)]
         public Fixed Y
         {
             get { return y; }
-            set { y = value; }
+            set
+            {
+                if (linked)
+                    throw new InvalidOperationException();
+                y = value;
+            }
         }
 
         [Scriptable(ScriptAccessType.Get)]
         public Fixed Z
         {
             get { return z; }
-            set { z = value; }
+            set
+            {
+                if (linked)
+                    throw new InvalidOperationException();
+                z = value;
+            }
         }
 
         [Scriptable]
@@ -273,14 +288,24 @@ namespace DoomSharp
         public bool NoSector
         {
             get { return nosector; }
-            set { nosector = value; }
+            set
+            {
+                if (linked)
+                    throw new InvalidOperationException();
+                nosector = value;
+            }
         }
 
         [Scriptable(ScriptAccessType.Get)]
         public bool NoBlockmap
         {
             get { return noblockmap; }
-            set { noblockmap = value; }
+            set
+            {
+                if (linked)
+                    throw new InvalidOperationException();
+                noblockmap = value;
+            }
         }
 
         [Scriptable]
