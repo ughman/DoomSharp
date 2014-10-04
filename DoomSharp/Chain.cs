@@ -225,20 +225,27 @@ namespace DoomSharp
                 {
                     started = true;
                     link = chain.front;
+                    return link != null;
                 }
-                else if (link != null)
+                else if (link == null)
                 {
-                    link = link.Next;
+                    return false;
                 }
-                while (link != null)
+                else
                 {
-                    if (link.Present)
+                    // link shall never be null at this line
+                    while (!link.Present)
                     {
-                        return true;
+                        link = link.Previous;
+                        if (link == null)
+                        {
+                            link = chain.front;
+                            return link != null;
+                        }
                     }
                     link = link.Next;
+                    return link != null;
                 }
-                return false;
             }
 
             public void Reset()
