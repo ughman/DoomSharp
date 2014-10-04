@@ -3,7 +3,7 @@ using FluidSynthWrapper;
 
 namespace DoomSharp
 {
-    public sealed class MusicPlayer
+    public sealed class MusicPlayer : IMusicSystem
     {
         private MusicTrack track;
         private int position;
@@ -57,7 +57,7 @@ namespace DoomSharp
             while (track != null && duration <= 0)
             {
                 MusicEvent musicevent = track.Score[position++];
-                musicevent.Play(synth);
+                musicevent.Play(this);
                 duration += musicevent.Delay / 140.0;
                 if (musicevent.IsEndEvent || position >= track.Score.Count)
                 {
@@ -71,6 +71,35 @@ namespace DoomSharp
                     }
                 }
             }
+        }
+
+        void IMusicSystem.NoteOn(int channel,int note,int velocity)
+        {
+            synth.NoteOn(channel,(short)note,(short)velocity);
+        }
+
+        void IMusicSystem.NoteOff(int channel,int velocity)
+        {
+            synth.NoteOff(channel,(short)velocity);
+        }
+
+        void IMusicSystem.PitchBend(int channel,int value)
+        {
+            synth.PitchBend(channel,(short)value);
+        }
+
+        void IMusicSystem.ProgramChange(int channel,int program)
+        {
+            synth.ProgChange(channel,program);
+        }
+
+        void IMusicSystem.Reset()
+        {
+            synth.Reset();
+        }
+
+        void IDisposable.Dispose()
+        {
         }
     }
 }

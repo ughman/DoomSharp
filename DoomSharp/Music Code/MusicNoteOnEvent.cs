@@ -1,5 +1,4 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
@@ -28,9 +27,9 @@ namespace DoomSharp
             get { return volume; }
         }
 
-        public override void Play(Synthesizer synth)
+        public override void Play(IMusicSystem music)
         {
-            synth.NoteOn(MIDIChannel,(short)note,volume.HasValue ? (short)volume.Value : (short)127);
+            music.NoteOn(MIDIChannel,note,volume ?? 127);
         }
     }
 }

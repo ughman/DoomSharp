@@ -1,5 +1,4 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
@@ -28,12 +27,12 @@ namespace DoomSharp
             get { return value; }
         }
 
-        public override void Play(Synthesizer synth)
+        public override void Play(IMusicSystem music)
         {
             switch (controller)
             {
                 case 0:
-                    synth.ProgChange(MIDIChannel,value);
+                    music.ProgramChange(MIDIChannel,value);
                     break;
             }
         }

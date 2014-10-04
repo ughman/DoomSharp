@@ -1,5 +1,4 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
@@ -137,6 +136,6 @@ namespace DoomSharp
             get { return false; }
         }
 
-        public abstract void Play(Synthesizer synth);
+        public abstract void Play(IMusicSystem music);
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
@@ -9,7 +8,7 @@ namespace DoomSharp
         {
         }
 
-        public override void Play(Synthesizer synth)
+        public override void Play(IMusicSystem music)
         {
         }
     }

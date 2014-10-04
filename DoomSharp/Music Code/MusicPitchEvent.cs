@@ -1,5 +1,4 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
@@ -19,9 +18,9 @@ namespace DoomSharp
             get { return value; }
         }
 
-        public override void Play(Synthesizer synth)
+        public override void Play(IMusicSystem music)
         {
-            synth.PitchBend(MIDIChannel,(short)(value << 6));
+            music.PitchBend(MIDIChannel,value << 6);
         }
     }
 }
