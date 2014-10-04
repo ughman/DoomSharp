@@ -5,7 +5,7 @@ namespace DoomSharp
 {
     public sealed class World
     {
-        private List<Thinker> thinkers;
+        private Chain<Thinker> thinkers;
         private List<Vertex> vertices;
         private List<Sector> sectors;
         private List<Sidedef> sidedefs;
@@ -15,7 +15,7 @@ namespace DoomSharp
 
         public World()
         {
-            this.thinkers = new List<Thinker>();
+            this.thinkers = new Chain<Thinker>();
             this.vertices = new List<Vertex>();
             this.sectors = new List<Sector>();
             this.sidedefs = new List<Sidedef>();
@@ -78,23 +78,26 @@ namespace DoomSharp
             }
         }
 
-        public void AddThinker(Thinker thinker)
+        internal void AddThinker(Thinker thinker)
         {
-            if (thinker == null)
-                throw new ArgumentNullException("thinker");
-            if (thinker.World != this)
-                throw new ArgumentException("Thinker is from another world.");
+            // Called from thinker.Start
+            // No need to do any additional checks
             thinkers.Add(thinker);
+        }
+
+        internal void RemoveThinker(Thinker thinker)
+        {
+            // Called from thinker.Stop
+            // No need to do any additional checks
+            thinkers.Remove(thinker);
         }
 
         public void Tick()
         {
-            for (int i = 0;i < thinkers.Count;i++)
+            foreach (Thinker thinker in thinkers)
             {
-                if (thinkers[i].Tick())
-                {
-                    thinkers.RemoveAt(i--);
-                }
+                if (thinker.Tick())
+                    thinker.Stop();
             }
         }
     }

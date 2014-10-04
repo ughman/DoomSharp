@@ -23,7 +23,7 @@ extern "C" void P_InitWorld()
 extern "C" thinker_t *P_NewThinker(size_t size)
 {
 	LegacyThinker ^thinker = gcnew LegacyThinker(size);
-	world->AddThinker(thinker);
+	thinker->Start();
 	return thinker->ptr;
 }
 

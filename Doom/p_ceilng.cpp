@@ -148,7 +148,7 @@ int EV_DoCeiling2(line_t *line,ceiling_e type)
 		result = true;
 		sector->specialdata = (void *)1;
 		Ceiling^ ceiling = gcnew Ceiling(sector,(CeilingType)type);
-		world->AddThinker(ceiling);
+		ceiling->Start();
 		ceilingcount++;
 	}
 	if (ceilingcount > MAXCEILINGS)

@@ -64,7 +64,7 @@ mobj_t *P_SpawnMobj2(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 	actor->Ticks = state.tics;
 	actor->SpriteNum = state.sprite;
 	actor->SpriteFrame = state.frame;
-	world->AddThinker(actor);
+	actor->Start();
 	return actor->mobj;
 }
 
