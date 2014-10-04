@@ -21,6 +21,12 @@ extern "C" void W_InitMultipleFiles(char **filenames)
 	}
 }
 
+extern "C" void W_AddFileAs(char *filename,char *lumpname)
+{
+	Stream^ stream = gcnew FileStream(gcnew String(filename),FileMode::Open,FileAccess::Read);
+	Core::Archives->AddArchive(gcnew LumpArchive(gcnew StreamLump(stream,gcnew String(lumpname))));
+}
+
 extern "C" int W_CheckNumForName(char *name)
 {
 	char termname[9];

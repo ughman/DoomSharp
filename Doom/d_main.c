@@ -881,7 +881,7 @@ void D_DoomMain (void)
     if (p && p < myargc-1)
     {
 	sprintf (file,"%s.lmp", myargv[p+1]);
-	D_AddFile (file);
+	W_AddFileAs (file,"D#DEMO");
 	printf("Playing demo %s.lmp.\n",myargv[p+1]);
     }
     
@@ -1032,7 +1032,7 @@ void D_DoomMain (void)
     if (p && p < myargc-1)
     {
 	singledemo = true;              // quit after one demo
-	G_DeferedPlayDemo (myargv[p+1]);
+	G_DeferedPlayDemo ("D#DEMO");
 	D_DoomLoop ();  // never returns
     }
 	
