@@ -104,6 +104,21 @@ namespace DoomSharp
             console.LogInfo("Switched to video system '{0}'.",name);
         }
 
+        public static void ChangeMusicSystem(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException("name");
+            Type type;
+            if (!coresystems.TryGetValue("music_" + name,out type))
+            {
+                console.LogError("There is no music system named '{0}'.",name);
+                return;
+            }
+            IMusicSystem newmusic = (IMusicSystem)Activator.CreateInstance(type);
+            music.ChangeSystem(newmusic);
+            console.LogInfo("Switched to music system '{0}'.",name);
+        }
+
         [RegistrarTypeHandler]
         private static void RegisterType(Type type)
         {

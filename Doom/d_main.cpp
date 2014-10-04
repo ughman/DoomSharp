@@ -71,6 +71,13 @@ extern "C" void D_DoomLoop()
 	{
 		Core::PushState(gcnew LegacyGameState);
 		I_InitGraphics();
+		if (!M_CheckParm("-nomusic"))
+		{
+			int p = M_CheckParm("-music");
+			if (p + 1 >= myargc)
+				p = 0;
+			Core::ChangeMusicSystem(gcnew String(p ? myargv[p + 1] : "fluid"));
+		}
 		Core::Video->Run();
 	}
 }

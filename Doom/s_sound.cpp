@@ -17,8 +17,6 @@ extern "C" void S_StartMusic(int musicnum)
 
 extern "C" void S_ChangeMusic(int musicnum,int looping)
 {
-	if (M_CheckParm("-nomusic"))
-		return;
 	char name[9];
 	strcpy(name,"D_");
 	strcat(name,S_music[musicnum].name);

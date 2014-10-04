@@ -1,24 +1,19 @@
 using System;
-using FluidSynthWrapper;
 
 namespace DoomSharp
 {
-    public sealed class MusicPlayer : IMusicSystem
+    public sealed class MusicPlayer
     {
+        private IMusicSystem system;
         private MusicTrack track;
         private int position;
         private double duration;
         private bool looping;
-        private Synthesizer synth;
-        private AudioDriver driver;
 
         public MusicPlayer()
         {
+            this.system = new NullMusicSystem();
             this.track = null;
-            Settings settings = new Settings();
-            this.synth = new Synthesizer(settings);
-            this.driver = new AudioDriver(settings,synth);
-            synth.SFontLoad("sndfont2.sf2");
         }
 
         public void Play(string name,bool looping)
@@ -48,7 +43,7 @@ namespace DoomSharp
         public void Stop()
         {
             track = null;
-            synth.Reset();
+            system.Reset();
         }
 
         public void Update(double time)
@@ -57,7 +52,7 @@ namespace DoomSharp
             while (track != null && duration <= 0)
             {
                 MusicEvent musicevent = track.Score[position++];
-                musicevent.Play(this);
+                musicevent.Play(system);
                 duration += musicevent.Delay / 140.0;
                 if (musicevent.IsEndEvent || position >= track.Score.Count)
                 {
@@ -73,33 +68,14 @@ namespace DoomSharp
             }
         }
 
-        void IMusicSystem.NoteOn(int channel,int note,int velocity)
+        internal void ChangeSystem(IMusicSystem newsystem)
         {
-            synth.NoteOn(channel,(short)note,(short)velocity);
-        }
-
-        void IMusicSystem.NoteOff(int channel,int velocity)
-        {
-            synth.NoteOff(channel,(short)velocity);
-        }
-
-        void IMusicSystem.PitchBend(int channel,int value)
-        {
-            synth.PitchBend(channel,(short)value);
-        }
-
-        void IMusicSystem.ProgramChange(int channel,int program)
-        {
-            synth.ProgChange(channel,program);
-        }
-
-        void IMusicSystem.Reset()
-        {
-            synth.Reset();
-        }
-
-        void IDisposable.Dispose()
-        {
+            if (newsystem == null)
+                throw new ArgumentNullException("newsystem");
+            system.Dispose();
+            system = newsystem;
+            position = 0;
+            duration = 0;
         }
     }
 }
