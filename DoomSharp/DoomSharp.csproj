@@ -64,6 +64,7 @@
     <Compile Include="Game Code\Thinker.cs" />
     <Compile Include="Game Code\Vertex.cs" />
     <Compile Include="Game Code\World.cs" />
+    <Compile Include="Music Code\WindowsMusicSystem.cs" />
     <Compile Include="Music Code\NullMusicSystem.cs" />
     <Compile Include="Music Code\FluidMusicSystem.cs" />
     <Compile Include="Music Code\IMusicSystem.cs" />
