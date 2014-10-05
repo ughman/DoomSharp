@@ -4,23 +4,23 @@ namespace DoomSharp
 {
     public sealed class MusicNoteOffEvent : MusicEvent
     {
-        private int volume;
+        private int note;
 
-        public MusicNoteOffEvent(int volume,int channel,int delay) : base(channel,delay)
+        public MusicNoteOffEvent(int note,int channel,int delay) : base(channel,delay)
         {
-            if (volume < 0 || volume >= 128)
-                throw new ArgumentOutOfRangeException("volume");
-            this.volume = volume;
+            if (note < 0 || note >= 128)
+                throw new ArgumentOutOfRangeException("note");
+            this.note = note;
         }
 
-        public int Volume
+        public int Note
         {
-            get { return volume; }
+            get { return note; }
         }
 
         public override void Play(IMusicSystem music)
         {
-            music.NoteOff(MIDIChannel,volume);
+            music.NoteOff(MIDIChannel,note,0);
         }
     }
 }

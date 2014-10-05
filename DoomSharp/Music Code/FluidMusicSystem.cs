@@ -22,9 +22,9 @@ namespace DoomSharp
             synth.NoteOn(channel,(short)note,(short)velocity);
         }
 
-        public void NoteOff(int channel,int velocity)
+        public void NoteOff(int channel,int note,int velocity)
         {
-            synth.NoteOff(channel,(short)velocity);
+            synth.NoteOff(channel,(short)note);
         }
 
         public void PitchBend(int channel,int value)

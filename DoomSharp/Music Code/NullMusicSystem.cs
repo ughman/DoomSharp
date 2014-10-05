@@ -9,7 +9,7 @@ namespace DoomSharp
         {
         }
 
-        public void NoteOff(int channel,int velocity)
+        public void NoteOff(int channel,int note,int velocity)
         {
         }
 
