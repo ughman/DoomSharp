@@ -22,8 +22,10 @@ namespace DoomSharp
             this.rgbdisplay = new byte [512 * 256 * 3];
         }
 
-        protected override void OnRenderFrame_Init()
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+            MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0,320,200,0,-1,1);
@@ -34,8 +36,10 @@ namespace DoomSharp
             GL.TexParameter(TextureTarget.Texture2D,TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Nearest);
         }
 
-        protected override void OnRenderFrame_Frame()
+        protected override void OnRenderFrame(FrameEventArgs e)
         {
+            base.OnRenderFrame(e);
+            MakeCurrent();
             for (int y = 0;y < 200;y++)
             {
                 for (int x = 0;x < 320;x++)
@@ -59,6 +63,7 @@ namespace DoomSharp
             GL.TexCoord2(x2,0);
             GL.Vertex2(320,0);
             GL.End();
+            SwapBuffers();
         }
 
         public override void SubmitFrame(IntPtr frame)

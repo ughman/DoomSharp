@@ -19,22 +19,6 @@ namespace DoomSharp
             VSync = VSyncMode.Off;
         }
 
-        protected abstract void OnRenderFrame_Init();
-        protected abstract void OnRenderFrame_Frame();
-
-        protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            base.OnRenderFrame(e);
-            MakeCurrent();
-            if (!initialized)
-            {
-                OnRenderFrame_Init();
-                initialized = true;
-            }
-            OnRenderFrame_Frame();
-            SwapBuffers();
-        }
-
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
